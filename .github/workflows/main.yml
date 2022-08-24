@@ -28,8 +28,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-g
             zip_file: m-s-episodes-g.zip
@@ -40,8 +40,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-po
             zip_file: m-s-episodes-po.zip
@@ -52,8 +52,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-g
             zip_file: m-s-episodes-episode-g.zip
@@ -64,8 +64,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-pu
             zip_file: m-s-episodes-episode-pu.zip
@@ -76,8 +76,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-d
             zip_file: m-s-episodes-episode-d.zip
@@ -88,8 +88,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-clips-g
             zip_file: m-s-episodes-episode-clips-g.zip
@@ -100,8 +100,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-clips-po
             zip_file: m-s-episodes-episode-clips-po.zip
@@ -112,8 +112,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-clips-clip-d
             zip_file: m-s-episodes-episode-clips-clip-d.zip
@@ -124,8 +124,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-guests-g
             zip_file: m-s-episodes-episode-guests-g.zip
@@ -136,8 +136,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-guests-po
             zip_file: m-s-episodes-episode-guests-po.zip
@@ -148,8 +148,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-guests-guest-d
             zip_file: m-s-episodes-episode-guests-guest-d.zip
@@ -160,8 +160,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-quotes-g
             zip_file: m-s-episodes-episode-quotes-g.zip
@@ -172,8 +172,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-quotes-po
             zip_file: m-s-episodes-episode-quotes-po.zip
@@ -184,8 +184,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-quotes-quote-d
             zip_file: m-s-episodes-episode-quotes-quote-d.zip
@@ -196,8 +196,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-segments-g
             zip_file: m-s-episodes-episode-segments-g.zip
@@ -208,8 +208,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-segments-po
             zip_file: m-s-episodes-episode-segments-po.zip
@@ -220,8 +220,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-segments-segment-d
             zip_file: m-s-episodes-episode-segments-segment-d.zip
@@ -232,8 +232,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-tags-g
             zip_file: m-s-episodes-episode-tags-g.zip
@@ -244,8 +244,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-tags-po
             zip_file: m-s-episodes-episode-tags-po.zip
@@ -256,8 +256,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-tags-tag-d
             zip_file: m-s-episodes-episode-tags-tag-d.zip
@@ -268,8 +268,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-takeaways-g
             zip_file: m-s-episodes-episode-takeaways-g.zip
@@ -280,8 +280,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-takeaways-po
             zip_file: m-s-episodes-episode-takeaways-po.zip
@@ -292,8 +292,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-takeaways-takeaway-d
             zip_file: m-s-episodes-episode-takeaways-takeaway-d.zip
@@ -304,8 +304,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-tasks-g
             zip_file: m-s-episodes-episode-tasks-g.zip
@@ -316,8 +316,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-tasks-po
             zip_file: m-s-episodes-episode-tasks-po.zip
@@ -328,8 +328,8 @@ jobs:
       - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
-            aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
-            aws_secret_access_key: ${/{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
             function_name: m-s-episodes-episode-tasks-task-d
             zip_file: m-s-episodes-episode-tasks-task-d.zip          
