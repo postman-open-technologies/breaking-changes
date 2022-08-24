@@ -22,10 +22,10 @@ jobs:
           CI: true
 
       - name: /episodes get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-g.zip episodes/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -34,10 +34,10 @@ jobs:
             function_name: m-s-episodes-g
             zip_file: m-s-episodes-g.zip
       - name: /episodes post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-po.zip episodes/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -46,10 +46,10 @@ jobs:
             function_name: m-s-episodes-po
             zip_file: m-s-episodes-po.zip
       - name: /episodes/{episode_id} get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-g.zip episodes/episode_id/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -58,10 +58,10 @@ jobs:
             function_name: m-s-episodes-episode-g
             zip_file: m-s-episodes-episode-g.zip
       - name: /episodes/{episode_id} put lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-pu.zip episodes/episode_id/put/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -70,10 +70,10 @@ jobs:
             function_name: m-s-episodes-episode-pu
             zip_file: m-s-episodes-episode-pu.zip
       - name: /episodes/{episode_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-d.zip episodes/episode_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -82,10 +82,10 @@ jobs:
             function_name: m-s-episodes-episode-d
             zip_file: m-s-episodes-episode-d.zip
       - name: /episodes/{episode_id}/clips get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-clips-g.zip episodes/episode_id/clips/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -94,10 +94,10 @@ jobs:
             function_name: m-s-episodes-episode-clips-g
             zip_file: m-s-episodes-episode-clips-g.zip
       - name: /episodes/{episode_id}/clips post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-clips-po.zip episodes/episode_id/clips/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -106,10 +106,10 @@ jobs:
             function_name: m-s-episodes-episode-clips-po
             zip_file: m-s-episodes-episode-clips-po.zip
       - name: /episodes/{episode_id}/clips/{clip_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-clips-clip-d.zip episodes/episode_id/clips/clip_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -118,10 +118,10 @@ jobs:
             function_name: m-s-episodes-episode-clips-clip-d
             zip_file: m-s-episodes-episode-clips-clip-d.zip
       - name: /episodes/{episode_id}/guests get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-guests-g.zip episodes/episode_id/guests/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -130,10 +130,10 @@ jobs:
             function_name: m-s-episodes-episode-guests-g
             zip_file: m-s-episodes-episode-guests-g.zip
       - name: /episodes/{episode_id}/guests post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-guests-po.zip episodes/episode_id/guests/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -142,10 +142,10 @@ jobs:
             function_name: m-s-episodes-episode-guests-po
             zip_file: m-s-episodes-episode-guests-po.zip
       - name: /episodes/{episode_id}/guests/{guest_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-guests-guest-d.zip episodes/episode_id/guests/guest_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -154,10 +154,10 @@ jobs:
             function_name: m-s-episodes-episode-guests-guest-d
             zip_file: m-s-episodes-episode-guests-guest-d.zip
       - name: /episodes/{episode_id}/quotes get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-quotes-g.zip episodes/episode_id/quotes/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -166,10 +166,10 @@ jobs:
             function_name: m-s-episodes-episode-quotes-g
             zip_file: m-s-episodes-episode-quotes-g.zip
       - name: /episodes/{episode_id}/quotes post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-quotes-po.zip episodes/episode_id/quotes/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -178,10 +178,10 @@ jobs:
             function_name: m-s-episodes-episode-quotes-po
             zip_file: m-s-episodes-episode-quotes-po.zip
       - name: /episodes/{episode_id}/quotes/{quote_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-quotes-quote-d.zip episodes/episode_id/quotes/quote_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -190,10 +190,10 @@ jobs:
             function_name: m-s-episodes-episode-quotes-quote-d
             zip_file: m-s-episodes-episode-quotes-quote-d.zip
       - name: /episodes/{episode_id}/segments get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-segments-g.zip episodes/episode_id/segments/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -202,10 +202,10 @@ jobs:
             function_name: m-s-episodes-episode-segments-g
             zip_file: m-s-episodes-episode-segments-g.zip
       - name: /episodes/{episode_id}/segments post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-segments-po.zip episodes/episode_id/segments/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -214,10 +214,10 @@ jobs:
             function_name: m-s-episodes-episode-segments-po
             zip_file: m-s-episodes-episode-segments-po.zip
       - name: /episodes/{episode_id}/segments/{segment_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-segments-segment-d.zip episodes/episode_id/segments/segment_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -226,10 +226,10 @@ jobs:
             function_name: m-s-episodes-episode-segments-segment-d
             zip_file: m-s-episodes-episode-segments-segment-d.zip
       - name: /episodes/{episode_id}/tags get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-tags-g.zip episodes/episode_id/tags/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -238,10 +238,10 @@ jobs:
             function_name: m-s-episodes-episode-tags-g
             zip_file: m-s-episodes-episode-tags-g.zip
       - name: /episodes/{episode_id}/tags post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-tags-po.zip episodes/episode_id/tags/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -250,10 +250,10 @@ jobs:
             function_name: m-s-episodes-episode-tags-po
             zip_file: m-s-episodes-episode-tags-po.zip
       - name: /episodes/{episode_id}/tags/{tag_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-tags-tag-d.zip episodes/episode_id/tags/tag_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -262,10 +262,10 @@ jobs:
             function_name: m-s-episodes-episode-tags-tag-d
             zip_file: m-s-episodes-episode-tags-tag-d.zip
       - name: /episodes/{episode_id}/takeaways get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-takeaways-g.zip episodes/episode_id/takeaways/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -274,10 +274,10 @@ jobs:
             function_name: m-s-episodes-episode-takeaways-g
             zip_file: m-s-episodes-episode-takeaways-g.zip
       - name: /episodes/{episode_id}/takeaways post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-takeaways-po.zip episodes/episode_id/takeaways/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -286,10 +286,10 @@ jobs:
             function_name: m-s-episodes-episode-takeaways-po
             zip_file: m-s-episodes-episode-takeaways-po.zip
       - name: /episodes/{episode_id}/takeaways/{takeaway_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-takeaways-takeaway-d.zip episodes/episode_id/takeaways/takeaway_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -298,10 +298,10 @@ jobs:
             function_name: m-s-episodes-episode-takeaways-takeaway-d
             zip_file: m-s-episodes-episode-takeaways-takeaway-d.zip
       - name: /episodes/{episode_id}/tasks get lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-tasks-g.zip episodes/episode_id/tasks/get/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -310,10 +310,10 @@ jobs:
             function_name: m-s-episodes-episode-tasks-g
             zip_file: m-s-episodes-episode-tasks-g.zip
       - name: /episodes/{episode_id}/tasks post lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-tasks-po.zip episodes/episode_id/tasks/post/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
@@ -322,10 +322,10 @@ jobs:
             function_name: m-s-episodes-episode-tasks-po
             zip_file: m-s-episodes-episode-tasks-po.zip
       - name: /episodes/{episode_id}/tasks/{task_id} delete lambda deploy zip
-        uses: postman-open-technologies/videos@main
+        uses: postman-open-technologies/breaking-changes@main
         with:
             args: zip -qq -r m-s-episodes-episode-tasks-task-d.zip episodes/episode_id/tasks/task_id/delete/index.js node_modules
-      - name: videos get lambda deploy
+      - name: breaking-changes get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${/{secrets.AWS_ACCESS_KEY_ID}}
