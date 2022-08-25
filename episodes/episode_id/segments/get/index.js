@@ -11,7 +11,7 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'SELECT * FROM segments t INNER JOIN episodes_segments bt ON t.id = bt.segment_id WHERE bt.episode_id = ' + event.episode_id + ' ORDER BY t.Name';
+    var sql = 'SELECT * FROM episodes_segments t INNER JOIN episodes_segments bt ON t.id = bt.segment_id WHERE bt.episode_id = ' + event.episode_id + ' ORDER BY t.Name';
     connection.query(sql, function (error, results, fields) {
     callback( null, results );
   });
