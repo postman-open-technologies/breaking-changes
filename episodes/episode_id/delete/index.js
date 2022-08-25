@@ -11,7 +11,7 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'DELETE FROM blueprints WHERE id = ' + connection.escape(event.blueprint_id);
+    var sql = 'DELETE FROM episodes WHERE id = ' + connection.escape(event.episode_id);
     connection.query(sql, function (error, results, fields) {
 
     callback( null );
