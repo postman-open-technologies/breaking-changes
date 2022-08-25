@@ -1,0 +1,2969 @@
+{
+    "info": {
+        "_postman_id": "b4a258fa-68be-4cb5-9745-45e2727c7180",
+        "name": "Blueprints v1 - Documentation",
+        "description": "This is an API for managing API lifecycle and governance blueprints, providing the ability to express different API concepts using consistent elements and actions.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Tags",
+            "item": [
+                {
+                    "name": "Add Tag",
+                    "id": "0f819f32-bb83-42eb-8006-eebfed43ced3",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "647c9d73-9099-4f69-93ef-40e54ba50dcf",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "647c9d73-9099-4f69-93ef-40e54ba50dcf",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Tags",
+                    "id": "552becc7-c715-4b60-b848-47b567b5bef3",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "3d4726d5-85fd-45c6-ba47-b8602b11ff40",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "3d4726d5-85fd-45c6-ba47-b8602b11ff40",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Tag",
+                    "id": "ee8a3212-76bb-44f6-9c2d-2f74fb8521b7",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags/:tag_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags",
+                                ":tag_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "8e3c5e7e-4960-4258-91ab-ff0a9cd0aa03",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "tag_id",
+                                    "value": "32",
+                                    "id": "9488581a-5aa1-4194-b4f8-7f68e93a1428",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "8e3c5e7e-4960-4258-91ab-ff0a9cd0aa03",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        },
+                        {
+                            "id": "9488581a-5aa1-4194-b4f8-7f68e93a1428",
+                            "key": "tag_id",
+                            "value": "32",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tags",
+                    "id": "fb29c57b-54bf-4370-b24b-69fa5e360bec",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/tags",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "5700e4b7-c561-444e-9077-ffd83fe6e2b4",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "5700e4b7-c561-444e-9077-ffd83fe6e2b4",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Tag",
+                    "id": "b0b7bfa1-5b27-4543-af4f-43b9fd961474",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/tags/:tag_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags",
+                                ":tag_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "tag_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "b9a1c969-75d4-47f0-bda5-ad4872c6d22a",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "655cf934-43e8-4556-82fc-9a326f570122",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "b9a1c969-75d4-47f0-bda5-ad4872c6d22a",
+                            "key": "tag_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "655cf934-43e8-4556-82fc-9a326f570122",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "a9be8d91-91a4-43c8-8566-cd75beb6659c"
+        },
+        {
+            "name": "Links",
+            "item": [
+                {
+                    "name": "Add Tag",
+                    "id": "7af08054-b284-47e6-a85c-8d9a25ae5d45",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Links",
+                    "id": "f2eaaad8-d093-4fe3-b409-f8b9bf5b55dc",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/links",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "links"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "246",
+                                    "id": "6e21f172-475a-49f7-b27a-6ed86d1ed7e6",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "6e21f172-475a-49f7-b27a-6ed86d1ed7e6",
+                            "key": "blueprint_id",
+                            "value": "246",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Link",
+                    "id": "65bdcc8d-eb82-4a5e-a752-7252f3862280",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/links/:link_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "links",
+                                ":link_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "857d57a1-61b2-4beb-a70e-85898d339e05",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "link_id",
+                                    "value": "245",
+                                    "id": "0cb1dac4-0bac-42c9-969f-37252584a13d",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "857d57a1-61b2-4beb-a70e-85898d339e05",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        },
+                        {
+                            "id": "0cb1dac4-0bac-42c9-969f-37252584a13d",
+                            "key": "link_id",
+                            "value": "245",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Add Link",
+                    "id": "3ba05e31-c703-4b58-9b79-9e047397f79f",
+                    "request": {
+                        "auth": {
+                            "type": "apikey",
+                            "apikey": [
+                                {
+                                    "key": "key",
+                                    "value": "x-api-key",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "value",
+                                    "value": "<API Key>",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "in",
+                                    "value": "header",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/links",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "links"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "04fa6758-a9d6-44ef-84d4-90a6cc437146",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "04fa6758-a9d6-44ef-84d4-90a6cc437146",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Links",
+                    "id": "7f688580-8d9a-40e6-82b2-1a2a97620c83",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/links",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "links"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "af6ae902-471d-429b-839b-998689d79926",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "af6ae902-471d-429b-839b-998689d79926",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Link",
+                    "id": "afcb7d09-2e9a-4d19-ace2-a09863a92d34",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/links/:link_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "links",
+                                ":link_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "link_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "249a6526-a14a-45c0-8e2f-0e245a9cad1c",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "3dffb218-6dd2-4095-ac0f-9f179966f8b7",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "249a6526-a14a-45c0-8e2f-0e245a9cad1c",
+                            "key": "link_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "3dffb218-6dd2-4095-ac0f-9f179966f8b7",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "a0d88886-e8a0-4fb7-8ef8-20998fb3a7e1"
+        },
+        {
+            "name": "Roles",
+            "item": [
+                {
+                    "name": "Add Role",
+                    "id": "1a5df1a3-72a2-4cbb-9603-437c72073c8d",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/roles",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "roles"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Roles",
+                    "id": "2f0fa827-ef00-4577-897a-e47f79679ba2",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/roles",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "roles"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "246",
+                                    "id": "37bf2c97-7e10-4a80-8836-5b4e27bfc628",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "37bf2c97-7e10-4a80-8836-5b4e27bfc628",
+                            "key": "blueprint_id",
+                            "value": "246",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Link",
+                    "id": "448996e9-b55d-4af7-ac14-ab563b0a1a5d",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/links/:link_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "links",
+                                ":link_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "338f465e-cbef-4d33-99cf-cfb8effa4396",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "link_id",
+                                    "value": "245",
+                                    "id": "870bf099-7836-4d66-ba4f-0f6f729fd6ec",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "338f465e-cbef-4d33-99cf-cfb8effa4396",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        },
+                        {
+                            "id": "870bf099-7836-4d66-ba4f-0f6f729fd6ec",
+                            "key": "link_id",
+                            "value": "245",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Roles",
+                    "id": "b031b366-b9e0-4b47-9bac-7ae18c6f9036",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/roles",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "roles"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "cf7db621-9685-4f5f-bbc5-588baef9a209",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "cf7db621-9685-4f5f-bbc5-588baef9a209",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Role",
+                    "id": "656cb3a1-9b2e-4435-bc7f-8defc2cfde45",
+                    "request": {
+                        "auth": {
+                            "type": "apikey",
+                            "apikey": [
+                                {
+                                    "key": "key",
+                                    "value": "x-api-key",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "value",
+                                    "value": "<API Key>",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "in",
+                                    "value": "header",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/roles/:role_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "roles",
+                                ":role_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "role_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "5705ffc8-3d23-43a8-98ec-16633b205429",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "0a01e96b-9c9e-4b5d-90ca-0a1bde225e4e",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "5705ffc8-3d23-43a8-98ec-16633b205429",
+                            "key": "role_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "0a01e96b-9c9e-4b5d-90ca-0a1bde225e4e",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Role",
+                    "id": "e169872a-607b-4341-8fa7-8094a4512de0",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/roles/:role_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "roles",
+                                ":role_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "role_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "1771ad25-9386-4953-8b7a-d9a61483147e",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "a61ab594-242a-4a24-8ac6-7f67f8ae6fec",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "1771ad25-9386-4953-8b7a-d9a61483147e",
+                            "key": "role_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "a61ab594-242a-4a24-8ac6-7f67f8ae6fec",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "d37e8f39-93d3-44c8-871d-aa734ee523e5"
+        },
+        {
+            "name": "Questions",
+            "item": [
+                {
+                    "name": "Add Tag",
+                    "id": "9a906486-7fc9-43de-a6b4-87ffd920e592",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Questions",
+                    "id": "995e5a6b-d090-4801-9afc-4f0d9f3da0a5",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/questions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "questions"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "0120b4ad-1905-4ccf-9532-18f4a7f4a828",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "0120b4ad-1905-4ccf-9532-18f4a7f4a828",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Question",
+                    "id": "e7370f8f-486a-498c-9984-7b2976f7dd6d",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/questions/:question_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "questions",
+                                ":question_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "a8f6367c-0fe0-4af6-97bb-2fef8890faaf",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "question_id",
+                                    "value": "30",
+                                    "id": "0d134eb1-b332-4ed4-b5ac-acaa50e80768",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "a8f6367c-0fe0-4af6-97bb-2fef8890faaf",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        },
+                        {
+                            "id": "0d134eb1-b332-4ed4-b5ac-acaa50e80768",
+                            "key": "question_id",
+                            "value": "30",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Add Question",
+                    "id": "6ccaf5f8-3072-4864-8680-12b145f7d0b4",
+                    "request": {
+                        "auth": {
+                            "type": "apikey",
+                            "apikey": [
+                                {
+                                    "key": "key",
+                                    "value": "x-api-key",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "value",
+                                    "value": "<API Key>",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "in",
+                                    "value": "header",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/questions",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "questions"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "e7982242-1051-44bf-9352-d09331fcbade",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "e7982242-1051-44bf-9352-d09331fcbade",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Questions",
+                    "id": "9c969e0c-6a1d-4e6c-877c-1d4b10c40147",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/questions",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "questions"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "7b07600d-e1c6-409f-8838-dd413a5af014",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "7b07600d-e1c6-409f-8838-dd413a5af014",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Question",
+                    "id": "b37744bc-e54b-418d-b4c4-e5b3375d933e",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/questions/:question_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "questions",
+                                ":question_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "question_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "fad58c4d-8711-43be-8dc6-242fa037d396",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "c8cf7370-58de-4154-9e1b-7aed92abbd26",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "fad58c4d-8711-43be-8dc6-242fa037d396",
+                            "key": "question_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "c8cf7370-58de-4154-9e1b-7aed92abbd26",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "b6ec3d29-31d0-4c20-9d64-e4e63326be78"
+        },
+        {
+            "name": "Answers",
+            "item": [
+                {
+                    "name": "Add Answer",
+                    "id": "f64adff6-80f5-4b2d-970c-d204f1415efb",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/answers",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "answers"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "996466f6-f410-4c7a-9fce-3893bbc3e424",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Answers",
+                    "id": "c74dc47b-20cf-4607-8499-5f7b17acf232",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/answers",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "answers"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "b5ceff61-b1cb-48e5-b285-135a465c6e6a",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "b5ceff61-b1cb-48e5-b285-135a465c6e6a",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Answer",
+                    "id": "021da968-d55a-4fe6-bd08-dab11d28fe1c",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/answers/:answer_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "answers",
+                                ":answer_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "cf18c199-2e69-42a6-a429-284f76a2cd0b",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "answer_id",
+                                    "value": "25",
+                                    "id": "4a19b40b-01bc-484f-8225-abe7adab3ba8",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "cf18c199-2e69-42a6-a429-284f76a2cd0b",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        },
+                        {
+                            "id": "4a19b40b-01bc-484f-8225-abe7adab3ba8",
+                            "key": "answer_id",
+                            "value": "25",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Answers",
+                    "id": "42e7790d-e164-4c46-b56a-e00606da9f52",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/answers",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "answers"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "e8176ee6-f059-4454-ad75-44abae34fb00",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "e8176ee6-f059-4454-ad75-44abae34fb00",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Answer",
+                    "id": "2d897e58-3ffa-4e8d-8982-82705cadf8c4",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/answers/:answer_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "answers",
+                                ":answer_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "answer_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "e7ac7d18-a2f0-4209-9d32-9c66c0bd7d28",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "3d9436d5-83e8-4780-bc0c-48872e1935ed",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "e7ac7d18-a2f0-4209-9d32-9c66c0bd7d28",
+                            "key": "answer_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "3d9436d5-83e8-4780-bc0c-48872e1935ed",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "dbb9d9b5-b9d8-4453-88d6-19b4c1b8c88a"
+        },
+        {
+            "name": "Videos",
+            "item": [
+                {
+                    "name": "Add Video",
+                    "id": "6293230b-ad6b-4f01-9ef1-6619bdf21b79",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/videos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "videos"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "e21a12b7-a1e7-4e03-94d2-322500093ba4",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "e21a12b7-a1e7-4e03-94d2-322500093ba4",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Videos",
+                    "id": "36b63d6e-1cf3-4568-b8f4-e50dbffdb1a5",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/videos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "videos"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "e0c942d2-60aa-4c63-ab6b-0e467b473172",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "e0c942d2-60aa-4c63-ab6b-0e467b473172",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Tag",
+                    "id": "4c66efaa-fd15-4604-9a51-7136c522f622",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags/:tag_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags",
+                                ":tag_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "7b79292c-8ff6-49f2-865c-7b6e6ef3bbeb",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "tag_id",
+                                    "value": "32",
+                                    "id": "0241b912-e8a4-4b67-88b0-132993830bbb",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "7b79292c-8ff6-49f2-865c-7b6e6ef3bbeb",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        },
+                        {
+                            "id": "0241b912-e8a4-4b67-88b0-132993830bbb",
+                            "key": "tag_id",
+                            "value": "32",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Videos",
+                    "id": "1b4ca107-47f2-455b-9700-dcd782258452",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/videos",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "videos"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "2cce6364-2e7d-42c1-8ef6-51e73a342cdf",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "2cce6364-2e7d-42c1-8ef6-51e73a342cdf",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Video",
+                    "id": "a66bb83a-6945-49b3-ada4-a755140995b5",
+                    "request": {
+                        "auth": {
+                            "type": "apikey",
+                            "apikey": [
+                                {
+                                    "key": "key",
+                                    "value": "x-api-key",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "value",
+                                    "value": "<API Key>",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "in",
+                                    "value": "header",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/videos/:video_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "videos",
+                                ":video_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "video_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "6d743cf0-5779-4677-aafa-09b54382cac5",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "493ca407-f508-4740-ab8d-ad751c8a378c",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "6d743cf0-5779-4677-aafa-09b54382cac5",
+                            "key": "video_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "493ca407-f508-4740-ab8d-ad751c8a378c",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "1665c362-9889-4c3e-a0dd-86104f4a687f"
+        },
+        {
+            "name": "Areas",
+            "item": [
+                {
+                    "name": "Elements",
+                    "item": [
+                        {
+                            "name": "Add Element",
+                            "id": "2a6642ca-f8f7-45f7-8c20-d288c367590d",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/blueprints/:blueprint_id/areas/:area_id/elements",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "areas",
+                                        ":area_id",
+                                        "elements"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "84",
+                                            "id": "c3e13a58-d49f-4230-a330-9eff62515cdb",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "area_id",
+                                            "value": "239",
+                                            "id": "0d1fc915-d56d-4abb-8f7a-626ad5f6d166",
+                                            "type": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [],
+                            "variable": [
+                                {
+                                    "id": "c3e13a58-d49f-4230-a330-9eff62515cdb",
+                                    "key": "blueprint_id",
+                                    "value": "84",
+                                    "type": "any"
+                                },
+                                {
+                                    "id": "0d1fc915-d56d-4abb-8f7a-626ad5f6d166",
+                                    "key": "area_id",
+                                    "value": "239",
+                                    "type": "any"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Get Elements",
+                            "id": "b1e6039f-1a09-4725-8421-4f56cfa973e9",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{base_url}}/blueprints/:blueprint_id/areas/:area_id/elements",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "areas",
+                                        ":area_id",
+                                        "elements"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "4",
+                                            "id": "eae44fd2-91fe-455e-a5c4-558c4d6ea816",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "area_id",
+                                            "value": null,
+                                            "id": "d6e6fa0f-aa48-449d-979d-2d4f34a51dfb",
+                                            "type": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [],
+                            "variable": [
+                                {
+                                    "id": "eae44fd2-91fe-455e-a5c4-558c4d6ea816",
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "type": "any"
+                                },
+                                {
+                                    "id": "d6e6fa0f-aa48-449d-979d-2d4f34a51dfb",
+                                    "key": "area_id",
+                                    "value": null,
+                                    "type": "any"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Delete Tag",
+                            "id": "3b628c7d-08c8-41de-89b5-01c1628a7cdc",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{base_url}}/blueprints/:blueprint_id/tags/:tag_id",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "tags",
+                                        ":tag_id"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "4",
+                                            "id": "0b2017e6-e579-4c79-82eb-d7dc133b5667",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "tag_id",
+                                            "value": "32",
+                                            "id": "9d4d3425-5bd3-4507-bacc-0e04a0025069",
+                                            "type": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [],
+                            "variable": [
+                                {
+                                    "id": "0b2017e6-e579-4c79-82eb-d7dc133b5667",
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "type": "any"
+                                },
+                                {
+                                    "id": "9d4d3425-5bd3-4507-bacc-0e04a0025069",
+                                    "key": "tag_id",
+                                    "value": "32",
+                                    "type": "any"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Elements",
+                            "id": "2d112f28-9bae-40c5-a491-3d6aaaf6e232",
+                            "request": {
+                                "method": "OPTIONS",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/blueprints/:blueprint_id/areas/:area_id/elements",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "areas",
+                                        ":area_id",
+                                        "elements"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "area_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "75c8c9ef-213d-410c-841d-3adfb142fe7e",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "6f8ab0c8-0fc9-4626-92db-6a48265bffe8",
+                                            "type": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [],
+                            "variable": [
+                                {
+                                    "id": "75c8c9ef-213d-410c-841d-3adfb142fe7e",
+                                    "key": "area_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                },
+                                {
+                                    "id": "6f8ab0c8-0fc9-4626-92db-6a48265bffe8",
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Delete Element",
+                            "id": "d70d4018-6208-4b8a-b3f7-970a1555acb1",
+                            "request": {
+                                "auth": {
+                                    "type": "apikey",
+                                    "apikey": [
+                                        {
+                                            "key": "key",
+                                            "value": "x-api-key",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "key": "value",
+                                            "value": "<API Key>",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "key": "in",
+                                            "value": "header",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/blueprints/:blueprint_id/areas/:area_id/elements/:element_id",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "areas",
+                                        ":area_id",
+                                        "elements",
+                                        ":element_id"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "element_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "90a2e5f0-be54-432c-863c-2b0db7f4a056",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "area_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "5ed361bf-7a6d-4a9e-b615-594c05beed81",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "c64a8296-bcb5-499b-8e3f-1bad5b92f104",
+                                            "type": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [],
+                            "variable": [
+                                {
+                                    "id": "90a2e5f0-be54-432c-863c-2b0db7f4a056",
+                                    "key": "element_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                },
+                                {
+                                    "id": "5ed361bf-7a6d-4a9e-b615-594c05beed81",
+                                    "key": "area_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                },
+                                {
+                                    "id": "c64a8296-bcb5-499b-8e3f-1bad5b92f104",
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Element",
+                            "id": "820cbf5a-4c60-43cd-aec1-f8dde6a8be47",
+                            "request": {
+                                "method": "OPTIONS",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/blueprints/:blueprint_id/areas/:area_id/elements/:element_id",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "areas",
+                                        ":area_id",
+                                        "elements",
+                                        ":element_id"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "element_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "6dfcdeb4-0316-46f3-8433-000aaf36c919",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "area_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "0fad90d4-a844-4fbe-84bf-17d5abbdc508",
+                                            "type": "any"
+                                        },
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) ",
+                                            "id": "49c6f657-a621-4e4f-b9f2-3ffee2106fbb",
+                                            "type": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [],
+                            "variable": [
+                                {
+                                    "id": "6dfcdeb4-0316-46f3-8433-000aaf36c919",
+                                    "key": "element_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                },
+                                {
+                                    "id": "0fad90d4-a844-4fbe-84bf-17d5abbdc508",
+                                    "key": "area_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                },
+                                {
+                                    "id": "49c6f657-a621-4e4f-b9f2-3ffee2106fbb",
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "type": "any",
+                                    "description": "(Required) "
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "aad6c4fc-c3f8-4ff4-853b-b60b76a182c3"
+                },
+                {
+                    "name": "Add Area",
+                    "id": "623b08c6-bbf3-4eb2-9a75-fa83a8c26f3a",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/areas",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "areas"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "84",
+                                    "id": "ede69831-1412-4d96-bc9f-a2e6749cf51a",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "ede69831-1412-4d96-bc9f-a2e6749cf51a",
+                            "key": "blueprint_id",
+                            "value": "84",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Area",
+                    "id": "b327d7bd-8e8e-4d01-93b4-04902b3642a3",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/areas/:area_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "areas",
+                                ":area_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "14e22530-bdc7-4adf-841d-168311b3ddd9",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "area_id",
+                                    "value": "198",
+                                    "id": "53e0843c-5c9c-4dd7-bbf5-2a5be0ea4637",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "14e22530-bdc7-4adf-841d-168311b3ddd9",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        },
+                        {
+                            "id": "53e0843c-5c9c-4dd7-bbf5-2a5be0ea4637",
+                            "key": "area_id",
+                            "value": "198",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Areas",
+                    "id": "aa3e1b9d-b062-4fba-af81-6663f3b04052",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/areas",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "areas"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "71",
+                                    "id": "144d0e06-a679-4df5-8201-a25707335450",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "144d0e06-a679-4df5-8201-a25707335450",
+                            "key": "blueprint_id",
+                            "value": "71",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Tag",
+                    "id": "dfeebceb-38db-482e-9796-97f467bf7c5f",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blueprints/:blueprint_id/tags/:tag_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "tags",
+                                ":tag_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "4",
+                                    "id": "0b2017e6-e579-4c79-82eb-d7dc133b5667",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "tag_id",
+                                    "value": "32",
+                                    "id": "9d4d3425-5bd3-4507-bacc-0e04a0025069",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "0b2017e6-e579-4c79-82eb-d7dc133b5667",
+                            "key": "blueprint_id",
+                            "value": "4",
+                            "type": "any"
+                        },
+                        {
+                            "id": "9d4d3425-5bd3-4507-bacc-0e04a0025069",
+                            "key": "tag_id",
+                            "value": "32",
+                            "type": "any"
+                        }
+                    ]
+                },
+                {
+                    "name": "Areas",
+                    "id": "d8ada7ad-694c-459c-aa3d-b80288865ddd",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/areas",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "areas"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "0d602294-55ad-45a7-bc2c-99629ac1f735",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "0d602294-55ad-45a7-bc2c-99629ac1f735",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Area",
+                    "id": "8f09e65b-abe2-4adc-a123-a91914e40ddd",
+                    "request": {
+                        "auth": {
+                            "type": "apikey",
+                            "apikey": [
+                                {
+                                    "key": "key",
+                                    "value": "x-api-key",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "value",
+                                    "value": "<API Key>",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "in",
+                                    "value": "header",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/areas/:area_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "areas",
+                                ":area_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "area_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "07349690-0e87-42d2-ac87-42d82b08296f",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "2e9c5285-aff7-4e8f-9fa7-6f6053f8e04c",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "07349690-0e87-42d2-ac87-42d82b08296f",
+                            "key": "area_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "2e9c5285-aff7-4e8f-9fa7-6f6053f8e04c",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Area",
+                    "id": "8d7fb704-31bc-4233-854c-85fb7a84b03c",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/areas/:area_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "areas",
+                                ":area_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "area_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "717ebf95-ed6f-461d-94ac-41ff2ea1c182",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "55ec5ec5-b65c-4bee-9833-7c09ee340368",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "variable": [
+                        {
+                            "id": "717ebf95-ed6f-461d-94ac-41ff2ea1c182",
+                            "key": "area_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "55ec5ec5-b65c-4bee-9833-7c09ee340368",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                },
+                {
+                    "name": "Video",
+                    "id": "a22017ab-1273-4cc7-b6a8-4b7eb317d889",
+                    "request": {
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id/videos/:video_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id",
+                                "videos",
+                                ":video_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "video_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "6891af29-fef0-4d80-a79a-770b819c7f40",
+                                    "type": "any"
+                                },
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "laborum dolor reprehenderit esse",
+                                    "description": "(Required) ",
+                                    "id": "53149469-cc5f-456e-9144-fc9dd46db55e",
+                                    "type": "any"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "id": "92785784-9a8a-4059-b33e-0511da2dc67a",
+                            "name": "200 response",
+                            "originalRequest": {
+                                "method": "OPTIONS",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/blueprints/:blueprint_id/videos/:video_id",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "blueprints",
+                                        ":blueprint_id",
+                                        "videos",
+                                        ":video_id"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "video_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) "
+                                        },
+                                        {
+                                            "key": "blueprint_id",
+                                            "value": "laborum dolor reprehenderit esse",
+                                            "description": "(Required) "
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "Access-Control-Allow-Origin",
+                                    "value": "la"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "Access-Control-Allow-Methods",
+                                    "value": "la"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "Access-Control-Allow-Headers",
+                                    "value": "la"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{}"
+                        }
+                    ],
+                    "variable": [
+                        {
+                            "id": "6891af29-fef0-4d80-a79a-770b819c7f40",
+                            "key": "video_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        },
+                        {
+                            "id": "53149469-cc5f-456e-9144-fc9dd46db55e",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            ],
+            "id": "1b717d30-696a-4f6a-9e32-055d99ad4eb8"
+        },
+        {
+            "name": "Get Blueprints",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "e8939631-6033-4194-bd08-f086e22eca9f",
+                        "type": "text/javascript",
+                        "exec": [
+                            "var jsonData = pm.response.json();",
+                            "",
+                            "var v = '<h1>Blueprints</h1>';",
+                            "v += '<ul>';",
+                            "",
+                            "for (i = 0; i < jsonData.length; i++) {",
+                            "  v += '<li>' + jsonData[i].name + '</li>';",
+                            "}",
+                            "",
+                            "pm.visualizer.set(v);",
+                            "",
+                            "pm.test(\"Status code is 200\", function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});"
+                        ]
+                    }
+                }
+            ],
+            "id": "e47feac5-c95b-46ab-bb8c-7ab562c19f82",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "auth": {
+                    "type": "apikey",
+                    "apikey": [
+                        {
+                            "key": "value",
+                            "value": "{{api_key}}",
+                            "type": "string"
+                        },
+                        {
+                            "key": "key",
+                            "value": "x-api-key",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/blueprints/?page=0&limit=250",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "page",
+                            "value": "0"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "250"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Add Blueprint",
+            "id": "ca641540-61fc-4eb0-a1eb-ce1acbca557b",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "auth": {
+                    "type": "apikey",
+                    "apikey": [
+                        {
+                            "key": "value",
+                            "value": "{{api_key}}",
+                            "type": "string"
+                        },
+                        {
+                            "key": "key",
+                            "value": "x-api-key",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/blueprints/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ""
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Blueprint",
+            "id": "a18a00c4-338a-45a3-aee6-d9f8f78131da",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "auth": {
+                    "type": "apikey",
+                    "apikey": [
+                        {
+                            "key": "value",
+                            "value": "{{api_key}}",
+                            "type": "string"
+                        },
+                        {
+                            "key": "key",
+                            "value": "x-api-key",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "key": "blueprint_id",
+                            "value": "2",
+                            "id": "fe3f9d99-1fea-469d-b8f3-9947b98e1f2a",
+                            "type": "any"
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "variable": [
+                {
+                    "id": "fe3f9d99-1fea-469d-b8f3-9947b98e1f2a",
+                    "key": "blueprint_id",
+                    "value": "2",
+                    "type": "any"
+                }
+            ]
+        },
+        {
+            "name": "Delete Blueprint",
+            "id": "f19b7c74-3f54-4299-a8ff-8820f8113934",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "auth": {
+                    "type": "apikey",
+                    "apikey": [
+                        {
+                            "key": "value",
+                            "value": "{{api_key}}",
+                            "type": "string"
+                        },
+                        {
+                            "key": "key",
+                            "value": "x-api-key",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "id": "781f1d67-0b37-4c0f-a26f-73ad08f6f2bf",
+                            "key": "blueprint_id",
+                            "value": "21",
+                            "type": "any"
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "variable": [
+                {
+                    "id": "781f1d67-0b37-4c0f-a26f-73ad08f6f2bf",
+                    "key": "blueprint_id",
+                    "value": "21",
+                    "type": "any"
+                }
+            ]
+        },
+        {
+            "name": "Blueprints",
+            "id": "d9f0d53f-54e5-4483-8d33-1abeaf898cc4",
+            "request": {
+                "method": "OPTIONS",
+                "header": [
+                    {
+                        "key": "Access-Control-Allow-Origin",
+                        "value": "laborum dolor reprehenderit esse"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Headers",
+                        "value": "laborum dolor reprehenderit esse"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Methods",
+                        "value": "laborum dolor reprehenderit esse"
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Update Blueprint",
+            "id": "a23d74fc-a5cf-4f37-b7ae-5929c9b28bc8",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "id": "2c5493f3-c793-4ad4-b515-39b8d6680422",
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "type": "any",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "variable": [
+                {
+                    "id": "2c5493f3-c793-4ad4-b515-39b8d6680422",
+                    "key": "blueprint_id",
+                    "value": "laborum dolor reprehenderit esse",
+                    "type": "any",
+                    "description": "(Required) "
+                }
+            ]
+        },
+        {
+            "name": "Blueprint",
+            "id": "cfdc7585-897b-4c40-8aa6-7483a1223de1",
+            "request": {
+                "method": "OPTIONS",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "key": "blueprint_id",
+                            "value": "laborum dolor reprehenderit esse",
+                            "description": "(Required) ",
+                            "id": "04a0b6d6-428e-441b-8501-1fb0e76dd669",
+                            "type": "any"
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "variable": [
+                {
+                    "id": "04a0b6d6-428e-441b-8501-1fb0e76dd669",
+                    "key": "blueprint_id",
+                    "value": "laborum dolor reprehenderit esse",
+                    "type": "any",
+                    "description": "(Required) "
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "apikey",
+        "apikey": [
+            {
+                "key": "key",
+                "value": "x-api-key",
+                "type": "string"
+            },
+            {
+                "key": "value",
+                "value": "{{api_key}}",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "87310edd-2dd9-46fc-a6f6-62cdeebf357a",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "5ea34b0d-ee51-424e-82ee-4e528f5c1b1e",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "id": "70ce7502-0e3e-4e53-8311-820c75f4d047",
+            "key": "base_url",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "id": "6fc14098-4762-4f2b-8d31-925a5235cbf7",
+            "key": "api_key",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "id": "288b4ce3-4ff9-4dbe-8cf2-bdfe9549a9ec",
+            "key": "baseUrl",
+            "value": "https://lok608s285.execute-api.us-east-1.amazonaws.com/staging",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,309 @@
+{
+    "info": {
+        "_postman_id": "5ac1d3c6-0a38-4acb-95fd-fe182d6c0e71",
+        "name": "Blueprints v1 - Performance",
+        "description": "This is of the blueprints API.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Get Blueprints",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "6d986227-aaf0-4dff-95b3-6a3c7a897415",
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test(\"Response time is less than 300ms\", function () {",
+                            "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                            "});"
+                        ]
+                    }
+                }
+            ],
+            "id": "bb8f2bfa-8a06-40ca-9738-0ae5f206be52",
+            "request": {
+                "auth": {
+                    "type": "apikey",
+                    "apikey": [
+                        {
+                            "key": "value",
+                            "value": "{{x-api-key}}",
+                            "type": "string"
+                        },
+                        {
+                            "key": "key",
+                            "value": "x-api-key",
+                            "type": "string"
+                        },
+                        {
+                            "key": "in",
+                            "value": "header",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/blueprints?limit=25&page=0",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "blueprints"
+                    ],
+                    "query": [
+                        {
+                            "key": "limit",
+                            "value": "25"
+                        },
+                        {
+                            "key": "page",
+                            "value": "0"
+                        }
+                    ]
+                },
+                "description": "Gets all blueprints."
+            },
+            "response": []
+        },
+        {
+            "name": "Add Blueprint",
+            "id": "8eed10af-9ed7-4e87-bdba-9767a65ebd9d",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"minim pariatur\",\n  \"version\": \"dolore consectetur\",\n  \"description\": \"labore ullamco ut dolor Ut\",\n  \"collection_id\": \"velit cu\",\n  \"state\": \"ad ea\",\n  \"maturity\": \"commodo ea\",\n  \"discussion\": \"laborum ut\",\n  \"yaml\": \"\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints"
+                    ]
+                },
+                "description": "Adds a new blueprint."
+            },
+            "response": []
+        },
+        {
+            "name": "Get Blueprint",
+            "id": "d80b41ef-815d-4014-ad0b-843489e8d982",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "id": "9ab5f228-d329-4574-9c76-9b77b05a88ab",
+                            "key": "blueprint_id",
+                            "value": "ut non",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Update Blueprint",
+            "id": "0159d8fa-f4f6-41e0-974d-bab16622ba4d",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"minim pariatur\",\n  \"version\": \"dolore consectetur\",\n  \"description\": \"labore ullamco ut dolor Ut\",\n  \"collection_id\": \"velit cu\",\n  \"state\": \"ad ea\",\n  \"maturity\": \"commodo ea\",\n  \"discussion\": \"laborum ut\",\n  \"yaml\": \"\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "id": "e46ce9f6-cdf0-44bd-8e05-93947a2056ee",
+                            "key": "blueprint_id",
+                            "value": "ut non",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Delete Blueprint",
+            "id": "1278a8a3-b36d-438a-acc5-027c8e72c657",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/blueprints/:blueprint_id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "blueprints",
+                        ":blueprint_id"
+                    ],
+                    "variable": [
+                        {
+                            "id": "d266c8d0-2abd-4380-a137-d0b79fd4fa89",
+                            "key": "blueprint_id",
+                            "value": "ut non",
+                            "description": "(Required) "
+                        }
+                    ]
+                }
+            },
+            "response": [
+                {
+                    "id": "d6ebc842-e949-4a13-9d99-855108d6e917",
+                    "name": "All blueprints.",
+                    "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/blueprints/:blueprint_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "blueprints",
+                                ":blueprint_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "blueprint_id",
+                                    "value": "ut non",
+                                    "description": "(Required) "
+                                }
+                            ]
+                        }
+                    },
+                    "status": "No Content",
+                    "code": 204,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "text/plain"
+                        }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": ""
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "apikey",
+        "apikey": [
+            {
+                "key": "value",
+                "value": "{{x-api-key}}",
+                "type": "string"
+            },
+            {
+                "key": "key",
+                "value": "x-api-key",
+                "type": "string"
+            },
+            {
+                "key": "in",
+                "value": "header",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "1654d3b6-24c2-4e26-9f58-3c59c935ac41",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "791a4fa4-8ee7-47fa-8b15-4ac6c43cfab1",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "id": "192371e4-469e-4337-b918-3e00f66a4707",
+            "key": "baseUrl",
+            "value": "https://lok608s285.execute-api.us-east-1.amazonaws.com/staging",
+            "type": "string"
+        }
+    ]
+}

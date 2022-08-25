@@ -1,0 +1,194 @@
+openapi: "3.0.0"
+info:
+  title: "Blueprints"  
+  description: "This is of the blueprints API."
+  version: "v1.0.0"
+servers:
+- url: https://lok608s285.execute-api.us-east-1.amazonaws.com/staging
+paths:
+  /blueprints:
+    get:
+      summary: Get Blueprints
+      description: Gets all blueprints.         
+      parameters:
+      - name: "limit"
+        in: "query"
+        required: false
+        schema:
+          type: string        
+      - name: "page"
+        in: "query"
+        required: false
+        schema:
+          type: string         
+      responses:
+        '200':
+          description: 'All blueprints.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprints'
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:007596076917:function:blueprints-staging-blueprints-get/invocations"
+        responses:
+          default:
+            statusCode: "200"
+        requestParameters:
+          integration.request.querystring.page: "method.request.querystring.page"
+          integration.request.querystring.limit: "method.request.querystring.limit"
+        requestTemplates:
+          application/json: "{\n    \"page\" : \"$input.params('page')\",\n    \"\
+            limit\" : \"$input.params('limit')\"\n}"
+        passthroughBehavior: "when_no_templates"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+    post:
+      summary: Add Blueprint
+      description: Adds a new blueprint.    
+      requestBody:
+        description: Blueprint
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Blueprint"
+      responses:
+        '201':
+          description: 'Single Blueprint'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:007596076917:function:blueprints-staging-blueprints-post/invocations"
+        responses:
+          default:
+            statusCode: "201"
+        passthroughBehavior: "when_no_match"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+  /blueprints/{blueprint_id}:
+    get:
+      summary: Get Blueprint
+      parameters:
+      - name: "blueprint_id"
+        in: "path"
+        required: true
+        schema:
+          type: string  
+      responses:
+        '200':
+          description: 'Single Blueprint'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:007596076917:function:blueprints-staging-blueprints-blueprint_id-get/invocations"
+        responses:
+          default:
+            statusCode: "200"
+        requestParameters:
+          integration.request.path.blueprint_id: "method.request.path.blueprint_id"
+        requestTemplates:
+          application/json: "{\n    \"blueprint_id\" : \"$input.params('blueprint_id')\"\
+            \n}"
+        passthroughBehavior: "when_no_templates"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+    put:
+      summary: Update Blueprint  
+      parameters:
+      - name: "blueprint_id"
+        in: "path"
+        required: true
+        schema:
+          type: string  
+      requestBody:
+        description: Blueprint
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Blueprint"        
+      responses:
+        '204':
+          description: 'All blueprints.'
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:007596076917:function:blueprints-staging-blueprints-blueprint_id-put/invocations"
+        responses:
+          default:
+            statusCode: "204"
+        requestParameters:
+          integration.request.path.blueprint_id: "method.request.path.blueprint_id"
+        requestTemplates:
+          application/json: "{\n    \"blueprint_id\" : \"$input.params('blueprint_id')\"\
+            ,\n    \"body\" : $input.json('$') \n}"
+        passthroughBehavior: "when_no_templates"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+    delete:
+      summary: Delete Blueprint
+      parameters:
+      - name: "blueprint_id"
+        in: "path"
+        required: true
+        schema:
+          type: string  
+      responses:
+        '204':
+          description: 'All blueprints.'
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:007596076917:function:blueprints-staging-blueprints-blueprint_id-delete/invocations"
+        responses:
+          default:
+            statusCode: "204"
+        requestParameters:
+          integration.request.path.blueprint_id: "method.request.path.blueprint_id"
+        requestTemplates:
+          application/json: "{\n    \"blueprint_id\" : \"$input.params('blueprint_id')\"\
+            \n}"
+        passthroughBehavior: "when_no_templates"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: "x-api-key"
+      in: header
+  schemas:
+    Blueprints:
+      type: array
+      items:
+        $ref: '#/components/schemas/Blueprint'      
+    Blueprint:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        version:
+          type: string          
+        description:
+          type: string
+        collection_id:
+          type: string
+        state:
+          type: string 
+          description: The overall state of the completeness of blueprint.               
+        maturity:
+          type: string 
+          description: The maturity of the blueprint (foundational, optimized, trasformational).              
+        discussion:
+          type: string 
+          description: 'A link to the Github discussion for managing this blueprint.'
+        yaml:
+          type: string 
+          description: 'A link to the raw YAMl for this blueprint.'
+security:
+  - api_key: []              

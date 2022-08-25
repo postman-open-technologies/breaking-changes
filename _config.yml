@@ -1,0 +1,20 @@
+title: Explore
+description: Breaking Changes
+
+image: https://postman-toolboxes2.s3.amazonaws.com/assets/api.png
+
+#url: /explore
+url: /
+
+email: kin@postman.com
+
+github_user: postman-open-technologies
+github_repo: breaking-changes
+github_branch: main
+
+version:      1.1.1
+markdown:     kramdown
+
+token: token
+
+episodes_base_url: https://umy5jz66lk.execute-api.us-west-1.amazonaws.com/staging
