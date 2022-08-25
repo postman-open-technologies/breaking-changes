@@ -13,7 +13,7 @@ exports.handler = vandium.generic()
     
     var total_properties = Object.keys(event.body).length;
 
-    var sql = 'UPDATE blueprints SET ';
+    var sql = 'UPDATE episodes SET ';
     
     var property_count = 1;
     for (const [key, value] of Object.entries(event.body)) {
@@ -24,11 +24,11 @@ exports.handler = vandium.generic()
       property_count++;
     }
 
-    sql += " WHERE id = " + connection.escape(event.blueprint_id);
+    sql += " WHERE id = " + connection.escape(event.episode_id);
   
     connection.query(sql, function (error, results, fields) {
 
-    callback( null );
+    callback( null, results );
 
   });
 });
