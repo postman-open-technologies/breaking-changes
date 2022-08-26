@@ -73,14 +73,7 @@ title: Admin - Episodes
 		<script>
 
 			const episode_base_url = '{{ site.episodes_base_url }}';
-
-			const elements_base_url = '{{ site.elements_base_url }}';
-			const tag_base_url = '{{ site.tags_base_url }}';
-			const clips_base_url = '{{ site.clips_base_url }}';
-			const takeaways_base_url = '{{ site.takeaways_base_url }}';
-			const quotes_base_url = '{{ site.quotes_base_url }}';
-			const segments_base_url = '{{ site.segments_base_url }}';
-			const guests_base_url = '{{ site.guests_base_url }}';			
+			const tag_base_url = '{{ site.tags_base_url }}';		
 
 		 	token = document.getElementById("token").value;	
 
@@ -228,7 +221,7 @@ title: Admin - Episodes
 						}
 					};		
 
-					fetch(quotes_base_url + '/quotes?limit=1000&page=0',options)
+					fetch(episode_base_url + '/quotes?limit=1000&page=0',options)
 						.then(function(response) {
 							if (!response.ok) {
 								console.log('Error with Status Code: ' + response.status);
@@ -238,7 +231,7 @@ title: Admin - Episodes
 								if(data){
 									var all_quotes = [];
 									for (let i = 0; i < data.length; i++) {	
-										all_quotes.push(data[i].name);
+										all_quotes.push(data[i].text);
 									}		
 								document.getElementById("quote-store").value = JSON.stringify(data, null, 2);
 								autocomplete(document.getElementById("add-quote-name"), all_quotes);	
@@ -261,7 +254,7 @@ title: Admin - Episodes
 					}
 				};		
 
-				fetch(clips_base_url + '/clips?limit=50&page=0',options)
+				fetch(episode_base_url + '/clips?limit=50&page=0',options)
 					.then(function(response) {
 						if (!response.ok) {
 							console.log('Error with Status Code: ' + response.status);
@@ -273,7 +266,7 @@ title: Admin - Episodes
 							var all_clips = [];
 							if(data){								
 								for (let i = 0; i < data.length; i++) {	
-									rows += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+									rows += '<option value="' + data[i].title + '">' + data[i].title + '</option>';
 									all_clips.push(data[i].name);
 								}								
 							}
@@ -287,7 +280,7 @@ title: Admin - Episodes
 						console.log('Error: ' + err);
 				});
 
-				}
+				}			
 
 				function updateEpisodeQuoteRowField(u){
 
@@ -295,8 +288,7 @@ title: Admin - Episodes
 					var field = ua[2];
 					var id = ua[3];
 
-					var name = document.getElementById('episode~quote~name~' + id).value;
-					var description = document.getElementById('episode~quote~description~' + id).value;
+					var text = document.getElementById('episode~quote~text~' + id).value;
 
 					var postData = {};
 					postData.name = name;
@@ -346,14 +338,10 @@ title: Admin - Episodes
 				function addQuote(){
 
 					var e_id = document.getElementById('add-quote-episode-id').value;
-					var a_id = document.getElementById('add-quote-area-id').value;
-					var name = document.getElementById('add-quote-name').value;
-					var description = document.getElementById('add-quote-description').value;
-					var image = '';
+					var text = document.getElementById('add-quote-text').value;
 
 					var postData = {};
-					postData.name = name;
-					postData.description = description;
+					postData.text = text;
 
 					var options = {
 							method: "POST",
@@ -363,10 +351,8 @@ title: Admin - Episodes
 							},
 							body: JSON.stringify(postData)
 						};
-					//console.log(options);
-					console.log(quotes_base_url + '/quotes');
-					console.log(options);
-					fetch(quotes_base_url + '/quotes',options)
+
+					fetch(episode_base_url + '/episodes/' + e_id + '/quotes',options)
 						.then(function(response) {
 							response.json().then(function(data) {
 							
@@ -376,7 +362,7 @@ title: Admin - Episodes
 
 							var postData = {};
 							postData.name = name;
-							postData.quote_id = data.id;
+							postData.id = data.id;
 
 							var options = {
 									method: "POST",
@@ -387,7 +373,7 @@ title: Admin - Episodes
 									body: JSON.stringify(postData)
 								};
 							
-							console.log(quotes_base_url + '/episodes/' + e_id + '/quotes');
+							console.log(episode_base_url + '/episodes/' + e_id + '/quotes');
 							console.log(options);
 
 							fetch(episode_base_url + '/episodes/' + e_id + '/quotes',options)
@@ -415,9 +401,8 @@ title: Admin - Episodes
 
 					var html = '';				
 					html += '<tr>';
-					html += '<td width="25%"><input type="text" onchange="updateEpisodeQuoteRowField(this);" class="form-control" id="episode~quote~name~' + row.quote_id + '" placeholder="" value="' + row.name + '"></td>';
-					html += '<td width="55%"><textarea class="form-control" onchange="updateEpisodeQuoteRowField(this);" id="episode~quote~description~' + row.quote_id + '" rows="3">' + row.description + '</textarea></td>';
-					html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteQuote(' + e_id + ',' + row.quote_id + ') }" style="width: 125px;"></td>';
+					html += '<td width="55%"><textarea class="form-control" onchange="updateEpisodeQuoteRowField(this);" id="episode~quote~text~' + row.id + '" rows="3">' + row.text + '</textarea></td>';
+					html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteQuote(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
 					html += '</tr>';	
 
 					return html;
@@ -469,8 +454,10 @@ title: Admin - Episodes
 						var field = ua[2];
 						var id = ua[3];
 
-						var name = document.getElementById('episode~clip~name~' + id).value;
-						var description = document.getElementById('episode~clip~description~' + id).value;
+						var title = document.getElementById('episode~clip~title~' + id).value;
+						var transcript = document.getElementById('episode~clip~transcript~' + id).value;
+						var video_url = document.getElementById('episode~clip~video_url~' + id).value;
+						var video_embed = document.getElementById('episode~clip~video_embed~' + id).value;												
 
 						var postData = {};
 						postData.name = name;
@@ -517,13 +504,13 @@ title: Admin - Episodes
 
 						}	
 
-						function addClip(){
+						function addClip(){							
 
 						var e_id = document.getElementById('add-clip-episode-id').value;
-						var a_id = document.getElementById('add-clip-area-id').value;
-						var name = document.getElementById('add-clip-name').value;
-						var description = document.getElementById('add-clip-description').value;
-						var image = '';
+						var title = document.getElementById('add-clip-title').value;
+						var transcript = document.getElementById('add-clip-description').transcript;
+						var video_url = document.getElementById('add-clip-description').video_url;
+						var video_embed = document.getElementById('add-clip-description').video_embed;
 
 						var postData = {};
 						postData.name = name;
@@ -538,9 +525,9 @@ title: Admin - Episodes
 								body: JSON.stringify(postData)
 							};
 						//console.log(options);
-						console.log(clips_base_url + '/clips');
+						console.log(episode_base_url + '/clips');
 						console.log(options);
-						fetch(clips_base_url + '/clips',options)
+						fetch(episode_base_url + '/clips',options)
 							.then(function(response) {
 								response.json().then(function(data) {
 								
@@ -561,7 +548,7 @@ title: Admin - Episodes
 										body: JSON.stringify(postData)
 									};
 								
-								console.log(clips_base_url + '/episodes/' + e_id + '/clips');
+								console.log(episode_base_url + '/episodes/' + e_id + '/clips');
 								console.log(options);
 
 								fetch(episode_base_url + '/episodes/' + e_id + '/clips',options)
@@ -647,7 +634,7 @@ title: Admin - Episodes
 						}
 					};		
 
-					fetch(takeaways_base_url + '/takeaways?limit=1000&page=0',options)
+					fetch(episode_base_url + '/takeaways?limit=1000&page=0',options)
 						.then(function(response) {
 							if (!response.ok) {
 								console.log('Error with Status Code: ' + response.status);
@@ -657,7 +644,7 @@ title: Admin - Episodes
 								if(data){
 									var all_takeaways = [];
 									for (let i = 0; i < data.length; i++) {	
-										all_takeaways.push(data[i].name);
+										all_takeaways.push(data[i].details);
 									}		
 								document.getElementById("takeaway-store").value = JSON.stringify(data, null, 2);
 								autocomplete(document.getElementById("add-takeaway-name"), all_takeaways);	
@@ -676,8 +663,7 @@ title: Admin - Episodes
 						var field = ua[2];
 						var id = ua[3];
 
-						var name = document.getElementById('episode~takeaway~name~' + id).value;
-						var description = document.getElementById('episode~takeaway~description~' + id).value;
+						var details = document.getElementById('episode~takeaway~details~' + id).value;
 
 						var postData = {};
 						postData.name = name;
@@ -693,7 +679,7 @@ title: Admin - Episodes
 								body: JSON.stringify(postData)
 							};
 
-						fetch(takeaways_base_url + '/takeaways/' + id,options)
+						fetch(episode_base_url + '/takeaways/' + id,options)
 							.then(function(response) {
 								console.log("Updated!");
 							})
@@ -727,10 +713,7 @@ title: Admin - Episodes
 					function addTakeaway(){
 
 						var e_id = document.getElementById('add-takeaway-episode-id').value;
-						var name = document.getElementById('add-takeaway-name').value;
-						var url = document.getElementById('add-takeaway-url').value;
-						var description = document.getElementById('add-takeaway-description').value;
-						var image = '';
+						var details = document.getElementById('add-takeaway-details').value;
 
 						var postData = {};
 						postData.name = name;
@@ -746,9 +729,9 @@ title: Admin - Episodes
 								body: JSON.stringify(postData)
 							};
 						//console.log(options);
-						console.log(takeaways_base_url + '/takeaways');
+						console.log(episode_base_url + '/takeaways');
 						console.log(options);
-						fetch(takeaways_base_url + '/takeaways',options)
+						fetch(episode_base_url + '/takeaways',options)
 							.then(function(response) {
 								response.json().then(function(data) {
 								
@@ -797,13 +780,7 @@ title: Admin - Episodes
 
 						var html = '';				
 						html += '<tr>';
-						html += '<td width="25%" align="right"><strong>Name:</strong></td><td><input type="text" onchange="updateEpisodeTakeawayRowField(this);" class="form-control" id="episode~takeaway~name~' + row.takeaway_id + '" placeholder="" value="' + row.name + '"></td><td></td>';
-						html += '</tr>';
-						html += '<tr>';
-						html += '<td width="25%" align="right"><strong>Description:</strong></td><td><textarea class="form-control" onchange="updateEpisodeTakeawayRowField(this);" id="episode~takeaway~description~' + row.takeaway_id + '" rows="3">' + row.description + '</textarea></td><td></td>';
-						html += '</tr>';
-						html += '<tr>';
-						html += '<td width="25%" align="right"><a href="' + row.url + '"><strong>URL:</strong></a>/td><td><input type="text" onchange="updateEpisodeTakeawayRowField(this);" class="form-control" id="episode~takeaway~url~' + row.takeaway_id + '" placeholder="" value="' + row.url + '"></td><td></td>';
+						html += '<td width="25%" align="right"><strong>Details:</strong></td><td><textarea class="form-control" onchange="updateEpisodeTakeawayRowField(this);" id="episode~takeaway~details~' + row.takeaway_id + '" rows="3">' + row.details + '</textarea></td><td></td>';
 						html += '</tr>';
 						html += '<tr>';														
 						html += '<td width="25%" align="right"></td><td><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteTakeaway(' + e_id + ',' + row.takeaway_id + ') }" style="width: 125px;"></td><td></td>';
@@ -861,7 +838,7 @@ title: Admin - Episodes
 							}
 						};		
 
-						fetch(guests_base_url + '/guests?limit=1000&page=0',options)
+						fetch(episode_base_url + '/guests?limit=1000&page=0',options)
 							.then(function(response) {
 								if (!response.ok) {
 									console.log('Error with Status Code: ' + response.status);
@@ -906,7 +883,7 @@ title: Admin - Episodes
 								body: JSON.stringify(postData)
 							};
 
-						fetch(guests_base_url + '/guests/' + id,options)
+						fetch(episode_base_url + '/guests/' + id,options)
 							.then(function(response) {
 								console.log("Updated!");
 							})
@@ -940,13 +917,34 @@ title: Admin - Episodes
 					function addGuest(){
 
 						var e_id = document.getElementById('add-guest-episode-id').value;
-						var name = document.getElementById('add-guest-name').value;
-						var description = document.getElementById('add-guest-description').value;
-						var image = '';
+						var first_name = document.getElementById('add-guest-first_name').value;
+						var last_name = document.getElementById('add-guest-last_name').value;
+						var guest_bio = document.getElementById('add-guest-guest_bio').value;
+						var white = document.getElementById('add-guest-white').value;
+						var male = document.getElementById('add-guest-male').value;
+						var company_name = document.getElementById('add-guest-company_name').value;
+						var company_description = document.getElementById('add-guest-company_description').value;
+						var company_website = document.getElementById('add-guest-company_website').value;
+						var guest_linkedin = document.getElementById('add-guest-guest_linkedin').value;
+						var guest_twitter = document.getElementById('add-guest-guest_twitter').value;
+						var company_logo = document.getElementById('add-guest-company_logo').value;
+						var guest_photo_raw = document.getElementById('add-guest-guest_photo_raw').value;
+						var guest_photo_final = document.getElementById('add-guest-guest_photo_final').value;
 
 						var postData = {};
-						postData.name = name;
-						postData.description = description;
+						postData.first_name = first_name;
+						postData.last_name = last_name;
+						postData.guest_bio = guest_bio;
+						postData.white = white;
+						postData.male = male;
+						postData.company_name = company_name;
+						postData.company_description = company_description;
+						postData.company_website = company_website;
+						postData.guest_linkedin = guest_linkedin;
+						postData.guest_twitter = guest_twitter;
+						postData.company_logo = company_logo;
+						postData.guest_photo_raw = guest_photo_raw;
+						postData.guest_photo_final = guest_photo_final;
 
 						var options = {
 								method: "POST",
@@ -956,7 +954,7 @@ title: Admin - Episodes
 								},
 								body: JSON.stringify(postData)
 							};
-						fetch(guests_base_url + '/guests',options)
+						fetch(episode_base_url + '/guests',options)
 							.then(function(response) {
 								response.json().then(function(data) {
 								
@@ -1005,9 +1003,22 @@ title: Admin - Episodes
 
 						var html = '';				
 						html += '<tr>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~name~' + row.guest_id + '" placeholder="" value="' + row.name + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~first_name~' + row.guest_id + '" placeholder="" value="' + row.first_name + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~last_name~' + row.guest_id + '" placeholder="" value="' + row.last_name + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_bio~' + row.guest_id + '" placeholder="" value="' + row.guest_bio + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~white~' + row.guest_id + '" placeholder="" value="' + row.white + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~male~' + row.guest_id + '" placeholder="" value="' + row.male + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_name~' + row.guest_id + '" placeholder="" value="' + row.company_name + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_description~' + row.guest_id + '" placeholder="" value="' + row.company_description + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_website~' + row.guest_id + '" placeholder="" value="' + row.company_website + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_linkedin~' + row.guest_id + '" placeholder="" value="' + row.guest_linkedin + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_twitter~' + row.guest_id + '" placeholder="" value="' + row.guest_twitter + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_logo~' + row.guest_id + '" placeholder="" value="' + row.company_logo + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_raw~' + row.guest_id + '" placeholder="" value="' + row.guest_photo_raw + '"></td>';
+						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_final~' + row.guest_id + '" placeholder="" value="' + row.guest_photo_final + '"></td>';
 						html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteGuest(' + e_id + ',' + row.guest_id + ') }" style="width: 125px;"></td>';
-						html += '</tr>';	
+						html += '</tr>';						
+
 
 						return html;
 						}						
@@ -1061,7 +1072,7 @@ title: Admin - Episodes
 							}
 						};		
 
-						fetch(segments_base_url + '/segments?limit=1000&page=0',options)
+						fetch(episode_base_url + '/segments?limit=1000&page=0',options)
 							.then(function(response) {
 								if (!response.ok) {
 									console.log('Error with Status Code: ' + response.status);
@@ -1071,7 +1082,7 @@ title: Admin - Episodes
 									if(data){
 										var all_segments = [];
 										for (let i = 0; i < data.length; i++) {	
-											all_segments.push(data[i].name);
+											all_segments.push(data[i].title);
 										}		
 									document.getElementById("segment-store").value = JSON.stringify(data, null, 2);
 									autocomplete(document.getElementById("add-segment-name"), all_segments);	
@@ -1105,7 +1116,7 @@ title: Admin - Episodes
 									body: JSON.stringify(postData)
 								};
 
-							fetch(segments_base_url + '/segments/' + id,options)
+							fetch(episode_base_url + '/segments/' + id,options)
 								.then(function(response) {
 									console.log("Updated!");
 								})
@@ -1139,13 +1150,16 @@ title: Admin - Episodes
 						function addSegment(){
 
 							var e_id = document.getElementById('add-segment-episode-id').value;
-							var name = document.getElementById('add-segment-name').value;
-							var description = document.getElementById('add-segment-description').value;
-							var image = '';
+							var title = document.getElementById('add-segment-title').value;
+							var transcript = document.getElementById('add-segment-transcript').value;
+							var video_url = document.getElementById('add-segment-video_url').value;
+							var video_embed = document.getElementById('add-segment-video_embed').value;					
 
 							var postData = {};
-							postData.name = name;
-							postData.description = description;
+							postData.title = title;
+							postData.transcript = transcript;
+							postData.video_url = video_url;
+							postData.video_embed = video_embed;							
 
 							var options = {
 									method: "POST",
@@ -1155,10 +1169,8 @@ title: Admin - Episodes
 									},
 									body: JSON.stringify(postData)
 								};
-							//console.log(options);
-							console.log(segments_base_url + '/segments');
-							console.log(options);
-							fetch(segments_base_url + '/segments',options)
+
+							fetch(episode_base_url + '/episodes/' + e_id + '/segments',options)
 								.then(function(response) {
 									response.json().then(function(data) {
 									
@@ -1207,7 +1219,10 @@ title: Admin - Episodes
 
 							var html = '';				
 							html += '<tr>';
-							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~name~' + row.segment_id + '" placeholder="" value="' + row.name + '"></td>';
+							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~title~' + row.segment_id + '" placeholder="" value="' + row.title + '"></td>';
+							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~transcript~' + row.segment_id + '" placeholder="" value="' + row.transcript + '"></td>';
+							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_url~' + row.segment_id + '" placeholder="" value="' + row.video_url + '"></td>';
+							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_embed~' + row.segment_id + '" placeholder="" value="' + row.video_embed + '"></td>';
 							html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteSegment(' + e_id + ',' + row.segment_id + ') }" style="width: 125px;"></td>';
 							html += '</tr>';	
 
@@ -1601,7 +1616,7 @@ title: Admin - Episodes
 				html += '<div class="accordion-item" id="episode-' + row.id + '">';					
 				html += '<h2 class="accordion-header" id="heading-' + row.id + '">';	
 				html += '<button id="toggle-row-' + row.id + '" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-' + row.id + '" aria-expanded="false" aria-controls="collapse-' + row.id + '" style="color: #000;">';	
-				html += row.episode_title;
+				html += row.episode_title + ' - ' + row.id;
 				html += '</button>';	
 				html += '</h2>';	
 				html += '<div id="collapse-' + row.id + '" class="accordion-collapse collapse" aria-labelledby="heading-' + row.id + '" data-bs-parent="#accordion-' + row.id + '">';	
@@ -2017,62 +2032,6 @@ title: Admin - Episodes
 </style>
 
 
-  <textarea class="form-control" id="element-store" rows="5" style="display: none;"></textarea>
-  <div class="modal fade bd-example-modal-lg" id="addElement" tabindex="-1" clip="dialog" aria-labelledby="addElementLabel" aria-hidden="true" style="width: 100%">
-	<div class="modal-dialog modal-xl" clip="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="addElementLabel">New Element</h5>
-		  <input type="hidden" id="add-element-episode-id" value="">
-		  <input type="hidden" id="add-element-area-id" value="">
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddElementModal();">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">			
-			<script>
-				function addExistingElement()
-					{
-
-					console.log("Changing!");
-					
-					var elements = JSON.parse(document.getElementById("element-store").value);
-					var name = document.getElementById("add-element-name").value;
-
-					for (let i = 0; i < elements.length; i++) {
-						//console.log(elements[i].name + ' == ' + name);
-						if(elements[i].name == document.getElementById("add-element-name").value){
-							console.log(elements[i]);
-							document.getElementById("add-element-id").value = elements[i].id;
-							document.getElementById("add-element-description").value = elements[i].description;							
-						}
-						}
-					}
-			</script>
-			<form>
-				<input type="hidden" class="form-control" id="add-element-id" value="">
-				<div class="form-group">
-					<label for="add-element-name" class="col-form-label">Name:</label>
-					<div class="autocomplete">
-						<input type="text" class="form-control" id="add-element-name">
-					</div>
-				</div>					
-				<div class="form-group">
-					<label for="add-element-description" class="col-form-label">Description:</label>
-					<div>
-						<textarea class="form-control" id="add-element-description"></textarea>
-					</div>
-				</div>			  
-			</form>
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddElementModal();">Close</button>
-		  <button type="button" class="btn btn-primary" onclick="addElement();">Add</button>
-		</div>
-	  </div>
-	</div>
-  </div>
-
   <textarea class="form-control" id="takeaway-store" rows="5" style="display: none;"></textarea>
 <div class="modal fade bd-example-modal-lg" id="addTakeaway" tabindex="-1" clip="dialog" aria-labelledby="addTakeawayLabel" aria-hidden="true" style="width: 100%">
   <div class="modal-dialog modal-xl" clip="document">
@@ -2100,32 +2059,20 @@ title: Admin - Episodes
                       if(takeaways[i].name == document.getElementById("add-takeaway-name").value){
                           console.log(takeaways[i]);
                           document.getElementById("add-takeaway-id").value = takeaways[i].id;
-                          document.getElementById("add-takeaway-description").value = takeaways[i].description;							
-						  document.getElementById("add-takeaway-url").value = takeaways[i].url;	
+                          document.getElementById("add-takeaway-details").value = takeaways[i].details;							
                       }
                       }
                   }
           </script>
+
           <form>
-              <input type="hidden" class="form-control" id="add-takeaway-id" value="">
+              <input type="hidden" class="form-control" id="add-takeaway-id" value="">					
               <div class="form-group">
-                  <label for="add-takeaway-name" class="col-form-label">Name:</label>
-                  <div class="autocomplete">
-                      <input type="text" class="form-control" id="add-takeaway-name">
-                  </div>
-              </div>					
-              <div class="form-group">
-                  <label for="add-takeaway-description" class="col-form-description">Description:</label>
+                  <label for="add-takeaway-description" class="col-form-description">Details:</label>
                   <div>
-                      <textarea class="form-control" id="add-takeaway-description"></textarea>
+                      <textarea class="form-control" id="add-takeaway-details"></textarea>
                   </div>
-              </div>
-              <div class="form-group">
-				<label for="add-takeaway-url" class="col-form-label">URL:</label>
-				<div class="autocomplete">
-					<input type="text" class="form-control" id="add-takeaway-url">
-				</div>
-			</div>			  			  
+              </div>		  			  
           </form>
       </div>
       <div class="modal-footer">
@@ -2142,7 +2089,7 @@ title: Admin - Episodes
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addQuoteLabel">New Quote</h5>
-        <input type="hidden" id="add-quote-episode-id" value="">
+        <input type="text" id="add-quote-episode-id" value="">
         <input type="hidden" id="add-quote-area-id" value="">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddQuoteModal();">
           <span aria-hidden="true">&times;</span>
@@ -2163,23 +2110,17 @@ title: Admin - Episodes
                       if(quotes[i].name == document.getElementById("add-quote-name").value){
                           console.log(quotes[i]);
                           document.getElementById("add-quote-id").value = quotes[i].id;
-                          document.getElementById("add-quote-description").value = quotes[i].description;							
+                          document.getElementById("add-quote-text").value = quotes[i].text;							
                       }
                       }
                   }
           </script>
           <form>
-              <input type="hidden" class="form-control" id="add-quote-id" value="">
+              <input type="hidden" class="form-control" id="add-quote-id" value="">					
               <div class="form-group">
-                  <label for="add-quote-name" class="col-form-label">Name:</label>
-                  <div class="autocomplete">
-                      <input type="text" class="form-control" id="add-quote-name">
-                  </div>
-              </div>					
-              <div class="form-group">
-                  <label for="add-quote-description" class="col-form-description">Description:</label>
+                  <label for="add-quote-text" class="col-form-description">Text:</label>
                   <div>
-                      <textarea class="form-control" id="add-quote-description"></textarea>
+                      <textarea class="form-control" id="add-quote-text"></textarea>
                   </div>
               </div>			  
           </form>
@@ -2212,14 +2153,20 @@ title: Admin - Episodes
                   console.log("Changing!");
                   
                   var segments = JSON.parse(document.getElementById("segment-store").value);
-                  var name = document.getElementById("add-segment-name").value;
+                  var title = document.getElementById("add-segment-title").value;
+				  var transcript = document.getElementById("add-segment-transcript").value;
+				  var video_url = document.getElementById("add-segment-video_url").value;
+				  var video_embed = document.getElementById("add-segment-video_embed").value;
 
                   for (let i = 0; i < segments.length; i++) {
                       //console.log(segments[i].name + ' == ' + name);
                       if(segments[i].name == document.getElementById("add-segment-name").value){
                           console.log(segments[i]);
                           document.getElementById("add-segment-id").value = segments[i].id;
-                          document.getElementById("add-segment-description").value = segments[i].description;							
+                          document.getElementById("add-segment-title").value = segments[i].title;							
+						  document.getElementById("add-segment-transcript").value = segments[i].transcript;
+						  document.getElementById("add-segment-video_url").value = segments[i].video_url;
+						  document.getElementById("add-segment-video_embed").value = segments[i].video_embed;
                       }
                       }
                   }
@@ -2227,17 +2174,29 @@ title: Admin - Episodes
           <form>
               <input type="hidden" class="form-control" id="add-segment-id" value="">
               <div class="form-group">
-                  <label for="add-segment-name" class="col-form-label">Name:</label>
+                  <label for="add-segment-title" class="col-form-label">Title:</label>
                   <div class="autocomplete">
-                      <input type="text" class="form-control" id="add-segment-name">
+                      <input type="text" class="form-control" id="add-segment-title">
                   </div>
               </div>					
               <div class="form-group">
-                  <label for="add-segment-description" class="col-form-label">Description:</label>
+                  <label for="add-segment-description" class="col-form-label">Transcript:</label>
                   <div>
-                      <textarea class="form-control" id="add-segment-description"></textarea>
+                      <textarea class="form-control" id="add-segment-transcript"></textarea>
                   </div>
-              </div>			  
+              </div>
+              <div class="form-group">
+				<label for="add-segment-video_url" class="col-form-label">Video URL:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-segment-video_url">
+				</div>
+			</div>					
+			<div class="form-group">
+				<label for="add-segment-video_embed" class="col-form-label">Video Embed:</label>
+				<div>
+					<textarea class="form-control" id="add-segment-video_embed"></textarea>
+				</div>
+			</div>				  			  
           </form>
       </div>
       <div class="modal-footer">
@@ -2280,20 +2239,88 @@ title: Admin - Episodes
                       }
                   }
           </script>
+
           <form>
               <input type="hidden" class="form-control" id="add-guest-id" value="">
               <div class="form-group">
-                  <label for="add-guest-name" class="col-form-name">Name:</label>
+                  <label for="add-guest-first_name" class="col-form-name">First Name:</label>
                   <div class="autocomplete">
-                      <input type="text" class="form-control" id="add-guest-name">
+                      <input type="text" class="form-control" id="add-guest-first_name">
                   </div>
-              </div>					
+              </div>	
               <div class="form-group">
-                  <label for="add-guest-description" class="col-form-label">Description:</label>
-                  <div>
-                      <textarea class="form-control" id="add-guest-description"></textarea>
-                  </div>
-              </div>			  
+				<label for="add-guest-last_name" class="col-form-name">Last Name:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-last_name">
+				</div>
+			</div>				  				
+			<div class="form-group">
+				<label for="add-guest-guest_bio" class="col-form-label">Guest Bio:</label>
+				<div>
+					<textarea class="form-control" id="add-guest-guest_bio"></textarea>
+				</div>
+			</div>	
+			<div class="form-group">
+				<label for="add-guest-white" class="col-form-name">White:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-white">
+				</div>
+			</div>	
+			<div class="form-group">
+				<label for="add-guest-male" class="col-form-name">Male:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-male">
+				</div>
+			</div>		
+			<div class="form-group">
+				<label for="add-guest-company_name" class="col-form-name">Company Name:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-company_name">
+				</div>
+			</div>	
+			<div class="form-group">
+				<label for="add-guest-company_description" class="col-form-label">Company Description::</label>
+				<div>
+					<textarea class="form-control" id="add-guest-company_description"></textarea>
+				</div>
+			</div>	
+			<div class="form-group">
+				<label for="add-guest-company_website" class="col-form-name">Company Website:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-company_website">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="add-guest-guest_linkedin" class="col-form-name">Guest LinkedIn:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-guest_linkedin">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="add-guest-guest_twitter" class="col-form-name">Guest Twitter:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-guest_twitter">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="add-guest-company_logo" class="col-form-name">Company Logo:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-company_logo">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="add-guest-guest_photo_raw" class="col-form-name">Guest Photo (Raw):</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-guest_photo_raw">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="add-guest-guest_photo_final" class="col-form-name">Guest Photo (Final):</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-guest-guest_photo_final">
+				</div>
+			</div>																		
+
           </form>
       </div>
       <div class="modal-footer">
@@ -2324,7 +2351,10 @@ title: Admin - Episodes
                   console.log("Changing!");
                   
                   var clips = JSON.parse(document.getElementById("clip-store").value);
-                  var name = document.getElementById("add-clip-name").value;
+                  var title = document.getElementById("add-clip-title").value;
+				  var transcript = document.getElementById("add-clip-transcript").value;
+				  var video_url = document.getElementById("add-clip-video_url").value;
+				  var video_embed = document.getElementById("add-clip-video_embed").value;
 
                   for (let i = 0; i < clips.length; i++) {
                       //console.log(clips[i].name + ' == ' + name);
@@ -2336,20 +2366,33 @@ title: Admin - Episodes
                       }
                   }
           </script>
+
           <form>
               <input type="hidden" class="form-control" id="add-clip-id" value="">
               <div class="form-group">
-                  <label for="add-clip-name" class="col-form-name">Name:</label>
+                  <label for="add-clip-name" class="col-form-name">Title:</label>
                   <div class="autocomplete">
-                      <input type="text" class="form-control" id="add-clip-name">
+                      <input type="text" class="form-control" id="add-clip-title">
                   </div>
               </div>					
               <div class="form-group">
-                  <label for="add-clip-description" class="col-form-label">Description:</label>
+                  <label for="add-clip-description" class="col-form-label">Transcript:</label>
                   <div>
-                      <textarea class="form-control" id="add-clip-description"></textarea>
+                      <textarea class="form-control" id="add-clip-transcript"></textarea>
                   </div>
-              </div>			  
+              </div>	
+              <div class="form-group">
+				<label for="add-clip-name" class="col-form-name">Video URL:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-clip-video_url">
+				</div>
+			</div>	
+			<div class="form-group">
+				<label for="add-clip-description" class="col-form-label">Video Embed:</label>
+				<div>
+					<textarea class="form-control" id="add-clip-video_embed"></textarea>
+				</div>
+			</div>						  		  
           </form>
       </div>
       <div class="modal-footer">
