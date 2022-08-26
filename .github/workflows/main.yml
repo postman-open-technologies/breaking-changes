@@ -117,6 +117,42 @@ jobs:
             aws_region: us-west-1
             function_name: m-s-episodes-episode-clips-clip-d
             zip_file: m-s-episodes-episode-clips-clip-d.zip
+      - name: /episodes/{episode_id}/clips/{clip_id}/tags get lambda deploy zip
+        uses: postman-open-technologies/videos@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-clips-clip-tags-g.zip episodes/episode_id/clips/clip_id/tags/get/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-clips-clip-tags-g
+            zip_file: m-s-episodes-episode-clips-clip-tags-g.zip
+      - name: /episodes/{episode_id}/clips/{clip_id}/tags post lambda deploy zip
+        uses: postman-open-technologies/videos@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-clips-clip-tags-po.zip episodes/episode_id/clips/clip_id/tags/post/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-clips-clip-tags-po
+            zip_file: m-s-episodes-episode-clips-clip-tags-po.zip
+      - name: /episodes/{episode_id}/clips/{clip_id}/tags/{tag_id} delete lambda deploy zip
+        uses: postman-open-technologies/videos@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-clips-clip-tags-tag-d.zip episodes/episode_id/clips/clip_id/tags/tag_id/delete/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-clips-clip-tags-tag-d
+            zip_file: m-s-episodes-episode-clips-clip-tags-tag-d.zip            
       - name: /episodes/{episode_id}/guests get lambda deploy zip
         uses: postman-open-technologies/breaking-changes@main
         with:
@@ -225,6 +261,78 @@ jobs:
             aws_region: us-west-1
             function_name: m-s-episodes-episode-segments-segment-d
             zip_file: m-s-episodes-episode-segments-segment-d.zip
+      - name: /episodes/{episode_id}/segments/{segment_id}/tags get lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-segments-segment-tags-g.zip episodes/episode_id/segments/segment_id/tags/get/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-segments-segment-tags-g
+            zip_file: m-s-episodes-episode-segments-segment-tags-g.zip
+      - name: /episodes/{episode_id}/segments/{segment_id}/tags post lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-segments-segment-tags-po.zip episodes/episode_id/segments/segment_id/tags/post/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-segments-segment-tags-po
+            zip_file: m-s-episodes-episode-segments-segment-tags-po.zip
+      - name: /episodes/{episode_id}/segments/{segment_id}/tags/{tag_id} delete lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-segments-segment-tags-tag-d.zip episodes/episode_id/segments/segment_id/tags/tag_id/delete/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-segments-segment-tags-tag-d
+            zip_file: m-s-episodes-episode-segments-segment-tags-tag-d.zip
+      - name: /episodes/{episode_id}/links get lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-links-g.zip episodes/episode_id/links/get/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-links-g
+            zip_file: m-s-episodes-episode-links-g.zip
+      - name: /episodes/{episode_id}/links post lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-links-po.zip episodes/episode_id/links/post/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-links-po
+            zip_file: m-s-episodes-episode-links-po.zip
+      - name: /episodes/{episode_id}/links/{link_id} delete lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-links-link-d.zip episodes/episode_id/links/link_id/delete/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-links-link-d
+            zip_file: m-s-episodes-episode-links-link-d.zip            
       - name: /episodes/{episode_id}/tags get lambda deploy zip
         uses: postman-open-technologies/breaking-changes@main
         with:

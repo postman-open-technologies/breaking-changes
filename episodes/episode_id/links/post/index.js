@@ -11,7 +11,7 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'INSERT INTO episodes_clips(episode_id,';
+    var sql = 'INSERT INTO episodes_segments(episode_id,';
 
     var total_properties = Object.keys(event.body).length;
     
@@ -41,11 +41,8 @@ exports.handler = vandium.generic()
   
     connection.query(sql, function (error, results, fields) {
   
-      var response = {};
-      response['id'] = results.insertId;
-      response['title'] = event.body.title;
 
-      callback( null, response );
+      callback( null, results );
 
     });
 });
