@@ -11,7 +11,7 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'DELETE FROM episodes_segments WHERE id = ' + event.segment_id;
+    var sql = 'DELETE FROM episodes_links WHERE id = ' + event.link_id;
     connection.query(sql, function (error, results, fields) {
 
     callback( null );

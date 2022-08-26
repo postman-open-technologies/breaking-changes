@@ -11,7 +11,7 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'INSERT INTO episodes_segments(episode_id,';
+    var sql = 'INSERT INTO episodes_links(episode_id,';
 
     var total_properties = Object.keys(event.body).length;
     

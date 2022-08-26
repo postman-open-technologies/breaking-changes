@@ -22,7 +22,7 @@ exports.handler = vandium.generic()
                 var tag_id = result1[0].id;
                 
                 // See if we have episode tag
-                var sql2 = "SELECT * FROM episodes_tags WHERE episode_id = " + event.episode_id + " AND tag_id = " + tag_id;
+                var sql2 = "SELECT * FROM episodes_clips_tags WHERE episode_id = " + event.episode_id + " AND clip_id = " + event.clip_id + " AND tag_id = " + tag_id;
                 console.log("sql2: " + sql2);
                 connection.query(sql2, function (err, result2, fields) {
                   if(result2.length > 0){
@@ -36,7 +36,7 @@ exports.handler = vandium.generic()
                   }
                   else{      
                     
-                    var sql3 = "INSERT INTO episodes_tags(episode_id,tag_id) VALUES(" + event.episode_id + "," + tag_id + ")";
+                    var sql3 = "INSERT INTO episodes_clips_tags(episode_id,clip_id,tag_id) VALUES(" + event.episode_id + "," + event.clip_id + "," + tag_id + ")";
               
                     connection.query(sql3, function (error, result3, fields) {                    
               
@@ -59,7 +59,7 @@ exports.handler = vandium.generic()
 
                     var tag_id = result4.insertId;
               
-                    var sql5 = "INSERT INTO episodes_tags(episode_id) VALUES('" + event.body.name + "')";
+                    var sql5 = "INSERT INTO episodes_clips_tags(episode_id,clip_id) VALUES('" + event.episode_id + "','" + event.clip_id + "')";
               
                     connection.query(sql5, function (error, result5, fields) {
                   
