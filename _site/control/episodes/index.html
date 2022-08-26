@@ -35,6 +35,8 @@
     <!-- Cookies.js - http://github.com/ScottHamper/Cookies -->
     <script src="http://localhost:4000/assets/js/cookies.js"></script>
 
+    <script src="https://kit.fontawesome.com/29ac0024f3.js" crossorigin="anonymous"></script>
+
     <script>
 
         function getUrlVar(key){
@@ -143,7 +145,6 @@
 		<script>
 
 			const episode_base_url = 'https://umy5jz66lk.execute-api.us-west-1.amazonaws.com/staging';
-			const tag_base_url = '';		
 
 		 	token = document.getElementById("token").value;	
 
@@ -469,11 +470,15 @@
 
 				function episodeQuotesRow(e_id,row){
 
-					var html = '';				
+					var html = '';
+					html += '<table style="border: 0px solid #000; width: 100%;">';				
 					html += '<tr>';
-					html += '<td width="55%"><textarea class="form-control" onchange="updateEpisodeQuoteRowField(this);" id="episode~quote~text~' + row.id + '" rows="3">' + row.text + '</textarea></td>';
+					html += '<td width="10%" align="right"><strong>Text:</strong></td>';
+					html += '<td width="75%"><textarea class="form-control" onchange="updateEpisodeQuoteRowField(this);" id="episode~quote~text~' + row.id + '" rows="3">' + row.text + '</textarea></td>';
 					html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteQuote(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
-					html += '</tr>';	
+					html += '</tr>';
+					html += '</table>';	
+					html += '<hr>';
 
 					return html;
 					}	
@@ -594,10 +599,8 @@
 								},
 								body: JSON.stringify(postData)
 							};
-						//console.log(options);
-						console.log(episode_base_url + '/clips');
-						console.log(options);
-						fetch(episode_base_url + '/clips',options)
+
+						fetch(episode_base_url + '/episodes/' + e_id + '/clips',options)
 							.then(function(response) {
 								response.json().then(function(data) {
 								
@@ -607,7 +610,7 @@
 
 								var postData = {};
 								postData.name = name;
-								postData.clip_id = data.id;
+								postData.id = data.id;
 
 								var options = {
 										method: "POST",
@@ -644,12 +647,17 @@
 
 						function episodeClipsRow(e_id,row){
 
-						var html = '';				
+						var html = '';	
+						html += '<table style="border: 0px solid #000; width: 100%;">';			
 						html += '<tr>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeClipRowField(this);" class="form-control" id="episode~clip~name~' + row.clip_id + '" placeholder="" value="' + row.name + '"></td>';
-						html += '<td width="55%"><textarea class="form-control" onchange="updateEpisodeClipRowField(this);" id="episode~clip~description~' + row.clip_id + '" rows="3">' + row.description + '</textarea></td>';
-						html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteClip(' + e_id + ',' + row.clip_id + ') }" style="width: 125px;"></td>';
+						html += '<td><input type="text" onchange="updateEpisodeClipRowField(this);" class="form-control" id="episode~clip~name~' + row.id + '" placeholder="" value="' + row.name + '"></td>';
+						html += '</tr><tr>';
+						html += '<td><textarea class="form-control" onchange="updateEpisodeClipRowField(this);" id="episode~clip~description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+						html += '</tr><tr>';
+						html += '<td><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteClip(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
 						html += '</tr>';	
+						html += '</table>';
+						html += '<hr>';						
 
 						return html;
 						}	
@@ -730,14 +738,14 @@
 					function updateEpisodeTakeawayRowField(u){
 
 						var ua = u.id.split("~");
-						var field = ua[2];
-						var id = ua[3];
+						var e_id = ua[2];
+						var field = ua[3];
+						var id = ua[4];
 
 						var details = document.getElementById('episode~takeaway~details~' + id).value;
 
 						var postData = {};
-						postData.name = name;
-						postData.description = description;
+						postData.details = details;
 
 						delete postData.id;
 						var options = {
@@ -786,9 +794,7 @@
 						var details = document.getElementById('add-takeaway-details').value;
 
 						var postData = {};
-						postData.name = name;
-						postData.description = description;
-						postData.url = url;
+						postData.details = details;
 
 						var options = {
 								method: "POST",
@@ -798,10 +804,8 @@
 								},
 								body: JSON.stringify(postData)
 							};
-						//console.log(options);
-						console.log(episode_base_url + '/takeaways');
-						console.log(options);
-						fetch(episode_base_url + '/takeaways',options)
+
+						fetch(episode_base_url + '/episodes/' + e_id + '/takeaways',options)
 							.then(function(response) {
 								response.json().then(function(data) {
 								
@@ -811,7 +815,7 @@
 
 								var postData = {};
 								postData.name = name;
-								postData.takeaway_id = data.id;
+								postData.id = data.id;
 
 								var options = {
 										method: "POST",
@@ -849,12 +853,14 @@
 					function episodeTakeawaysRow(e_id,row){
 
 						var html = '';				
+						html += '<table style="border: 0px solid #000; width: 100%;">';
 						html += '<tr>';
-						html += '<td width="25%" align="right"><strong>Details:</strong></td><td><textarea class="form-control" onchange="updateEpisodeTakeawayRowField(this);" id="episode~takeaway~details~' + row.takeaway_id + '" rows="3">' + row.details + '</textarea></td><td></td>';
+						html += '<td width="10%" align="right"><strong>Details:</strong></td>';	
+						html += '<td align="right"><textarea class="form-control" onchange="updateEpisodeTakeawayRowField(this);" id="episode~' + e_id + '~takeaway~details~' + row.id + '" rows="3">' + row.details + '</textarea></td><td></td>';													
+						html += '<td width="10%" align="right"></td><td><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteTakeaway(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td><td></td>';
 						html += '</tr>';
-						html += '<tr>';														
-						html += '<td width="25%" align="right"></td><td><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteTakeaway(' + e_id + ',' + row.takeaway_id + ') }" style="width: 125px;"></td><td></td>';
-						html += '</tr>';	
+						html += '</table>';
+						html += '<hr>';							
 
 						return html;
 						}						
@@ -937,11 +943,35 @@
 						var field = ua[2];
 						var id = ua[3];
 
-						var name = document.getElementById('episode~guest~name~' + id).value;
+						var e_id = document.getElementById('add-guest-episode-id').value;
+						var first_name = document.getElementById('add-guest-first_name').value;
+						var last_name = document.getElementById('add-guest-last_name').value;
+						var guest_bio = document.getElementById('add-guest-guest_bio').value;
+						var white = document.getElementById('add-guest-white').value;
+						var male = document.getElementById('add-guest-male').value;
+						var company_name = document.getElementById('add-guest-company_name').value;
+						var company_description = document.getElementById('add-guest-company_description').value;
+						var company_website = document.getElementById('add-guest-company_website').value;
+						var guest_linkedin = document.getElementById('add-guest-guest_linkedin').value;
+						var guest_twitter = document.getElementById('add-guest-guest_twitter').value;
+						var company_logo = document.getElementById('add-guest-company_logo').value;
+						var guest_photo_raw = document.getElementById('add-guest-guest_photo_raw').value;
+						var guest_photo_final = document.getElementById('add-guest-guest_photo_final').value;						
 
 						var postData = {};
-						postData.name = name;
-						postData.description = description;
+						postData.first_name = first_name;
+						postData.last_name = last_name;
+						postData.guest_bio = guest_bio;
+						postData.white = white;
+						postData.male = male;
+						postData.company_name = company_name;
+						postData.company_description = company_description;
+						postData.company_website = company_website;
+						postData.guest_linkedin = guest_linkedin;
+						postData.guest_twitter = guest_twitter;
+						postData.company_logo = company_logo;
+						postData.guest_photo_raw = guest_photo_raw;
+						postData.guest_photo_final = guest_photo_final;
 
 						delete postData.id;
 						var options = {
@@ -1024,7 +1054,7 @@
 								},
 								body: JSON.stringify(postData)
 							};
-						fetch(episode_base_url + '/guests',options)
+						fetch(episode_base_url + '/episodes/' + e_id + '/guests',options)
 							.then(function(response) {
 								response.json().then(function(data) {
 								
@@ -1034,7 +1064,7 @@
 
 								var postData = {};
 								postData.name = name;
-								postData.guest_id = data.id;
+								postData.id = data.id;
 
 								var options = {
 										method: "POST",
@@ -1071,24 +1101,52 @@
 
 					function episodeGuestsRow(e_id,row){
 
-						var html = '';				
+						var html = '';	
+						html += '<table style="border: 0px solid #000; width: 100%;">';			
 						html += '<tr>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~first_name~' + row.guest_id + '" placeholder="" value="' + row.first_name + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~last_name~' + row.guest_id + '" placeholder="" value="' + row.last_name + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_bio~' + row.guest_id + '" placeholder="" value="' + row.guest_bio + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~white~' + row.guest_id + '" placeholder="" value="' + row.white + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~male~' + row.guest_id + '" placeholder="" value="' + row.male + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_name~' + row.guest_id + '" placeholder="" value="' + row.company_name + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_description~' + row.guest_id + '" placeholder="" value="' + row.company_description + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_website~' + row.guest_id + '" placeholder="" value="' + row.company_website + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_linkedin~' + row.guest_id + '" placeholder="" value="' + row.guest_linkedin + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_twitter~' + row.guest_id + '" placeholder="" value="' + row.guest_twitter + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_logo~' + row.guest_id + '" placeholder="" value="' + row.company_logo + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_raw~' + row.guest_id + '" placeholder="" value="' + row.guest_photo_raw + '"></td>';
-						html += '<td width="25%"><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_final~' + row.guest_id + '" placeholder="" value="' + row.guest_photo_final + '"></td>';
-						html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteGuest(' + e_id + ',' + row.guest_id + ') }" style="width: 125px;"></td>';
-						html += '</tr>';						
-
+						html += '<td width="10%" align="right"><strong>First Name:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~first_name~' + row.id + '" placeholder="" value="' + row.first_name + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Last Name:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~last_name~' + row.id + '" placeholder="" value="' + row.last_name + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Guest Bio:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_bio~' + row.id + '" placeholder="" value="' + row.guest_bio + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>White:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~white~' + row.id + '" placeholder="" value="' + row.white + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Mail:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~male~' + row.id + '" placeholder="" value="' + row.male + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Company Name:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_name~' + row.id + '" placeholder="" value="' + row.company_name + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Description:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_description~' + row.id + '" placeholder="" value="' + row.company_description + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Website:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_website~' + row.id + '" placeholder="" value="' + row.company_website + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Guest LinkedIn:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_linkedin~' + row.id + '" placeholder="" value="' + row.guest_linkedin + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Guest Twitter:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_twitter~' + row.id + '" placeholder="" value="' + row.guest_twitter + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Company Logo:</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_logo~' + row.id + '" placeholder="" value="' + row.company_logo + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Photo (Raw):</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_raw~' + row.id + '" placeholder="" value="' + row.guest_photo_raw + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%" align="right"><strong>Photo (Final):</strong></td>';	
+						html += '<td><input type="text" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_final~' + row.id + '" placeholder="" value="' + row.guest_photo_final + '"></td>';
+						html += '</tr><tr>';
+						html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteGuest(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
+						html += '</tr><tr><td><hr></td><tr>';						
+						html += '</table>';
+						html += '<hr>';
 
 						return html;
 						}						
@@ -1250,7 +1308,7 @@
 
 									var postData = {};
 									postData.name = name;
-									postData.segment_id = data.id;
+									postData.id = data.id;
 
 									var options = {
 											method: "POST",
@@ -1288,14 +1346,23 @@
 						function episodeSegmentsRow(e_id,row){
 
 							var html = '';				
+							html += '<table style="border: 0px solid #000; width: 100%;">';
 							html += '<tr>';
-							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~title~' + row.segment_id + '" placeholder="" value="' + row.title + '"></td>';
-							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~transcript~' + row.segment_id + '" placeholder="" value="' + row.transcript + '"></td>';
-							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_url~' + row.segment_id + '" placeholder="" value="' + row.video_url + '"></td>';
-							html += '<td width="25%"><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_embed~' + row.segment_id + '" placeholder="" value="' + row.video_embed + '"></td>';
-							html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteSegment(' + e_id + ',' + row.segment_id + ') }" style="width: 125px;"></td>';
-							html += '</tr>';	
-
+							html += '<td width="10%" align="right"><strong>Title:</strong></td>';	
+							html += '<td><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+							html += '</tr><tr>';							
+							html += '<td width="10%" align="right"><strong>Transcript:</strong></td>';	
+							html += '<td><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~transcript~' + row.id + '" placeholder="" value="' + row.transcript + '"></td>';
+							html += '</tr><tr>';							
+							html += '<td width="10%" align="right"><strong>Video URL:</strong></td>';	
+							html += '<td><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_url~' + row.id + '" placeholder="" value="' + row.video_url + '"></td>';
+							html += '</tr><tr>';
+							html += '<td width="10%" align="right"><strong>Video Embed:</strong></td>';		
+							html += '<td><input type="text" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_embed~' + row.id + '" placeholder="" value="' + row.video_embed + '"></td>';
+							html += '</tr><tr>';
+							html += '<td width="10%"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteSegment(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
+							html += '</table>';
+							html += '<hr>';
 							return html;
 							}						
 
@@ -1364,7 +1431,6 @@
 
 				var postData = {};
 				postData.name = name;
-				console.log(postData);
 
 				var options = {
 						method: "POST",
@@ -1375,7 +1441,7 @@
 						body: JSON.stringify(postData)
 					};
 
-				fetch(tag_base_url + '/tags/',options)
+				fetch(episode_base_url + '/episodes/' + id + '/tags',options)
 					.then(function(response) {
 
 						response.json().then(function(data) {
@@ -1702,25 +1768,21 @@
 				html += '<td><input type="text" style="width: 30%;" onchange="updateEpisodeRowField(this);" class="form-control" id="event_type~' + row.id + '" placeholder="" value="' + row.event_type + '"></td>';
 				html += '</tr>';	
 				
-				html += '<table style="border: 0px solid #000; width: 100%;">';
 				html += '<tr>';
 				html += '<td width=20%" align="right"><strong>Season:</td>';
 				html += '<td><input type="text" style="width: 10%;" onchange="updateEpisodeRowField(this);" class="form-control" id="season~' + row.id + '" placeholder="" value="' + row.season + '"></td>';
 				html += '</tr>';	
 				
-				html += '<table style="border: 0px solid #000; width: 100%;">';
 				html += '<tr>';
 				html += '<td width=20%" align="right"><strong>Episode Number:</td>';
 				html += '<td><input type="text" style="width: 10%;" onchange="updateEpisodeRowField(this);" class="form-control" id="episode_number~' + row.id + '" placeholder="" value="' + row.episode_number + '"></td>';
 				html += '</tr>';	
 				
-				html += '<table style="border: 0px solid #000; width: 100%;">';
 				html += '<tr>';
 				html += '<td width=20%" align="right"><strong>Episode Title:</td>';
 				html += '<td><input type="text" style="width: 100%;" onchange="updateEpisodeRowField(this);" class="form-control" id="episode_title~' + row.id + '" placeholder="" value="' + row.episode_title + '"></td>';
 				html += '</tr>';	
 				
-				html += '<table style="border: 0px solid #000; width: 100%;">';
 				html += '<tr>';
 				html += '<td width=20%" align="right"><strong>Episode Summary:</td>';
 				html += '<td><input type="text" style="width: 100%;" onchange="updateEpisodeRowField(this);" class="form-control" id="episode_summary~' + row.id + '" placeholder="" value="' + row.episode_summary + '"></td>';
@@ -1818,7 +1880,7 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Takeaways (<a href="#" onclick="openAddTakeawayModal(' + row.id + ');">Add</a>)</h3>';
+				html += '<h3>Takeaways <a href="#" onclick="openAddTakeawayModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listTakeaways(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<div class="container">';
@@ -1833,7 +1895,7 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Quotes (<a href="#" onclick="openAddQuoteModal(' + row.id + ');">Add</a>)</h3>';
+				html += '<h3>Quotes <a href="#" onclick="openAddQuoteModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listQuotes(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<div class="container">';
@@ -1848,7 +1910,7 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Segments (<a href="#" onclick="openAddSegmentModal(' + row.id + ');">Add</a>)</h3>';
+				html += '<h3>Segments <a href="#" onclick="openAddSegmentModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listSegments(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<div class="container">';
@@ -1863,7 +1925,7 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Guests (<a href="#" onclick="openAddGuestModal(' + row.id + '); return false;">Add</a>)</h3>';
+				html += '<h3>Guests <a href="#" onclick="openAddGuestModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listGuests(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<div class="container">';
@@ -1878,7 +1940,7 @@
 				
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Clips (<a href="#" onclick="openAddClipModal(' + row.id + '); return false;">Add</a>)</h3>';
+				html += '<h3>Clips <a href="#" onclick="openAddClipModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listClips(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<div class="container">';
@@ -1889,7 +1951,7 @@
 				html += '</div>';
 				html += '</div>';				
 
-				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE BLUEPRINT" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteEpisode(' + row.id + ') }" style=""></center>';				
+				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteEpisode(' + row.id + ') }" style=""></center>';				
 				html += '</div>';	
 				html += '</div>';	
 				html += '</div>';								

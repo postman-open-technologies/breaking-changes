@@ -11,8 +11,9 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'SELECT * FROM episodes_takeaways et WHERE et.episode_id = ' + event.episode_id + ' ORDER BY t.id';
+    var sql = 'SELECT * FROM episodes_takeaways et WHERE et.episode_id = ' + event.episode_id + ' ORDER BY et.id';
     connection.query(sql, function (error, results, fields) {
     callback( null, results );
   });
+  connection.end();
 });

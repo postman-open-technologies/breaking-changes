@@ -41,8 +41,12 @@ exports.handler = vandium.generic()
   
     connection.query(sql, function (error, results, fields) {
   
+      var response = {};
+      response['id'] = results.insertId;
+      response['first_name'] = event.body.first_name;
+      response['last_name'] = event.body.last_name;
 
-      callback( null, results );
+      callback( null, response );
 
     });
 });
