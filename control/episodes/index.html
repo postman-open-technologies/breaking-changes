@@ -1349,7 +1349,222 @@ title: Admin - Episodes
 									console.log('Error: ' + err);
 							});
 
-							}												
+							}	
+							
+							function listLinks(){
+
+								const options = {
+									method: 'get',
+									headers: {
+										"Content-Type": "application/json",
+										"x-api-key": token,
+									}
+								};		
+
+								fetch(episode_base_url + '/links?limit=1000&page=0',options)
+									.then(function(response) {
+										if (!response.ok) {
+											console.log('Error with Status Code: ' + response.status);
+											return;
+										}
+										response.json().then(function(data) {	
+											if(data){
+												var all_links = [];
+												for (let i = 0; i < data.length; i++) {	
+													all_links.push(data[i].title);
+												}		
+											document.getElementById("link-store").value = JSON.stringify(data, null, 2);
+											autocomplete(document.getElementById("add-link-name"), all_links);	
+											}																				 
+										});
+									})
+									.catch(function(err) {
+										console.log('Error: ' + err);
+								});
+
+								}	
+
+								function updateEpisodeLinkRowField(u){
+
+									var ua = u.id.split("~");
+									var field = ua[2];
+									var id = ua[3];
+
+									var title = document.getElementById('episode~link~title~' + id).value;
+									var description = document.getElementById('episode~link~description~' + id).value;
+									var url = document.getElementById('episode~link~url~' + id).value;
+
+									var postData = {};
+									postData.name = name;
+									postData.description = description;
+									postData.url = url;
+
+									delete postData.id;
+									var options = {
+											method: "PUT",
+											headers: {
+											"Content-Type": "application/json",
+											"x-api-key": token
+											},
+											body: JSON.stringify(postData)
+										};
+
+									fetch(episode_base_url + '/links/' + id,options)
+										.then(function(response) {
+											console.log("Updated!");
+										})
+										.catch(function(err) {
+											console.log('Error: ' + err);
+									});				
+
+									}
+
+								function deleteLink(e_id,l_id){
+
+									var options = {
+											method: "DELETE",
+											headers: {
+											"Content-Type": "application/json",
+											"x-api-key": token
+											}
+										};
+									console.log(episode_base_url + '/episodes/' + e_id + '/links/' + l_id);
+									fetch(episode_base_url + '/episodes/' + e_id + '/links/' + l_id,options)
+										.then(function(response) {
+											console.log("DELETED!");	
+											listEpisodeLinks(e_id)
+										})
+										.catch(function(err) {
+											console.log('Error: ' + err);
+									});	
+
+									}	
+
+								function addLink(){
+
+									var e_id = document.getElementById('add-link-episode-id').value;
+									var title = document.getElementById('add-link-title').value;
+									var description = document.getElementById('add-link-description').value;
+									var url = document.getElementById('add-link-url').value;			
+
+									var postData = {};
+									postData.title = title;
+									postData.description = description;
+									postData.url = url;					
+
+									var options = {
+											method: "POST",
+											headers: {
+											"Content-Type": "application/json",
+											"x-api-key": token
+											},
+											body: JSON.stringify(postData)
+										};
+
+									fetch(episode_base_url + '/episodes/' + e_id + '/links',options)
+										.then(function(response) {
+											response.json().then(function(data) {
+											
+											console.log("----");
+											console.log(data);
+											console.log("----");
+
+											var postData = {};
+											postData.name = name;
+											postData.id = data.id;
+
+											var options = {
+													method: "POST",
+													headers: {
+													"Content-Type": "application/json",
+													"x-api-key": token
+													},
+													body: JSON.stringify(postData)
+												};
+											
+											console.log(episode_base_url + '/episodes/' + e_id + '/links');
+											console.log(options);
+
+											fetch(episode_base_url + '/episodes/' + e_id + '/links',options)
+												.then(function(response) {
+													response.json().then(function(data) {
+													//console.log(data);
+													listEpisodeLinks(e_id);
+												});
+												})
+												.catch(function(err) {
+													console.log('Error: ' + err);
+											});	
+
+										});
+										})
+										.catch(function(err) {
+											console.log('Error: ' + err);
+									});	
+
+									$("#addLink").modal('hide');	
+
+									}							
+
+								function episodeLinksRow(e_id,row){
+
+									var html = '';				
+									html += '<table style="border: 0px solid #000; width: 100%;">';
+									html += '<tr>';
+									html += '<td width="15%" align="right"><strong>Title:</strong></td>';	
+									html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeLinkRowField(this);" class="form-control" id="episode~link~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+									html += '</tr><tr>';							
+									html += '<td width="15%" align="right"><strong>Description:</strong></td>';	
+									html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeLinkRowField(this);" id="episode~clip~description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+									html += '</tr><tr>';							
+									html += '<td width="15%" align="right"><strong>URL:</strong></td>';	
+									html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeLinkRowField(this);" class="form-control" id="episode~link~url~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
+									html += '</tr><tr>';
+									html += '<td width="15%" align="right"></td>';		
+									html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteLink(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
+									html += '</table>';
+									html += '<hr>';
+									return html;
+									}						
+
+								function listEpisodeLinks(e_id){
+									const options = {
+										method: 'get',
+										headers: {
+											"Content-Type": "application/json",
+											"x-api-key": token,
+										}
+									};		
+
+									fetch(episode_base_url + '/episodes/' + e_id + '/links',options)
+										.then(function(response) {
+											if (!response.ok) {
+												console.log('Error with Status Code: ' + response.status);
+												return;
+											}
+											response.json().then(function(data) {
+												var rows = '';
+												if(data){
+													var rows = '<center><table style="border: 0px solid #000; width: 80%;">';
+													//console.log(data);
+													if(data.length == 0){
+														rows += '<tr><td><p align="center">No Links</p></td></tr>';
+													}
+													else{											
+														for (let i = 0; i < data.length; i++) {
+															rows += episodeLinksRow(e_id,data[i]);
+														}
+													}
+													rows += '</table></center>';
+													document.getElementById("link-list~" + e_id).innerHTML = rows;							
+												}
+											});
+										})
+										.catch(function(err) {
+											console.log('Error: ' + err);
+									});
+
+									}							
 
 			function deleteEpisodeTag(id,tag_id){
 
@@ -1462,6 +1677,7 @@ title: Admin - Episodes
 				listEpisodeTakeaways(e_id);
 				listEpisodeQuotes(e_id);
 				listEpisodeSegments(e_id);
+				listEpisodeLinks(e_id);
 				listEpisodeGuests(e_id);
 				listEpisodeClips(e_id);
 
@@ -1561,18 +1777,7 @@ title: Admin - Episodes
 
 			function closeAddEpisodeModal(){
 				$("#addEpisode").modal('hide');				
-			}	
-			
-			function openAddElementModal(e_id,a_id){
-
-				document.getElementById('add-element-episode-id').value = e_id;
-				document.getElementById('add-element-area-id').value = a_id;
-				$("#addElement").modal('show');				
-			}
-
-			function closeAddElementModal(){
-				$("#addElement").modal('hide');			
-			}	
+			}				
 			
 			function openAddTakeawayModal(e_id){
 
@@ -1613,7 +1818,17 @@ title: Admin - Episodes
 			function closeAddSegmentModal(){
 			$("#addSegment").modal('hide');			
 			}	
-			
+
+			function openAddLinkModal(e_id){
+
+			document.getElementById('add-link-episode-id').value = e_id;
+			$("#addLink").modal('show');				
+			}
+
+			function closeAddLinkModal(){
+			$("#addLink").modal('hide');			
+			}				
+						
 			function openAddGuestModal(e_id,a_id){
 
 			document.getElementById('add-guest-episode-id').value = e_id;
@@ -1869,6 +2084,8 @@ title: Admin - Episodes
 				html += '</div>';						
 				html += '</div>';
 				html += '</div>';	
+
+				
 				
 				html += '<hr>';
 
@@ -1898,6 +2115,22 @@ title: Admin - Episodes
 				html += '<div class="row">';			
 				html += '<div class="container" id="clip-list~' + row.id + '">';
 				html += 'List Clips Here';
+				html += '</div>';						
+				html += '</div>';
+				html += '</div>';	
+				
+				html += '<hr>';
+
+				html += '<form class="row g-3">';
+				html += '<div class="col-auto">';
+				html += '<h3>Links <a href="#" onclick="openAddLinkModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listLinks(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '</div>';					
+				html += '</form>';
+				html += '<hr>';	
+				html += '<div class="container">';
+				html += '<div class="row">';			
+				html += '<div class="container" id="link-list~' + row.id + '">';
+				html += 'List Links Here';
 				html += '</div>';						
 				html += '</div>';
 				html += '</div>';				
@@ -2285,6 +2518,72 @@ title: Admin - Episodes
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddSegmentModal();">Close</button>
         <button type="button" class="btn btn-primary" onclick="addSegment();">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<textarea class="form-control" id="link-store" rows="5" style="display: none;"></textarea>
+<div class="modal fade bd-example-modal-lg" id="addLink" tabindex="-1" clip="dialog" aria-labelledby="addLinkLabel" aria-hidden="true" style="width: 100%">
+  <div class="modal-dialog modal-xl" clip="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLinkLabel">New Link</h5>
+        <input type="hidden" id="add-link-episode-id" value="">
+        <input type="hidden" id="add-link-area-id" value="">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddLinkModal();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">			
+          <script>
+              function addExistingLink()
+                  {
+
+                  console.log("Changing!");
+                  
+                  var links = JSON.parse(document.getElementById("link-store").value);
+                  var title = document.getElementById("add-link-title").value;
+				  var description = document.getElementById("add-link-description").value;
+				  var url = document.getElementById("add-link-url").value;
+
+                  for (let i = 0; i < links.length; i++) {
+                      //console.log(links[i].name + ' == ' + name);
+                      if(links[i].name == document.getElementById("add-link-name").value){
+                          console.log(links[i]);
+                          document.getElementById("add-link-id").value = links[i].id;
+                          document.getElementById("add-link-title").value = links[i].title;							
+						  document.getElementById("add-link-description").value = links[i].description;
+						  document.getElementById("add-link-url").value = links[i].url;
+                      }
+                      }
+                  }
+          </script>
+          <form>
+              <input type="hidden" class="form-control" id="add-link-id" value="">
+              <div class="form-group">
+                  <label for="add-link-title" class="col-form-label">Title:</label>
+                  <div class="autocomplete">
+                      <input type="text" class="form-control" id="add-link-title">
+                  </div>
+              </div>					
+              <div class="form-group">
+                  <label for="add-link-description" class="col-form-label">Description:</label>
+                  <div>
+                      <textarea class="form-control" id="add-link-description"></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+				<label for="add-link-url" class="col-form-label">URL:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-link-url">
+				</div>
+			</div>									  			  
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddLinkModal();">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addLink();">Add</button>
       </div>
     </div>
   </div>
