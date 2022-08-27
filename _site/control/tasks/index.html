@@ -1,0 +1,588 @@
+
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+   <meta name="generator" content="Hugo 0.88.1">
+   
+   <title>Admin - Tasks</title>
+
+   <!---<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sticky-footer-navbar/">--->
+   <link href="http://localhost:4000/assets/css/bootstrap.css" rel="stylesheet">
+   <meta name="theme-color" content="#7952b3">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Cookies.js - http://github.com/ScottHamper/Cookies -->
+    <script src="http://localhost:4000/assets/js/cookies.js"></script>
+
+    <script src="https://kit.fontawesome.com/29ac0024f3.js" crossorigin="anonymous"></script>
+
+    <script>
+
+        function getUrlVar(key){
+            var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+            return result && unescape(result[1]) || "";
+        }
+
+    </script>
+
+  </head>
+  <body class="d-flex flex-column h-100">
+    
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://localhost:4000/">Admin - Tasks</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://localhost:4000/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:4000/control/episodes/">Episodes</a>
+          </li>    
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:4000/control/tasks/">Tasks</a>
+          </li>                                                                           
+        </ul>
+        <form class="d-flex">
+          <!--<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>-->
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="flex-shrink-0"><div class="container" style="padding-top: 70px;">
+	<div class="row align-top">
+		<div class="row">
+			<script>
+				function changeToken(t){
+					Cookies.set('token',t)
+				}
+			</script>
+			<div class="col">				
+				<input type="text" class="form-control" id="token" name="token" value="token" placeholder="Token" onchange="changeToken();">
+			</div>
+			<div class="col-2">				
+				<input type="text" class="form-control" id="search" name="search" value="" placeholder="Search">
+			</div>	
+			<div class="col-2">				
+				<input type="text" class="form-control" id="tags" name="tags" value="" placeholder="tag,tag,tag">
+			</div>					
+			<label for="page" class="col-sm-2 col-form-label" style="text-align:right; width: 50px;">Page:</label>
+			<div class="col">				
+				<input type="text" class="form-control" id="page" name="page" value="0" style="text-align: center;">
+			</div>	
+			<label for="limit" class="col-sm-2 col-form-label" style="text-align:right; width: 50px;">Limit:</label>
+			<div class="col">				
+				<input type="text" class="form-control" id="limit" name="limit" value="10" style="text-align: center;">
+			</div>								
+			<div class="col">
+				<input type="button" class="btn btn-primary" name="listtasks" id="listtasks" value="Search" onclick="listTasks();">
+			</div>
+			<div class="col">
+				<input type="button" class="btn btn-success" name="show" value="Add" onclick="openAddTaskModal();">
+			</div>			
+		</div>								
+		<script>
+
+			var search = getUrlVar('search');
+			document.getElementById('search').value = search;
+
+			var token = getUrlVar('token');				
+			console.log("token:" + token);
+			if(token){
+				document.getElementById('token').value = token;		
+				changeToken(token);
+			}
+
+			var stored_token = Cookies.get('token');
+			if(stored_token){
+				console.log("stored_token:" + stored_token);
+				document.getElementById('token').value = stored_token;	
+			}
+
+			var input = document.getElementById("search");
+			input.addEventListener("keyup", function(event) {
+			  if (event.keyCode === 13) {
+				event.preventDefault();
+				document.getElementById("listtasks").click();
+			  }
+			});	
+			var input = document.getElementById("tags");
+			input.addEventListener("keyup", function(event) {
+			  if (event.keyCode === 13) {
+				event.preventDefault();
+				document.getElementById("listtasks").click();
+			  }
+			});	
+		</script>        
+		<div class="accordion" id="taskAccordian" style="margin-top: 15px;"></div>
+
+		<script>
+
+			const task_base_url = 'https://umy5jz66lk.execute-api.us-west-1.amazonaws.com/staging';
+
+		 	token = document.getElementById("token").value;	
+
+			function autocomplete(inp, arr) {
+				/*the autocomplete function takes two arguments,
+				the text field element and an array of possible autocompleted values:*/
+				var currentFocus;
+				/*execute a function when someone writes in the text field:*/
+				inp.addEventListener("input", function(e) {
+					var a, b, i, val = this.value;
+					/*close any already open lists of autocompleted values*/
+					closeAllLists();
+					if (!val) { return false;}
+					currentFocus = -1;
+					/*create a DIV element that will contain the items (values):*/
+					a = document.createElement("DIV");
+					a.setAttribute("id", this.id + "autocomplete-list");
+					a.setAttribute("class", "autocomplete-items");
+					/*append the DIV element as a child of the autocomplete container:*/
+					this.parentNode.appendChild(a);
+					/*for each item in the array...*/
+					for (i = 0; i < arr.length; i++) {
+					/*check if the item starts with the same letters as the text field value:*/
+					//console.log(arr[i]);
+					if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+						/*create a DIV element for each matching element:*/
+						b = document.createElement("DIV");
+						/*make the matching letters bold:*/
+						b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+						b.innerHTML += arr[i].substr(val.length);
+						/*insert a input field that will hold the current array item's value:*/
+						b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+						/*execute a function when someone clicks on the item value (DIV element):*/
+							b.addEventListener("click", function(e) {
+							/*insert the value for the autocomplete text field:*/
+							//console.log("HERE:" + this.getElementsByTagName("input")[0].value);
+							inp.value = this.getElementsByTagName("input")[0].value;
+							/*close the list of autocompleted values,
+							(or any other open lists of autocompleted values:*/
+							closeAllLists();
+							addExistingElement();
+						});
+						a.appendChild(b);
+					}
+					}
+				});
+				/*execute a function presses a key on the keyboard:*/
+				inp.addEventListener("keydown", function(e) {
+					var x = document.getElementById(this.id + "autocomplete-list");
+					if (x) x = x.getElementsByTagName("div");
+					if (e.keyCode == 40) {
+					/*If the arrow DOWN key is pressed,
+					increase the currentFocus variable:*/
+					currentFocus++;
+					/*and and make the current item more visible:*/
+					addActive(x);
+					} else if (e.keyCode == 38) { //up
+					/*If the arrow UP key is pressed,
+					decrease the currentFocus variable:*/
+					currentFocus--;
+					/*and and make the current item more visible:*/
+					addActive(x);
+					} else if (e.keyCode == 13) {
+					/*If the ENTER key is pressed, prevent the form from being submitted,*/
+					e.preventDefault();
+					if (currentFocus > -1) {
+						/*and simulate a click on the "active" item:*/
+						if (x) x[currentFocus].click();
+					}
+					}
+				});
+				function addActive(x) {
+				/*a function to classify an item as "active":*/
+				if (!x) return false;
+				/*start by removing the "active" class on all items:*/
+				removeActive(x);
+				if (currentFocus >= x.length) currentFocus = 0;
+				if (currentFocus < 0) currentFocus = (x.length - 1);
+				/*add class "autocomplete-active":*/
+				x[currentFocus].classList.add("autocomplete-active");
+				}
+				function removeActive(x) {
+				/*a function to remove the "active" class from all autocomplete items:*/
+				for (var i = 0; i < x.length; i++) {
+					x[i].classList.remove("autocomplete-active");
+				}
+				}
+				function closeAllLists(elmnt) {
+				/*close all autocomplete lists in the document,
+				except the one passed as an argument:*/
+				var x = document.getElementsByClassName("autocomplete-items");
+				for (var i = 0; i < x.length; i++) {
+					if (elmnt != x[i] && elmnt != inp) {
+					x[i].parentNode.removeChild(x[i]);
+				}
+				}
+			}
+			/*execute a function when someone clicks in the document:*/
+			document.addEventListener("click", function (e) {
+				closeAllLists(e.target);
+			});
+			} 			
+			
+													
+
+			$('#taskAccordian').on('show.bs.collapse', function (e) {
+
+				var row_id = e.target.id;
+				var e_id = row_id.replace("collapse-","");						
+
+			})
+
+			$('#taskAccordian').on('hidden.bs.collapse', function (e) {
+
+				var row_id = e.target.id;
+				var e_id = row_id.replace("collapse-","");
+
+			})	
+
+			function deleteTask(id){
+
+				var options = {
+						method: "DELETE",
+						headers: {
+						"Content-Type": "application/json",
+						"x-api-key": token
+						}
+					};
+
+				fetch(task_base_url + '/tasks/' + id,options)
+					.then(function(response) {
+						console.log("DELETED!");
+						listTasks();
+					})
+					.catch(function(err) {
+						console.log('Error: ' + err);
+				});	
+
+			}
+
+			function addTask(){
+
+				var title = document.getElementById('add-title').value;
+				var description = document.getElementById('add-description').value;
+
+				var postData = {};
+				postData.title = title;
+				postData.description = description;
+
+				var options = {
+						method: "POST",
+						headers: {
+						"Content-Type": "application/json",
+						"x-api-key": token
+						},
+						body: JSON.stringify(postData)
+					};
+
+				fetch(task_base_url + '/tasks/',options)
+					.then(function(response) {
+						console.log("Added!");
+					})
+					.catch(function(err) {
+						console.log('Error: ' + err);
+				});	
+
+				$("#addTask").modal('hide');	
+			}			
+			
+			function viewTask(id){
+
+				var viewHTML = document.getElementById('bview~' + id).value;
+				document.getElementById('viewTaskBody').innerHTML = viewHTML;
+				openViewTaskModal();
+			}			
+			
+			function updateTask(id){
+
+				const postData = JSON.parse(document.getElementById('bstore~' + id).value);
+
+				delete postData.id;
+				var options = {
+						method: "PUT",
+						headers: {
+						"Content-Type": "application/json",
+						"x-api-key": token
+						},
+						body: JSON.stringify(postData)
+					};
+
+				fetch(task_base_url + '/tasks/' + id,options)
+					.then(function(response) {
+						console.log("Updated!");
+					})
+					.catch(function(err) {
+						console.log('Error: ' + err);
+				});				
+
+			}
+
+			function updateTaskRowField(u){
+
+				var ua = u.id.split("~");
+				var field = ua[0];
+				var id = ua[1];
+
+				var bstore = JSON.parse(document.getElementById('bstore~' + id).value);
+				
+				bstore[field] = u.value;
+
+				document.getElementById('toggle-row-' + id).innerHTML = bstore.task_title + ' (' + bstore.id + ')';
+
+				document.getElementById('bstore~' + id).value = JSON.stringify(bstore, null, 2);
+
+				updateTask(id);
+
+			}
+
+			function taskHTMLRow(row,i){
+				var html = '';					
+				html += '<h2 id="html-heading-' + row.id + '">' + row.name + '</h2>';				
+				html += '<p>' + row.description + '</p>';
+				return html;
+			}
+
+			function taskRow(row,i){
+				
+				var html = '';
+
+				html += '<div style="display: none;">';
+				html += '<textarea class="form-control" id="bview~' + row.id + '" rows="5">bview~' + row.id + '</textarea>';
+				html += '</div>';
+
+				html += '<div class="accordion-item" id="task-' + row.id + '">';					
+				html += '<h2 class="accordion-header" id="heading-' + row.id + '">';	
+				html += '<button id="toggle-row-' + row.id + '" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-' + row.id + '" aria-expanded="false" aria-controls="collapse-' + row.id + '" style="color: #000;">';	
+				html += row.task_title + ' - ' + row.id;
+				html += '</button>';	
+				html += '</h2>';	
+				html += '<div id="collapse-' + row.id + '" class="accordion-collapse collapse" aria-labelledby="heading-' + row.id + '" data-bs-parent="#accordion-' + row.id + '">';	
+				html += '<div class="accordion-body">';	
+
+				html += '<div class="form-group" style="display: none;">';
+				html += '<textarea style="height: 400px;" class="form-control" id="bstore~' + row.id + '" rows="5">' + JSON.stringify(row, null, 2) + '</textarea>';
+				html += '</div>';
+
+				html += '<table style="border: 0px solid #000; width: 100%;">';
+				html += '<tr>';
+				html += '<td width=20%" align="right"><strong>Title:</td>';
+				html += '<td><input type="text" style="width: 30%; background-color:#FFF;" onchange="updateTaskRowField(this);" class="form-control" id="title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+				html += '</tr>';					
+				
+				html += '<tr>';
+				html += '<td width=10%" align="right"><strong>Description:</strong></label></td>';
+				html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateTaskRowField(this);" id="description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+				html += '</tr>';				
+
+				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteTask(' + row.id + ') }" style=""></center>';				
+				html += '</div>';	
+				html += '</div>';	
+				html += '</div>';								
+
+				return html;
+			}
+		
+			function listTasks(){
+
+				console.log("HELLO!");
+
+				var page = document.getElementById("page").value;
+				var limit = document.getElementById("limit").value;
+				var search = document.getElementById("search").value;
+		
+				const options = {
+					method: 'get',
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": token,
+					}
+				};		
+		
+				fetch(task_base_url + '/tasks/?page=' + page + '&limit=' + limit + '&search=' + search,options)
+					.then(function(response) {
+						if (!response.ok) {
+							console.log('Error with Status Code: ' + response.status);
+							return;
+						}
+						response.json().then(function(data) {
+							var rows = '';
+							if(data){
+								for (let i = 0; i < data.length; i++) {
+									rows += taskRow(data[i],i);
+								}							
+							}
+							document.getElementById("taskAccordian").innerHTML = rows;
+							if(data){
+								for (let i = 0; i < data.length; i++) {
+									console.log("bview~" + data[i].id);
+									document.getElementById("bview~" + data[i].id).value = taskHTMLRow(data[i],i);
+								}								
+							}							
+						});
+					})
+					.catch(function(err) {
+						console.log('Error: ' + err);
+				});
+				
+			}
+
+			if (window.addEventListener){
+				//window.addEventListener("load", listQuotes, false);
+			}
+			else if (window.attachEvent){
+				//window.attachEvent("onload", listQuotes);
+			}
+			else{
+				//window.onload = listQuotes;	
+			}
+	
+		</script>		
+
+	</div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="addTask" tabindex="-1" clip="dialog" aria-labelledby="addTaskLabel" aria-hidden="true" style="width: 100%">
+	<div class="modal-dialog modal-xl" clip="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="addTaskLabel">New Task</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddModal();">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <form>
+			<div class="form-group">
+			  <label for="recipient-name" class="col-form-label">Title:</label>
+			  <input type="text" class="form-control" id="add-title" style="width: 20%;">
+			</div>								
+			<div class="form-group">
+				<label for="message-text" class="col-form-label">Description:</label>
+				<textarea class="form-control" id="add-description"></textarea>
+			</div>																										
+		  </form>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddModal();">Close</button>
+		  <button type="button" class="btn btn-primary" onclick="addTask();">Add</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+<style>
+	.autocomplete {
+	/*the container must be positioned relative:*/
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	}
+	input {
+	border: 1px solid transparent;
+	background-color: #f1f1f1;
+	padding: 10px;
+	font-size: 16px;
+	}
+	input[type=text] {
+	background-color: #f1f1f1;
+	width: 100%;
+	}
+	textarea {
+	background-color: #f1f1f1;
+	width: 100%;
+	}	
+	input[type=submit] {
+	background-color: DodgerBlue;
+	color: #fff;
+	}
+	.autocomplete-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+	}
+	.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+	}
+	.autocomplete-items div:hover {
+	/*when hovering an item:*/
+	background-color: #e9e9e9;
+	}
+	.autocomplete-active {
+	/*when navigating through the items using the arrow keys:*/
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+	}	
+</style>
+
+
+<div class="modal fade bd-example-modal-lg" id="viewTask" tabindex="-1" clip="dialog" aria-labelledby="viewTaskLabel" aria-hidden="true" style="width: 100%">
+  <div class="modal-dialog modal-xl" clip="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addClipLabel">Task View</h5>
+        <input type="hidden" id="add-clip-task-id" value="">
+        <input type="hidden" id="add-clip-area-id" value="">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeViewTaskModal();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="viewTaskBody">			
+		HELLO!!!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeViewTaskModal();">Close</button>
+      </div>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Footer</span>
+  </div>
+</footer>
+
+<script src="http://localhost:4000/assets/js/bootstrap.js"></script>    
+
+  </body>
+</html>
