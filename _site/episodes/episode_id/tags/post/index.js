@@ -59,7 +59,7 @@ exports.handler = vandium.generic()
 
                     var tag_id = result4.insertId;
               
-                    var sql5 = "INSERT INTO episodes_tags(episode_id) VALUES('" + tag_id + "')";
+                    var sql5 = "INSERT INTO episodes_tags(episode_id,tag_id) VALUES(" + event.episode_id + "," + tag_id + ")";
               
                     connection.query(sql5, function (error, result5, fields) {
                   
