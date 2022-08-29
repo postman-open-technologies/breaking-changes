@@ -1717,13 +1717,15 @@ title: Admin - Episodes
 				var episode_number = document.getElementById('add-episode_number').value;
 				var episode_title = document.getElementById('add-episode_title').value;
 				var episode_summary = document.getElementById('add-episode_summary').value;
-				var episode_description = document.getElementById('add-episode_description').value;
 				var page_title = document.getElementById('add-page_title').value;
 				var page_description = document.getElementById('add-page_description').value;
 				var page_url = document.getElementById('add-page_url').value;
 				var brainstorm_date = document.getElementById('add-brainstorm_date').value;
 				var recording_date = document.getElementById('add-recording_date').value;
 				var publish_date = document.getElementById('add-publish_date').value;
+				var company_title = document.getElementById('add-company_title').value;
+				var company_description = document.getElementById('add-company_description').value;
+				var company_url = document.getElementById('add-company_url').value;				
 				var youtube_url = document.getElementById('add-youtube_url').value;
 				var youtube_embed = document.getElementById('add-youtube_embed').value;
 				var transcript = document.getElementById('add-transcript').value;
@@ -1744,6 +1746,9 @@ title: Admin - Episodes
 				postData.brainstorm_date = brainstorm_date;
 				postData.recording_date = recording_date;
 				postData.publish_date = publish_date;
+				postData.company_title = company_title;
+				postData.company_description = company_description;
+				postData.company_url = company_url;				
 				postData.youtube_url = youtube_url;
 				postData.youtube_embed = youtube_embed;
 				postData.transcript = transcript;
@@ -1947,14 +1952,9 @@ title: Admin - Episodes
 				html += '</tr>';	
 				
 				html += '<tr>';
-				html += '<td width=20%" align="right"><strong>Episode Summary:</td>';
-				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" onchange="updateEpisodeRowField(this);" class="form-control" id="episode_summary~' + row.id + '" placeholder="" value="' + row.episode_summary + '"></td>';
-				html += '</tr>';				
-				
-				html += '<tr>';
-				html += '<td width=10%" align="right"><strong>Episode Description:</strong></label></td>';
-				html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateEpisodeRowField(this);" id="episode_description~' + row.id + '" rows="3">' + row.episode_description + '</textarea></td>';
-				html += '</tr>';
+				html += '<td width=10%" align="right"><strong>Episode Summary:</strong></label></td>';
+				html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateEpisodeRowField(this);" id="episode_summary~' + row.id + '" rows="3">' + row.episode_summary + '</textarea></td>';
+				html += '</tr>';										
 
 				html += '</tr><tr><td colspan="2"><hr></td><tr>';					
 
@@ -1985,8 +1985,25 @@ title: Admin - Episodes
 				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="publish_date~' + row.id + '" placeholder="" value="' + row.publish_date + '"></td>';
 				html += '</tr>';	
 
-				html += '</tr><tr><td colspan="2"><hr></td><tr>';					
+				html += '</tr><tr><td colspan="2"><hr></td><tr>';	
+					
+				html += '<tr>';
+				html += '<td width=10%" align="right"><strong>Company Name:</strong></label></td>';
+				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="company_name~' + row.id + '" placeholder="" value="' + row.company_name + '"></td>';
+				html += '</tr>';
+
+				html += '<tr>';
+				html += '<td width=10%" align="right"><strong>Company Description:</strong></label></td>';
+				html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateEpisodeRowField(this);" id="company_description~' + row.id + '" rows="3">' + row.company_description + '</textarea></td>';
+				html += '</tr>';				
+					
+				html += '<tr>';
+				html += '<td width=10%" align="right"><strong>Company Website:</strong></label></td>';
+				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="company_website~' + row.id + '" placeholder="" value="' + row.company_website + '"></td>';
+				html += '</tr>';				
 				
+				html += '</tr><tr><td colspan="2"><hr></td><tr>';
+
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Youtube URL:</strong></label></td>';
 				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="youtube_url~' + row.id + '" placeholder="" value="' + row.youtube_url + '"></td>';
@@ -2232,11 +2249,7 @@ title: Admin - Episodes
 			<div class="form-group">
 				<label for="message-text" class="col-form-label">Episode Summary:</label>
 				<textarea class="form-control" id="add-episode_summary"></textarea>
-			  </div>
-			<div class="form-group">
-			<label for="message-text" class="col-form-label">Episode Description:</label>
-			<textarea class="form-control" id="add-episode_description"></textarea>
-			</div>			  			
+			</div>		  			
 			<div class="form-group">
 			  <label for="recipient-name" class="col-form-label">Page Title:</label>
 			  <input type="text" class="form-control" id="add-page_title" style="width: 100%;">
@@ -2261,6 +2274,18 @@ title: Admin - Episodes
 				<label for="recipient-name" class="col-form-label">Publish Date:</label>
 				<input type="text" class="form-control" id="add-publish_date" style="width: 20%;">
 			</div>	
+			<div class="form-group">
+				<label for="recipient-name" class="col-form-label">Company Name:</label>
+				<input type="text" class="form-control" id="add-company_name" style="width: 100%;">
+			  </div>
+			  <div class="form-group">
+				  <label for="message-text" class="col-form-label">Company Description:</label>
+				  <textarea class="form-control" id="add-company_description"></textarea>
+			  </div>				
+			  <div class="form-group">
+				<label for="recipient-name" class="col-form-label">Company Website:</label>
+				<input type="text" class="form-control" id="add-company_website" style="width: 100%;">
+			  </div>			
 			<div class="form-group">
 				<label for="recipient-name" class="col-form-label">Youtube URL:</label>
 				<input type="text" class="form-control" id="add-youtube_url" style="width: 100%;">
