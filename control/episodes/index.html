@@ -1960,7 +1960,7 @@ title: Admin - Episodes
 
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Page Title:</strong></label></td>';
-				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="page_title~' + row.id + '" placeholder="images/episodes/image.jpeg" value="' + row.page_title + '"></td>';
+				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="page_title~' + row.id + '" placeholder="" value="' + row.page_title + '"></td>';
 				html += '</tr>';
 
 				html += '<tr>';
@@ -1970,7 +1970,7 @@ title: Admin - Episodes
 
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Page URL:</strong></label></td>';
-				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="page_url~' + row.id + '" placeholder="2021-09-11" value="' + row.page_url + '"></td>';
+				html += '<td><input type="text" style="width: 100%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="page_url~' + row.id + '" placeholder="" value="' + row.page_url + '"></td>';
 				html += '</tr>';				
 				
 				html += '</tr><tr><td colspan="2"><hr></td><tr>';	
@@ -2013,6 +2013,8 @@ title: Admin - Episodes
 				html += '<td width=10%" align="right"><strong>Youtube Embed:</strong></label></td>';
 				html += '<td><textarea class="form-control" onchange="updateEpisodeRowField(this);" id="youtube_embed~' + row.id + '" rows="3">' + row.youtube_embed + '</textarea></td>';
 				html += '</tr>';	
+
+				html += '</tr><tr><td colspan="2"><hr></td><tr>';
 
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Transcript:</strong></label></td>';

@@ -41,7 +41,7 @@ exports.handler = vandium.generic()
 
     var sql = "SELECT * FROM episodes e WHERE id IS NOT NULL";
     if(search != ''){
-       sql += " AND (e.episode_title LIKE '%" + search + "%' OR e.episode_summary LIKE '%" + search + "%' OR e.episode_description LIKE '%" + search + "%' OR e.transcript LIKE '%" + search + "%')";
+       sql += " AND (e.episode_title LIKE '%" + search + "%' OR e.episode_summary LIKE '%" + search + "%' OR e.transcript LIKE '%" + search + "%')";
     }
     if(tags != ''){
        sql += " AND id IN(SELECT episode_id FROM episodes_tags WHERE tag_id IN(SELECT id FROM tags WHERE name IN ('" + tags.replace(",","','") + "')))";
