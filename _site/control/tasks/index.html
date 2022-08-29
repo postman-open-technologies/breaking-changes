@@ -309,6 +309,7 @@
 				fetch(task_base_url + '/tasks/',options)
 					.then(function(response) {
 						console.log("Added!");
+						listTasks();
 					})
 					.catch(function(err) {
 						console.log('Error: ' + err);
@@ -317,6 +318,10 @@
 				$("#addTask").modal('hide');	
 			}			
 			
+			function openAddTaskModal(){
+				$("#addTask").modal('show');				
+			}
+
 			function viewTask(id){
 
 				var viewHTML = document.getElementById('bview~' + id).value;
@@ -368,7 +373,7 @@
 
 			function taskHTMLRow(row,i){
 				var html = '';					
-				html += '<h2 id="html-heading-' + row.id + '">' + row.name + '</h2>';				
+				html += '<h2 id="html-heading-' + row.id + '">' + row.title + '</h2>';				
 				html += '<p>' + row.description + '</p>';
 				return html;
 			}
@@ -384,7 +389,7 @@
 				html += '<div class="accordion-item" id="task-' + row.id + '">';					
 				html += '<h2 class="accordion-header" id="heading-' + row.id + '">';	
 				html += '<button id="toggle-row-' + row.id + '" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-' + row.id + '" aria-expanded="false" aria-controls="collapse-' + row.id + '" style="color: #000;">';	
-				html += row.task_title + ' - ' + row.id;
+				html += row.title + ' - ' + row.id;
 				html += '</button>';	
 				html += '</h2>';	
 				html += '<div id="collapse-' + row.id + '" class="accordion-collapse collapse" aria-labelledby="heading-' + row.id + '" data-bs-parent="#accordion-' + row.id + '">';	
@@ -404,6 +409,7 @@
 				html += '<td width=10%" align="right"><strong>Description:</strong></label></td>';
 				html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateTaskRowField(this);" id="description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
 				html += '</tr>';				
+				html += '</table>';
 
 				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteTask(' + row.id + ') }" style=""></center>';				
 				html += '</div>';	
@@ -485,7 +491,7 @@
 		  <form>
 			<div class="form-group">
 			  <label for="recipient-name" class="col-form-label">Title:</label>
-			  <input type="text" class="form-control" id="add-title" style="width: 20%;">
+			  <input type="text" class="form-control" id="add-title" style="width: 100%;">
 			</div>								
 			<div class="form-group">
 				<label for="message-text" class="col-form-label">Description:</label>

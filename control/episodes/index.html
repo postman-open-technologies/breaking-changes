@@ -1763,6 +1763,7 @@ title: Admin - Episodes
 				fetch(episode_base_url + '/episodes/',options)
 					.then(function(response) {
 						console.log("Added!");
+						listEpisodes();
 					})
 					.catch(function(err) {
 						console.log('Error: ' + err);
