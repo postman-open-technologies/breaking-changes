@@ -18,4 +18,5 @@ markdown:     kramdown
 token: token
 
 episodes_base_url: https://umy5jz66lk.execute-api.us-west-1.amazonaws.com/staging
+vocabulary_base_url: https://47n3z44a22.execute-api.us-west-1.amazonaws.com/staging
 tasks_base_url: https://umy5jz66lk.execute-api.us-west-1.amazonaws.com/staging

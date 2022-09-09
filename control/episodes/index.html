@@ -84,6 +84,7 @@ title: Admin - Episodes
 		<script>
 
 			const episode_base_url = '{{ site.episodes_base_url }}';
+			const vocabulary_base_url = '{{ site.vocabulary_base_url }}';
 
 		 	token = document.getElementById("token").value;	
 
@@ -185,41 +186,7 @@ title: Admin - Episodes
 			document.addEventListener("click", function (e) {
 				closeAllLists(e.target);
 			});
-			} 			
-
-			function listElements(){
-
-				const options = {
-					method: 'get',
-					headers: {
-						"Content-Type": "application/json",
-						"x-api-key": token,
-					}
-				};		
-
-				fetch(elements_base_url + '/elements?limit=1000&page=0',options)
-					.then(function(response) {
-						if (!response.ok) {
-							console.log('Error with Status Code: ' + response.status);
-							return;
-						}
-						response.json().then(function(data) {	
-							if(data){
-								var all_elements = [];
-								for (let i = 0; i < data.length; i++) {	
-									all_elements.push(data[i].name);
-								}		
-							document.getElementById("element-store").value = JSON.stringify(data, null, 2);
-							autocomplete(document.getElementById("add-element-name"), all_elements);	
-							}																				 
-						});
-					})
-					.catch(function(err) {
-						console.log('Error: ' + err);
-				});
-
-				}				
-													
+			} 																		
 				
 				function listQuotes(id){
 
@@ -597,7 +564,7 @@ title: Admin - Episodes
 						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeClipRowField(this);" class="form-control" id="episode~clip~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
 						html += '</tr>';
 						html += '<tr>';
-						html += '<td width="15%"><strong>Transcript:</strong></td>';							
+						html += '<td width="15%"><strong>Transcript (<a href="#" onclick="">Tags</a>):</strong></td>';							
 						html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeClipRowField(this);" id="episode~clip~transcript~' + row.id + '" rows="3">' + row.transcript + '</textarea></td>';
 						html += '</tr>';
 						html += '<tr>';
@@ -1436,14 +1403,15 @@ title: Admin - Episodes
 
 									var ua = u.id.split("~");
 									var field = ua[2];
-									var id = ua[3];
+									var e_id = ua[3];
+									var id = ua[4];
 
-									var title = document.getElementById('episode~link~title~' + id).value;
-									var description = document.getElementById('episode~link~description~' + id).value;
-									var url = document.getElementById('episode~link~url~' + id).value;
+									var title = document.getElementById('episode~link~title~' + e_id + '~' + id).value;
+									var description = document.getElementById('episode~link~description~' + e_id + '~' + id).value;
+									var url = document.getElementById('episode~link~url~' + e_id + '~' + id).value;
 
 									var postData = {};
-									postData.name = name;
+									postData.title = title;
 									postData.description = description;
 									postData.url = url;
 
@@ -1457,7 +1425,7 @@ title: Admin - Episodes
 											body: JSON.stringify(postData)
 										};
 
-									fetch(episode_base_url + '/links/' + id,options)
+									fetch(episode_base_url + '/episodes/' + e_id + '/links/' + id,options)
 										.then(function(response) {
 											console.log("Updated!");
 										})
@@ -1560,13 +1528,13 @@ title: Admin - Episodes
 									html += '<table style="border: 0px solid #000; width: 100%;">';
 									html += '<tr>';
 									html += '<td width="15%" align="right"><strong>Title:</strong></td>';	
-									html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeLinkRowField(this);" class="form-control" id="episode~link~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+									html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeLinkRowField(this);" class="form-control" id="episode~link~title~' + e_id + '~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
 									html += '</tr><tr>';							
 									html += '<td width="15%" align="right"><strong>Description:</strong></td>';	
-									html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeLinkRowField(this);" id="episode~clip~description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+									html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeLinkRowField(this);" id="episode~link~description~' + e_id + '~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
 									html += '</tr><tr>';							
 									html += '<td width="15%" align="right"><strong>URL:</strong></td>';	
-									html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeLinkRowField(this);" class="form-control" id="episode~link~url~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
+									html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeLinkRowField(this);" class="form-control" id="episode~link~url~' + e_id + '~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
 									html += '</tr><tr>';
 									html += '<td width="15%" align="right"></td>';		
 									html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteLink(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
@@ -1651,14 +1619,15 @@ title: Admin - Episodes
 
 											var ua = u.id.split("~");
 											var field = ua[2];
-											var id = ua[3];
-
-											var title = document.getElementById('episode~blog~title~' + id).value;
-											var description = document.getElementById('episode~blog~description~' + id).value;
-											var url = document.getElementById('episode~blog~url~' + id).value;
+											var e_id = ua[3];
+											var id = ua[4];
+				
+											var title = document.getElementById('episode~blog~title~' + e_id + '~' + id).value;
+											var description = document.getElementById('episode~blog~description~' + e_id + '~' + id).value;
+											var url = document.getElementById('episode~blog~url~' + e_id + '~' + id).value;
 
 											var postData = {};
-											postData.name = name;
+											postData.title = title;
 											postData.description = description;
 											postData.url = url;
 
@@ -1672,7 +1641,7 @@ title: Admin - Episodes
 													body: JSON.stringify(postData)
 												};
 
-											fetch(episode_base_url + '/blogs/' + id,options)
+											fetch(episode_base_url + '/episodes/' + e_id + '/blogs/' + id,options)
 												.then(function(response) {
 													console.log("Updated!");
 												})
@@ -1775,13 +1744,13 @@ title: Admin - Episodes
 											html += '<table style="border: 0px solid #000; width: 100%;">';
 											html += '<tr>';
 											html += '<td width="15%" align="right"><strong>Title:</strong></td>';	
-											html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeBlogRowField(this);" class="form-control" id="episode~blog~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+											html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeBlogRowField(this);" class="form-control" id="episode~blog~title~' + e_id + '~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
 											html += '</tr><tr>';							
 											html += '<td width="15%" align="right"><strong>Description:</strong></td>';	
-											html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeBlogRowField(this);" id="episode~clip~description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+											html += '<td><textarea style="height: 500px;" class="form-control" onchange="updateEpisodeBlogRowField(this);" id="episode~blog~description~' + e_id + '~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
 											html += '</tr><tr>';							
 											html += '<td width="15%" align="right"><strong>URL:</strong></td>';	
-											html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeBlogRowField(this);" class="form-control" id="episode~blog~url~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
+											html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeBlogRowField(this);" class="form-control" id="episode~blog~url~' + e_id + '~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
 											html += '</tr><tr>';
 											html += '<td width="15%" align="right"></td>';		
 											html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteBlog(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
@@ -1827,7 +1796,223 @@ title: Admin - Episodes
 													console.log('Error: ' + err);
 											});
 
-											}											
+											}	
+											
+											function listTwitters(id){
+
+												const options = {
+													method: 'get',
+													headers: {
+														"Content-Type": "application/json",
+														"x-api-key": token,
+													}
+												};		
+
+												fetch(episode_base_url + '/episodes/' + id + '/twitters?limit=1000&page=0',options)
+													.then(function(response) {
+														if (!response.ok) {
+															console.log('Error with Status Code: ' + response.status);
+															return;
+														}
+														response.json().then(function(data) {	
+															if(data){
+																var all_twitters = [];
+																for (let i = 0; i < data.length; i++) {	
+																	all_twitters.push(data[i].title);
+																}		
+															document.getElementById("twitter-store").value = JSON.stringify(data, null, 2);
+															autocomplete(document.getElementById("add-twitter-name"), all_twitters);	
+															}																				 
+														});
+													})
+													.catch(function(err) {
+														console.log('Error: ' + err);
+												});
+
+												}	
+
+												function updateEpisodeTwitterRowField(u){
+
+													var ua = u.id.split("~");
+													var field = ua[2];
+													var e_id = ua[3];
+													var id = ua[4];
+
+													var title = document.getElementById('episode~twitter~title~' + id).value;
+													var description = document.getElementById('episode~twitter~description~' + id).value;
+													var url = document.getElementById('episode~twitter~url~' + id).value;
+
+													var postData = {};
+													postData.name = name;
+													postData.description = description;
+													postData.url = url;
+
+													delete postData.id;
+													var options = {
+															method: "PUT",
+															headers: {
+															"Content-Type": "application/json",
+															"x-api-key": token
+															},
+															body: JSON.stringify(postData)
+														};
+
+													fetch(episode_base_url + '/twitters/' + id,options)
+														.then(function(response) {
+															console.log("Updated!");
+														})
+														.catch(function(err) {
+															console.log('Error: ' + err);
+													});				
+
+													}
+
+												function deleteTwitter(e_id,l_id){
+
+													var options = {
+															method: "DELETE",
+															headers: {
+															"Content-Type": "application/json",
+															"x-api-key": token
+															}
+														};
+													console.log(episode_base_url + '/episodes/' + e_id + '/twitters/' + l_id);
+													fetch(episode_base_url + '/episodes/' + e_id + '/twitters/' + l_id,options)
+														.then(function(response) {
+															console.log("DELETED!");	
+															listEpisodeTwitters(e_id)
+														})
+														.catch(function(err) {
+															console.log('Error: ' + err);
+													});	
+
+													}	
+
+												function addTwitter(){
+
+													var e_id = document.getElementById('add-twitter-episode-id').value;
+													var title = document.getElementById('add-twitter-title').value;
+													var description = document.getElementById('add-twitter-description').value;
+													var url = document.getElementById('add-twitter-url').value;			
+
+													var postData = {};
+													postData.title = title;
+													postData.description = description;
+													postData.url = url;					
+
+													var options = {
+															method: "POST",
+															headers: {
+															"Content-Type": "application/json",
+															"x-api-key": token
+															},
+															body: JSON.stringify(postData)
+														};
+
+													fetch(episode_base_url + '/episodes/' + e_id + '/twitters',options)
+														.then(function(response) {
+															response.json().then(function(data) {
+															
+															console.log("----");
+															console.log(data);
+															console.log("----");
+
+															var postData = {};
+															postData.name = name;
+															postData.id = data.id;
+
+															var options = {
+																	method: "POST",
+																	headers: {
+																	"Content-Type": "application/json",
+																	"x-api-key": token
+																	},
+																	body: JSON.stringify(postData)
+																};
+															
+															console.log(episode_base_url + '/episodes/' + e_id + '/twitters');
+															console.log(options);
+
+															fetch(episode_base_url + '/episodes/' + e_id + '/twitters',options)
+																.then(function(response) {
+																	response.json().then(function(data) {
+																	//console.log(data);
+																	listEpisodeTwitters(e_id);
+																});
+																})
+																.catch(function(err) {
+																	console.log('Error: ' + err);
+															});	
+
+														});
+														})
+														.catch(function(err) {
+															console.log('Error: ' + err);
+													});	
+
+													$("#addTwitter").modal('hide');	
+
+													}							
+
+												function episodeTwittersRow(e_id,row){
+
+													var html = '';				
+													html += '<table style="border: 0px solid #000; width: 100%;">';
+													html += '<tr>';
+													html += '<td width="15%" align="right"><strong>Title:</strong></td>';	
+													html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeTwitterRowField(this);" class="form-control" id="episode~twitter~title~' + e_id + '~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+													html += '</tr><tr>';							
+													html += '<td width="15%" align="right"><strong>Description:</strong></td>';	
+													html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeTwitterRowField(this);" id="episode~twitter~description~' + e_id + '~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+													html += '</tr><tr>';							
+													html += '<td width="15%" align="right"><strong>URL:</strong></td>';	
+													html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeTwitterRowField(this);" class="form-control" id="episode~twitter~url~' + e_id + '~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
+													html += '</tr><tr>';
+													html += '<td width="15%" align="right"></td>';		
+													html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteTwitter(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
+													html += '</table>';
+													html += '<hr>';
+													return html;
+													}						
+
+												function listEpisodeTwitters(e_id){
+													const options = {
+														method: 'get',
+														headers: {
+															"Content-Type": "application/json",
+															"x-api-key": token,
+														}
+													};		
+
+													fetch(episode_base_url + '/episodes/' + e_id + '/twitters',options)
+														.then(function(response) {
+															if (!response.ok) {
+																console.log('Error with Status Code: ' + response.status);
+																return;
+															}
+															response.json().then(function(data) {
+																var rows = '';
+																if(data){
+																	var rows = '<center><table style="border: 0px solid #000; width: 80%;">';
+																	//console.log(data);
+																	if(data.length == 0){
+																		rows += '<tr><td><p align="center">No Twitters</p></td></tr>';
+																	}
+																	else{											
+																		for (let i = 0; i < data.length; i++) {
+																			rows += episodeTwittersRow(e_id,data[i]);
+																		}
+																	}
+																	rows += '</table></center>';
+																	document.getElementById("twitter-list~" + e_id).innerHTML = rows;							
+																}
+															});
+														})
+														.catch(function(err) {
+															console.log('Error: ' + err);
+													});
+
+													}												
 
 			function deleteEpisodeTag(id,tag_id){
 
@@ -1943,6 +2128,8 @@ title: Admin - Episodes
 				listEpisodeLinks(e_id);
 				listEpisodeGuests(e_id);
 				listEpisodeClips(e_id);
+				listEpisodeBlogs(e_id);
+				listEpisodeTwitters(e_id);
 
 			})
 
@@ -2095,8 +2282,28 @@ title: Admin - Episodes
 
 			function closeAddLinkModal(){
 			$("#addLink").modal('hide');			
+			}		
+			
+			function openAddBlogModal(e_id){
+
+			document.getElementById('add-blog-episode-id').value = e_id;
+			$("#addBlog").modal('show');				
+			}
+
+			function closeAddBlogModal(){
+			$("#addBlog").modal('hide');			
+			}	
+			
+			function openAddTwitterModal(e_id){
+
+			document.getElementById('add-twitter-episode-id').value = e_id;
+			$("#addTwitter").modal('show');				
+			}
+
+			function closeAddTwitterModal(){
+			$("#addTwitter").modal('hide');			
 			}				
-						
+									
 			function openAddGuestModal(e_id,a_id){
 
 			document.getElementById('add-guest-episode-id').value = e_id;
@@ -2297,6 +2504,51 @@ title: Admin - Episodes
 
 			}
 
+			function lookForTagsinEpisodeTranscript(id){
+
+				var content = document.getElementById('transcript~' + id).value;
+				content = content.replace(/[\r\n]/gm, '');
+				content = content.replace(/'/g, "\'");
+
+				var postData = {};
+				postData.content = content;
+
+				var options = {
+						method: "POST",
+						headers: {
+						"Content-Type": "application/json",
+						"x-api-key": token
+						},
+						body: JSON.stringify(postData)
+					};
+
+				fetch(vocabulary_base_url + '/vocabularies/content',options)
+					.then(function(response) {
+
+						if (!response.ok) {
+								console.log('Error with Status Code: ' + response.status);
+								return;
+							}
+							response.json().then(function(data) {	
+								if(data){
+
+									for (let i = 0; i < data.length; i++) {
+
+										console.log("GO: " + data[i].id + ' - ' + data[i].name);									
+										document.getElementById('add-tag~' + id).value = data[i].name;
+										addEpisodeTag(id);
+
+										}	
+
+								}																				 
+							});						
+					})
+					.catch(function(err) {
+						console.log('Error: ' + err);
+				});		
+
+			}
+
 			function episodeHTMLRow(row,i){
 				var html = '';					
 				html += '<h2 id="html-heading-' + row.id + '">' + row.name + '</h2>';				
@@ -2423,7 +2675,7 @@ title: Admin - Episodes
 				html += '</tr><tr><td colspan="2"><hr></td><tr>';
 
 				html += '<tr>';
-				html += '<td width=10%" align="right"><strong>Transcript:</strong></label></td>';
+				html += '<td width=10%" align="right"><strong>Transcript (<a href="#" onclick="lookForTagsinEpisodeTranscript(' + row.id + '); return false;">Tags</a>):</strong></label></td>';
 				html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeRowField(this);" id="transcript~' + row.id + '" rows="3">' + row.transcript + '</textarea></td>';
 				html += '</tr>';	
 				
@@ -2557,11 +2809,11 @@ title: Admin - Episodes
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3><a href="#" onclick="showme(5); return false;">Links</a> <a href="#" onclick="openAddLinkModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listLinks(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<h3><a href="#" onclick="showme(6); return false;">Links</a> <a href="#" onclick="openAddLinkModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listLinks(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';
 				html += '<hr>';	
-				html += '<div class="container" id="sub-resource-5" style="display: none;">';
+				html += '<div class="container" id="sub-resource-6" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="link-list~' + row.id + '">';
 				html += 'List Links Here';
@@ -2569,31 +2821,42 @@ title: Admin - Episodes
 				html += '</div>';
 				html += '</div>';				
 
-				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteEpisode(' + row.id + ') }" style=""></center>';				
-				html += '</div>';	
-				html += '</div>';	
-				html += '</div>';	
-				
 				html += '<hr>';			
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3><a href="#" onclick="showme(5); return false;">Blogs</a> <a href="#" onclick="openAddBlogModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listBlogs(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<h3><a href="#" onclick="showme(7); return false;">Blogs</a> <a href="#" onclick="openAddBlogModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listBlogs(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';
 				html += '<hr>';	
-				html += '<div class="container" id="sub-resource-5" style="display: none;">';
+				html += '<div class="container" id="sub-resource-7" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="blog-list~' + row.id + '">';
 				html += 'List Blogs Here';
 				html += '</div>';						
 				html += '</div>';
-				html += '</div>';				
+				html += '</div>';		
+				
+				html += '<hr>';			
+
+				html += '<form class="row g-3">';
+				html += '<div class="col-auto">';
+				html += '<h3><a href="#" onclick="showme(8); return false;">Twitters</a> <a href="#" onclick="openAddTwitterModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listTwitters(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '</div>';					
+				html += '</form>';
+				html += '<hr>';	
+				html += '<div class="container" id="sub-resource-8" style="display: none;">';
+				html += '<div class="row">';			
+				html += '<div class="container" id="twitter-list~' + row.id + '">';
+				html += 'List Twitters Here';
+				html += '</div>';						
+				html += '</div>';
+				html += '</div>';	
 
 				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteEpisode(' + row.id + ') }" style=""></center>';				
 				html += '</div>';	
 				html += '</div>';	
-				html += '</div>';				
+				html += '</div>';					
 
 				return html;
 			}
@@ -3022,6 +3285,138 @@ title: Admin - Episodes
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddLinkModal();">Close</button>
         <button type="button" class="btn btn-primary" onclick="addLink();">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<textarea class="form-control" id="blog-store" rows="5" style="display: none;"></textarea>
+<div class="modal fade bd-example-modal-lg" id="addBlog" tabindex="-1" clip="dialog" aria-labelledby="addBlogLabel" aria-hidden="true" style="width: 100%">
+  <div class="modal-dialog modal-xl" clip="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addBlogLabel">New Blog</h5>
+        <input type="hidden" id="add-blog-episode-id" value="">
+        <input type="hidden" id="add-blog-area-id" value="">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddBlogModal();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">			
+          <script>
+              function addExistingBlog()
+                  {
+
+                  console.log("Changing!");
+                  
+                  var blogs = JSON.parse(document.getElementById("blog-store").value);
+                  var title = document.getElementById("add-blog-title").value;
+				  var description = document.getElementById("add-blog-description").value;
+				  var url = document.getElementById("add-blog-url").value;
+
+                  for (let i = 0; i < blogs.length; i++) {
+                      //console.log(blogs[i].name + ' == ' + name);
+                      if(blogs[i].name == document.getElementById("add-blog-name").value){
+                          console.log(blogs[i]);
+                          document.getElementById("add-blog-id").value = blogs[i].id;
+                          document.getElementById("add-blog-title").value = blogs[i].title;							
+						  document.getElementById("add-blog-description").value = blogs[i].description;
+						  document.getElementById("add-blog-url").value = blogs[i].url;
+                      }
+                      }
+                  }
+          </script>
+          <form>
+              <input type="hidden" class="form-control" id="add-blog-id" value="">
+              <div class="form-group">
+                  <label for="add-blog-title" class="col-form-label">Title:</label>
+                  <div class="autocomplete">
+                      <input type="text" class="form-control" id="add-blog-title">
+                  </div>
+              </div>					
+              <div class="form-group">
+                  <label for="add-blog-description" class="col-form-label">Description:</label>
+                  <div>
+                      <textarea class="form-control" id="add-blog-description"></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+				<label for="add-blog-url" class="col-form-label">URL:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-blog-url">
+				</div>
+			</div>									  			  
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddBlogModal();">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addBlog();">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<textarea class="form-control" id="twitter-store" rows="5" style="display: none;"></textarea>
+<div class="modal fade bd-example-modal-lg" id="addTwitter" tabindex="-1" clip="dialog" aria-labelledby="addTwitterLabel" aria-hidden="true" style="width: 100%">
+  <div class="modal-dialog modal-xl" clip="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTwitterLabel">New Twitter</h5>
+        <input type="hidden" id="add-twitter-episode-id" value="">
+        <input type="hidden" id="add-twitter-area-id" value="">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddTwitterModal();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">			
+          <script>
+              function addExistingTwitter()
+                  {
+
+                  console.log("Changing!");
+                  
+                  var twitters = JSON.parse(document.getElementById("twitter-store").value);
+                  var title = document.getElementById("add-twitter-title").value;
+				  var description = document.getElementById("add-twitter-description").value;
+				  var url = document.getElementById("add-twitter-url").value;
+
+                  for (let i = 0; i < twitters.length; i++) {
+                      //console.log(twitters[i].name + ' == ' + name);
+                      if(twitters[i].name == document.getElementById("add-twitter-name").value){
+                          console.log(twitters[i]);
+                          document.getElementById("add-twitter-id").value = twitters[i].id;
+                          document.getElementById("add-twitter-title").value = twitters[i].title;							
+						  document.getElementById("add-twitter-description").value = twitters[i].description;
+						  document.getElementById("add-twitter-url").value = twitters[i].url;
+                      }
+                      }
+                  }
+          </script>
+          <form>
+              <input type="hidden" class="form-control" id="add-twitter-id" value="">
+              <div class="form-group">
+                  <label for="add-twitter-title" class="col-form-label">Title:</label>
+                  <div class="autocomplete">
+                      <input type="text" class="form-control" id="add-twitter-title">
+                  </div>
+              </div>					
+              <div class="form-group">
+                  <label for="add-twitter-description" class="col-form-label">Description:</label>
+                  <div>
+                      <textarea class="form-control" id="add-twitter-description"></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+				<label for="add-twitter-url" class="col-form-label">URL:</label>
+				<div class="autocomplete">
+					<input type="text" class="form-control" id="add-twitter-url">
+				</div>
+			</div>									  			  
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddTwitterModal();">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addTwitter();">Add</button>
       </div>
     </div>
   </div>
