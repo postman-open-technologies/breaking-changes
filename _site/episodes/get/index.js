@@ -35,9 +35,6 @@ exports.handler = vandium.generic()
     if(event.limit){
       limit = event.limit;
     }   
-    if(limit > 25){
-      limit = 25;
-    }
 
     var sql = "SELECT * FROM episodes e WHERE id IS NOT NULL";
     if(search != ''){

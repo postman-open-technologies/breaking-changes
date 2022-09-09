@@ -85,6 +85,17 @@
 				function changeToken(t){
 					Cookies.set('token',t)
 				}
+
+				function showme(id){
+					if(document.getElementById('sub-resource-' + id).style.display == ''){
+						document.getElementById('sub-resource-' + id).style.display = 'none';
+						console.log("1");
+					}
+					else{
+						document.getElementById('sub-resource-' + id).style.display = '';	
+						console.log("2");
+					}
+				}
 			</script>
 			<div class="col">				
 				<input type="text" class="form-control" id="token" name="token" value="token" placeholder="Token" onchange="changeToken();">
@@ -285,7 +296,7 @@
 				}				
 													
 				
-				function listQuotes(){
+				function listQuotes(id){
 
 					const options = {
 						method: 'get',
@@ -295,7 +306,7 @@
 						}
 					};		
 
-					fetch(episode_base_url + '/quotes?limit=1000&page=0',options)
+					fetch(episode_base_url + '/episodes/' + id + '/quotes?limit=1000&page=0',options)
 						.then(function(response) {
 							if (!response.ok) {
 								console.log('Error with Status Code: ' + response.status);
@@ -318,7 +329,7 @@
 
 					}					
 
-			function listClips(){
+			function listClips(id){
 
 				const options = {
 					method: 'get',
@@ -538,8 +549,10 @@
 						var video_embed = document.getElementById('episode~clip~video_embed~' + id).value;												
 
 						var postData = {};
-						postData.name = name;
-						postData.description = description;
+						postData.title = title;
+						postData.transcript = transcript;
+						postData.video_url = video_url;
+						postData.video_embed = video_embed;						
 
 						delete postData.id;
 						var options = {
@@ -551,7 +564,7 @@
 								body: JSON.stringify(postData)
 							};
 
-						fetch(episode_base_url + '/clips/' + id,options)
+						fetch(episode_base_url + '/episodes/' + id + '/clips/' + id,options)
 							.then(function(response) {
 								console.log("Updated!");
 							})
@@ -586,13 +599,15 @@
 
 						var e_id = document.getElementById('add-clip-episode-id').value;
 						var title = document.getElementById('add-clip-title').value;
-						var transcript = document.getElementById('add-clip-description').transcript;
-						var video_url = document.getElementById('add-clip-description').video_url;
-						var video_embed = document.getElementById('add-clip-description').video_embed;
+						var transcript = document.getElementById('add-clip-transcript').transcript;
+						var video_url = document.getElementById('add-clip-video_url').video_url;
+						var video_embed = document.getElementById('add-clip-video_embed').video_embed;
 
 						var postData = {};
-						postData.name = name;
-						postData.description = description;
+						postData.title = title;
+						postData.transcript = transcript;
+						postData.video_url = video_url;
+						postData.video_embed = video_embed;
 
 						var options = {
 								method: "POST",
@@ -718,7 +733,7 @@
 							}							
 												
 
-				function listTakeaways(){
+				function listTakeaways(id){
 
 					const options = {
 						method: 'get',
@@ -728,7 +743,7 @@
 						}
 					};		
 
-					fetch(episode_base_url + '/takeaways?limit=1000&page=0',options)
+					fetch(episode_base_url + '/episodes/'  + id + '/takeaways?limit=1000&page=0',options)
 						.then(function(response) {
 							if (!response.ok) {
 								console.log('Error with Status Code: ' + response.status);
@@ -920,7 +935,7 @@
 
 						}
 
-					function listGuests(){
+					function listGuests(id){
 
 						const options = {
 							method: 'get',
@@ -930,7 +945,7 @@
 							}
 						};		
 
-						fetch(episode_base_url + '/guests?limit=1000&page=0',options)
+						fetch(episode_base_url + '/episodes/' + id + '/guests?limit=1000&page=0',options)
 							.then(function(response) {
 								if (!response.ok) {
 									console.log('Error with Status Code: ' + response.status);
@@ -957,22 +972,23 @@
 
 						var ua = u.id.split("~");
 						var field = ua[2];
-						var id = ua[3];
+						var e_id = ua[3];
+						var id = ua[4];
+						//console.log(ua);
 
-						var e_id = document.getElementById('add-guest-episode-id').value;
-						var first_name = document.getElementById('add-guest-first_name').value;
-						var last_name = document.getElementById('add-guest-last_name').value;
-						var guest_bio = document.getElementById('add-guest-guest_bio').value;
-						var white = document.getElementById('add-guest-white').value;
-						var male = document.getElementById('add-guest-male').value;
-						var company_name = document.getElementById('add-guest-company_name').value;
-						var company_description = document.getElementById('add-guest-company_description').value;
-						var company_website = document.getElementById('add-guest-company_website').value;
-						var guest_linkedin = document.getElementById('add-guest-guest_linkedin').value;
-						var guest_twitter = document.getElementById('add-guest-guest_twitter').value;
-						var company_logo = document.getElementById('add-guest-company_logo').value;
-						var guest_photo_raw = document.getElementById('add-guest-guest_photo_raw').value;
-						var guest_photo_final = document.getElementById('add-guest-guest_photo_final').value;						
+						var first_name = document.getElementById('episode~guest~first_name~' + e_id + '~' + id).value;
+						var last_name = document.getElementById('episode~guest~last_name~' + e_id + '~' + id).value;
+						var guest_bio = document.getElementById('episode~guest~guest_bio~' + e_id + '~' + id).value;
+						var white = document.getElementById('episode~guest~white~' + e_id + '~' + id).value;
+						var male = document.getElementById('episode~guest~male~' + e_id + '~' + id).value;
+						var company_name = document.getElementById('episode~guest~company_name~' + e_id + '~' + id).value;
+						var company_description = document.getElementById('episode~guest~company_description~' + e_id + '~' + id).value;
+						var company_website = document.getElementById('episode~guest~company_website~' + e_id + '~' + id).value;
+						var guest_linkedin = document.getElementById('episode~guest~guest_linkedin~' + e_id + '~' + id).value;
+						var guest_twitter = document.getElementById('episode~guest~guest_twitter~' + e_id + '~' + id).value;
+						var company_logo = document.getElementById('episode~guest~company_logo~' + e_id + '~' + id).value;
+						var guest_photo_raw = document.getElementById('episode~guest~guest_photo_raw~' + e_id + '~' + id).value;
+						var guest_photo_final = document.getElementById('episode~guest~guest_photo_final~' + e_id + '~' + id).value;						
 
 						var postData = {};
 						postData.first_name = first_name;
@@ -999,7 +1015,7 @@
 								body: JSON.stringify(postData)
 							};
 
-						fetch(episode_base_url + '/guests/' + id,options)
+						fetch(episode_base_url + '/episodes/' + e_id + '/guests/' + id,options)
 							.then(function(response) {
 								console.log("Updated!");
 							})
@@ -1118,49 +1134,70 @@
 					function episodeGuestsRow(e_id,row){
 
 						var html = '';	
+
+
+						var guest_text = document.getElementById('bstore~guest~text~' + e_id).value;
+						guest_text += row.first_name + ' ' + row.last_name + '<br>';
+						document.getElementById('bstore~guest~text~' + e_id).value = guest_text;
+
+						var guest_social = document.getElementById('bstore~guest~social~' + e_id).value;
+						guest_social += '<ul>';
+						guest_social += '<li>LinkedIn: ' + row.guest_linkedin + '</li>';
+						guest_social += '<li>Twitter: ' + row.guest_twitter + '</li>';
+						guest_social += '<li>Company Website: ' + row.company_website + '</li>';
+						guest_social += '</ul>';
+						document.getElementById('bstore~guest~social~' + e_id).value = guest_social;	
+						
+						var guest_photo = document.getElementById('bstore~guest~photo~' + e_id).value;
+						guest_photo += row.guest_photo_raw + '<br>';
+						document.getElementById('bstore~guest~photo~' + e_id).value = guest_photo;						
+						
+						html += '<div class="form-group" style="display: none;">';
+						html += '<textarea style="height: 400px;" class="form-control" id="bstore~guest~' + e_id + '~' + row.id + '" rows="5">' + JSON.stringify(row, null, 2) + '</textarea>';
+						html += '</div>';												
 						html += '<table style="border: 0px solid #000; width: 100%;">';			
 						html += '<tr>';
 						html += '<td width="15%" align="right"><strong>First Name:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~first_name~' + row.id + '" placeholder="" value="' + row.first_name + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~first_name~' + e_id + '~' + row.id + '" placeholder="" value="' + row.first_name + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Last Name:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~last_name~' + row.id + '" placeholder="" value="' + row.last_name + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~last_name~' + e_id + '~' + row.id + '" placeholder="" value="' + row.last_name + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Guest Bio:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_bio~' + row.id + '" placeholder="" value="' + row.guest_bio + '"></td>';
+						html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateEpisodeGuestRowField(this);" id="episode~guest~guest_bio~' + e_id + '~' + row.id + '" rows="3">' + row.guest_bio + '</textarea></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>White:</strong></td>';	
-						html += '<td><select <input type="text" style="background-color:#FFF; width: 5%;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~white~' + row.id + '" placeholder="" value="' + row.white + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF; width: 5%;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~white~' + e_id + '~' + row.id + '" placeholder="" value="' + row.white + '"></td>';
 						html += '</tr><tr>';
-						html += '<td width="15%" align="right"><strong>Mail:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF; width: 5%;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~male~' + row.id + '" placeholder="" value="' + row.male + '"></td>';
+						html += '<td width="15%" align="right"><strong>Male:</strong></td>';							
+						html += '<td><input type="text" style="background-color:#FFF; width: 5%;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~male~' + e_id + '~' + row.id + '" placeholder="" value="' + row.male + '"></td>';
 						html += '</tr><tr>';
 						html += '</tr><tr><td colspan="2"><hr></td><tr>';	
 						html += '<td width="15%" align="right"><strong>Company Name:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_name~' + row.id + '" placeholder="" value="' + row.company_name + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_name~' + e_id + '~' + row.id + '" placeholder="" value="' + row.company_name + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Company Description:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_description~' + row.id + '" placeholder="" value="' + row.company_description + '"></td>';
+						html += '<td><textarea style="height: 125px;" class="form-control" onchange="updateEpisodeGuestRowField(this);" id="episode~guest~company_description~' + e_id + '~' + row.id + '" rows="3">' + row.company_description + '</textarea></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Company Website:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_website~' + row.id + '" placeholder="" value="' + row.company_website + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_website~' + e_id + '~' + row.id + '" placeholder="" value="' + row.company_website + '"></td>';
 						html += '</tr><tr>';
 						html += '</tr><tr><td colspan="2"><hr></td><tr>';							
 						html += '<td width="15%" align="right"><strong>Guest LinkedIn:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_linkedin~' + row.id + '" placeholder="" value="' + row.guest_linkedin + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_linkedin~' + e_id + '~' + row.id + '" placeholder="" value="' + row.guest_linkedin + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Guest Twitter:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_twitter~' + row.id + '" placeholder="" value="' + row.guest_twitter + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_twitter~' + e_id + '~' + row.id + '" placeholder="" value="' + row.guest_twitter + '"></td>';
 						html += '</tr><tr>';
 						html += '</tr><tr><td colspan="2"><hr></td><tr>';							
 						html += '<td width="15%" align="right"><strong>Company Logo:</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_logo~' + row.id + '" placeholder="" value="' + row.company_logo + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~company_logo~' + e_id + '~' + row.id + '" placeholder="" value="' + row.company_logo + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Photo (Raw):</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_raw~' + row.id + '" placeholder="" value="' + row.guest_photo_raw + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_raw~' + e_id + '~' + row.id + '" placeholder="" value="' + row.guest_photo_raw + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="15%" align="right"><strong>Photo (Final):</strong></td>';	
-						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_final~' + row.id + '" placeholder="" value="' + row.guest_photo_final + '"></td>';
+						html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeGuestRowField(this);" class="form-control" id="episode~guest~guest_photo_final~' + e_id + '~' + row.id + '" placeholder="" value="' + row.guest_photo_final + '"></td>';
 						html += '</tr><tr>';
 						html += '<td width="5%"></td>';	
 						html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteGuest(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
@@ -1210,7 +1247,7 @@
 
 						}
 
-					function listSegments(){
+					function listSegments(id){
 
 						const options = {
 							method: 'get',
@@ -1220,7 +1257,7 @@
 							}
 						};		
 
-						fetch(episode_base_url + '/segments?limit=1000&page=0',options)
+						fetch(episode_base_url + '/episodes/' + id + '/segments?limit=1000&page=0',options)
 							.then(function(response) {
 								if (!response.ok) {
 									console.log('Error with Status Code: ' + response.status);
@@ -1247,12 +1284,19 @@
 
 							var ua = u.id.split("~");
 							var field = ua[2];
-							var id = ua[3];
+							var e_id = ua[3];
+							var id = ua[4];
 
-							var name = document.getElementById('episode~segment~name~' + id).value;
+							var title = document.getElementById('episode~segment~title~' + e_id + '~' + id).value;
+							var transcript = document.getElementById('episode~segment~transcript~' + e_id + '~' + id).value;
+							var video_url = document.getElementById('episode~segment~video_url~' + e_id + '~' + id).value;
+							var video_embed = document.getElementById('episode~segment~video_embed~' + e_id + '~' + id).value;
 
 							var postData = {};
-							postData.name = name;
+							postData.title = title;
+							postData.transcript = transcript;
+							postData.video_url = video_url;
+							postData.video_embed = video_embed;
 
 							delete postData.id;
 							var options = {
@@ -1264,7 +1308,7 @@
 									body: JSON.stringify(postData)
 								};
 
-							fetch(episode_base_url + '/segments/' + id,options)
+							fetch(episode_base_url + '/episodes/' + e_id + '/segments/' + id,options)
 								.then(function(response) {
 									console.log("Updated!");
 								})
@@ -1369,16 +1413,16 @@
 							html += '<table style="border: 0px solid #000; width: 100%;">';
 							html += '<tr>';
 							html += '<td width="15%" align="right"><strong>Title:</strong></td>';	
-							html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+							html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~title~' + e_id + '~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
 							html += '</tr><tr>';							
 							html += '<td width="15%" align="right"><strong>Transcript:</strong></td>';	
-							html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeSegmentRowField(this);" id="episode~clip~transcript~' + row.id + '" rows="3">' + row.transcript + '</textarea></td>';
+							html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeSegmentRowField(this);" id="episode~segment~transcript~' + e_id + '~' + row.id + '" rows="3">' + row.transcript + '</textarea></td>';
 							html += '</tr><tr>';							
 							html += '<td width="15%" align="right"><strong>Video URL:</strong></td>';	
-							html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_url~' + row.id + '" placeholder="" value="' + row.video_url + '"></td>';
+							html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeSegmentRowField(this);" class="form-control" id="episode~segment~video_url~' + e_id + '~' + row.id + '" placeholder="" value="' + row.video_url + '"></td>';
 							html += '</tr><tr>';
 							html += '<td width="15%" align="right"><strong>Video Embed:</strong></td>';		
-							html += '<td><textarea class="form-control" onchange="updateEpisodeSegmentRowField(this);" id="episode~clip~video_embed~' + row.id + '" rows="3">' + row.video_embed + '</textarea></td>';
+							html += '<td><textarea class="form-control" onchange="updateEpisodeSegmentRowField(this);" id="episode~segment~video_embed~' + e_id + '~' + row.id + '" rows="3">' + row.video_embed + '</textarea></td>';
 							html += '</tr><tr>';
 							html += '<td width="15%" align="right"></td>';		
 							html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteSegment(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
@@ -1388,6 +1432,7 @@
 							}						
 
 						function listEpisodeSegments(e_id){
+
 							const options = {
 								method: 'get',
 								headers: {
@@ -1405,6 +1450,9 @@
 									response.json().then(function(data) {
 										var rows = '';
 										if(data){
+
+											document.getElementById('bstore~episodes~segments~' + e_id).value = JSON.stringify(data);
+
 											var rows = '<center><table style="border: 0px solid #000; width: 80%;">';
 											//console.log(data);
 											if(data.length == 0){
@@ -1426,7 +1474,7 @@
 
 							}	
 							
-							function listLinks(){
+							function listLinks(id){
 
 								const options = {
 									method: 'get',
@@ -1436,7 +1484,7 @@
 									}
 								};		
 
-								fetch(episode_base_url + '/links?limit=1000&page=0',options)
+								fetch(episode_base_url + '/episodes/' + id + '/links?limit=1000&page=0',options)
 									.then(function(response) {
 										if (!response.ok) {
 											console.log('Error with Status Code: ' + response.status);
@@ -1639,7 +1687,222 @@
 											console.log('Error: ' + err);
 									});
 
-									}							
+									}			
+									
+									function listBlogs(id){
+
+										const options = {
+											method: 'get',
+											headers: {
+												"Content-Type": "application/json",
+												"x-api-key": token,
+											}
+										};		
+
+										fetch(episode_base_url + '/episodes/' + id + '/blogs?limit=1000&page=0',options)
+											.then(function(response) {
+												if (!response.ok) {
+													console.log('Error with Status Code: ' + response.status);
+													return;
+												}
+												response.json().then(function(data) {	
+													if(data){
+														var all_blogs = [];
+														for (let i = 0; i < data.length; i++) {	
+															all_blogs.push(data[i].title);
+														}		
+													document.getElementById("blog-store").value = JSON.stringify(data, null, 2);
+													autocomplete(document.getElementById("add-blog-name"), all_blogs);	
+													}																				 
+												});
+											})
+											.catch(function(err) {
+												console.log('Error: ' + err);
+										});
+
+										}	
+
+										function updateEpisodeBlogRowField(u){
+
+											var ua = u.id.split("~");
+											var field = ua[2];
+											var id = ua[3];
+
+											var title = document.getElementById('episode~blog~title~' + id).value;
+											var description = document.getElementById('episode~blog~description~' + id).value;
+											var url = document.getElementById('episode~blog~url~' + id).value;
+
+											var postData = {};
+											postData.name = name;
+											postData.description = description;
+											postData.url = url;
+
+											delete postData.id;
+											var options = {
+													method: "PUT",
+													headers: {
+													"Content-Type": "application/json",
+													"x-api-key": token
+													},
+													body: JSON.stringify(postData)
+												};
+
+											fetch(episode_base_url + '/blogs/' + id,options)
+												.then(function(response) {
+													console.log("Updated!");
+												})
+												.catch(function(err) {
+													console.log('Error: ' + err);
+											});				
+
+											}
+
+										function deleteBlog(e_id,l_id){
+
+											var options = {
+													method: "DELETE",
+													headers: {
+													"Content-Type": "application/json",
+													"x-api-key": token
+													}
+												};
+											console.log(episode_base_url + '/episodes/' + e_id + '/blogs/' + l_id);
+											fetch(episode_base_url + '/episodes/' + e_id + '/blogs/' + l_id,options)
+												.then(function(response) {
+													console.log("DELETED!");	
+													listEpisodeBlogs(e_id)
+												})
+												.catch(function(err) {
+													console.log('Error: ' + err);
+											});	
+
+											}	
+
+										function addBlog(){
+
+											var e_id = document.getElementById('add-blog-episode-id').value;
+											var title = document.getElementById('add-blog-title').value;
+											var description = document.getElementById('add-blog-description').value;
+											var url = document.getElementById('add-blog-url').value;			
+
+											var postData = {};
+											postData.title = title;
+											postData.description = description;
+											postData.url = url;					
+
+											var options = {
+													method: "POST",
+													headers: {
+													"Content-Type": "application/json",
+													"x-api-key": token
+													},
+													body: JSON.stringify(postData)
+												};
+
+											fetch(episode_base_url + '/episodes/' + e_id + '/blogs',options)
+												.then(function(response) {
+													response.json().then(function(data) {
+													
+													console.log("----");
+													console.log(data);
+													console.log("----");
+
+													var postData = {};
+													postData.name = name;
+													postData.id = data.id;
+
+													var options = {
+															method: "POST",
+															headers: {
+															"Content-Type": "application/json",
+															"x-api-key": token
+															},
+															body: JSON.stringify(postData)
+														};
+													
+													console.log(episode_base_url + '/episodes/' + e_id + '/blogs');
+													console.log(options);
+
+													fetch(episode_base_url + '/episodes/' + e_id + '/blogs',options)
+														.then(function(response) {
+															response.json().then(function(data) {
+															//console.log(data);
+															listEpisodeBlogs(e_id);
+														});
+														})
+														.catch(function(err) {
+															console.log('Error: ' + err);
+													});	
+
+												});
+												})
+												.catch(function(err) {
+													console.log('Error: ' + err);
+											});	
+
+											$("#addBlog").modal('hide');	
+
+											}							
+
+										function episodeBlogsRow(e_id,row){
+
+											var html = '';				
+											html += '<table style="border: 0px solid #000; width: 100%;">';
+											html += '<tr>';
+											html += '<td width="15%" align="right"><strong>Title:</strong></td>';	
+											html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeBlogRowField(this);" class="form-control" id="episode~blog~title~' + row.id + '" placeholder="" value="' + row.title + '"></td>';
+											html += '</tr><tr>';							
+											html += '<td width="15%" align="right"><strong>Description:</strong></td>';	
+											html += '<td><textarea style="height: 200px;" class="form-control" onchange="updateEpisodeBlogRowField(this);" id="episode~clip~description~' + row.id + '" rows="3">' + row.description + '</textarea></td>';
+											html += '</tr><tr>';							
+											html += '<td width="15%" align="right"><strong>URL:</strong></td>';	
+											html += '<td><input type="text" style="background-color:#FFF;" onchange="updateEpisodeBlogRowField(this);" class="form-control" id="episode~blog~url~' + row.id + '" placeholder="" value="' + row.url + '"></td>';
+											html += '</tr><tr>';
+											html += '<td width="15%" align="right"></td>';		
+											html += '<td align="left"><input type="button" class="btn btn-danger" name="delete" value="DELETE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteBlog(' + e_id + ',' + row.id + ') }" style="width: 125px;"></td>';
+											html += '</table>';
+											html += '<hr>';
+											return html;
+											}						
+
+										function listEpisodeBlogs(e_id){
+											const options = {
+												method: 'get',
+												headers: {
+													"Content-Type": "application/json",
+													"x-api-key": token,
+												}
+											};		
+
+											fetch(episode_base_url + '/episodes/' + e_id + '/blogs',options)
+												.then(function(response) {
+													if (!response.ok) {
+														console.log('Error with Status Code: ' + response.status);
+														return;
+													}
+													response.json().then(function(data) {
+														var rows = '';
+														if(data){
+															var rows = '<center><table style="border: 0px solid #000; width: 80%;">';
+															//console.log(data);
+															if(data.length == 0){
+																rows += '<tr><td><p align="center">No Blogs</p></td></tr>';
+															}
+															else{											
+																for (let i = 0; i < data.length; i++) {
+																	rows += episodeBlogsRow(e_id,data[i]);
+																}
+															}
+															rows += '</table></center>';
+															document.getElementById("blog-list~" + e_id).innerHTML = rows;							
+														}
+													});
+												})
+												.catch(function(err) {
+													console.log('Error: ' + err);
+											});
+
+											}											
 
 			function deleteEpisodeTag(id,tag_id){
 
@@ -1798,9 +2061,9 @@
 				var brainstorm_date = document.getElementById('add-brainstorm_date').value;
 				var recording_date = document.getElementById('add-recording_date').value;
 				var publish_date = document.getElementById('add-publish_date').value;
-				var company_title = document.getElementById('add-company_title').value;
+				var company_name = document.getElementById('add-company_name').value;
 				var company_description = document.getElementById('add-company_description').value;
-				var company_url = document.getElementById('add-company_url').value;				
+				var company_website = document.getElementById('add-company_website').value;				
 				var youtube_url = document.getElementById('add-youtube_url').value;
 				var youtube_embed = document.getElementById('add-youtube_embed').value;
 				var transcript = document.getElementById('add-transcript').value;
@@ -1814,16 +2077,15 @@
 				postData.episode_number = episode_number;
 				postData.episode_title = episode_title;
 				postData.episode_summary = episode_summary;
-				postData.episode_description = episode_description;
 				postData.page_title = page_title;
 				postData.page_description = page_description;
 				postData.page_url = page_url;
 				postData.brainstorm_date = brainstorm_date;
 				postData.recording_date = recording_date;
 				postData.publish_date = publish_date;
-				postData.company_title = company_title;
+				postData.company_name = company_name;
 				postData.company_description = company_description;
-				postData.company_url = company_url;				
+				postData.company_website = company_website;				
 				postData.youtube_url = youtube_url;
 				postData.youtube_embed = youtube_embed;
 				postData.transcript = transcript;
@@ -1926,6 +2188,138 @@
 
 			function closeViewEpisodeModal(){
 			$("#viewEpisode").modal('hide');			
+			}	
+			
+			function openviewSegmentOutline(e_id){
+				$("#viewSegmentOutline").modal('show');		
+				var segments = JSON.parse(document.getElementById('bstore~episodes~segments~' + e_id).value);
+				var html = '<ul>';
+				for (let i = 0; i < segments.length; i++) {
+					html += '<li>' + segments[i].title + '</li>';
+				}
+				html += '</ul>';
+				
+				document.getElementById('viewSegmentOutlineBody').innerHTML = html;
+			}
+
+			function closeviewSegmentOutline(){
+				$("#viewSegmentOutline").modal('hide');			
+			}	
+			
+			function openCopyWindow(e_id){
+
+				$("#viewCopyWindow").modal('show');		
+				var copy = '<br><table style="border: 1px solid #000; width: 100%;" border="1" cellpadding="3" cellspacing="2">';
+
+				var episode_title = document.getElementById('episode_title~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Episode Title:</td>';
+				copy += '<td>' + episode_title + '</td>';
+				copy += '</tr>';
+
+				var page_title = document.getElementById('page_title~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Page Title:</td>';
+				copy += '<td>' + page_title + '</td>';
+				copy += '</tr>';									
+
+				var page_description = document.getElementById('page_description~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Page Description:</td>';
+				copy += '<td>' + page_description + '</td>';
+				copy += '</tr>';
+				
+				copy += '<tr>';
+				copy += '<td colspan="2"><strong>Hero Text</td>';
+				copy += '</tr>';	
+				
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Event Type:</td>';
+				copy += '<td>Breaking Changes</td>';
+				copy += '</tr>';
+				
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Title:</td>';
+				copy += '<td>' + episode_title + '</td>';
+				copy += '</tr>';
+				
+				var publish_date = document.getElementById('publish_date~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Date:</td>';
+				copy += '<td>' + publish_date + '</td>';
+				copy += '</tr>';
+				
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Button:</td>';
+				copy += '<td>Subscribe Now</td>';
+				copy += '</tr>';
+				
+				copy += '<tr>';
+				copy += '<td colspan="2"><strong>Speakers</td>';
+				copy += '</tr>';	
+				
+				copy += '<tr>';
+				copy += '<td align="right"></td>';
+				copy += '<td>Kin Lane, Chief Evangelist at Postman</td>';
+				copy += '</tr>';	
+				
+				var guest_text = document.getElementById('bstore~guest~text~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right"></td>';
+				copy += '<td>' + guest_text + '</td>';
+				copy += '</tr>';
+
+				var guest_social = document.getElementById('bstore~guest~social~' + e_id).value;					
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Social Links for Guest:</strong></td>';
+				copy += '<td>' + guest_social + '</td>';
+				copy += '</tr>';	
+				
+				var guest_photo = document.getElementById('bstore~guest~photo~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right">Photos: </td>';
+				copy += '<td>' + guest_photo + '</td>';
+				copy += '</tr>';
+				
+				var company_description = document.getElementById('company_description~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right">Company Description: </td>';
+				copy += '<td>' + company_description + '</td>';
+				copy += '</tr>';
+				
+				var publish_date = document.getElementById('publish_date~' + e_id).value;
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Publish Date & Time:</td>';
+				copy += '<td>' + publish_date + '</td>';
+				copy += '</tr>';	
+
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Creative Assets:</td>';
+				copy += '<td>[To be updated by Marketing Creative once assets are created.]</td>';
+				copy += '</tr>';
+
+				copy += '<tr>';
+				copy += '<td align="right"><strong>Youtube Link:</strong></td>';
+				copy += '<td>[To be updated by Marketing Creative once video is uploaded to YouTube.]</td>';
+				copy += '</tr>';	
+				
+				copy += '<tr>';
+				copy += '<td colspan="2">';
+				copy += '<strong>NOTES TO CREATIVE TEAM: [DO NOT DELETE; KEEP IN TEMPLATE]</strong>';
+				copy += '<ul>';
+				copy += '<lli>Once assets are created and this document is updated, notify Tobias Wettstein to upload the episode to our YouTube Channel.</li>';
+				copy += '<lli>Once the video is uploaded, start a ticket with Marketing Engineering and tag LeTroy Gardner so that he can view when the page is published.</li>';
+				copy += '<ul>';
+				copy += '</td>';
+				copy += '</tr>';				
+			
+				copy += '</table><br>';
+				
+				document.getElementById('viewCopyWindowBody').innerHTML = copy;
+			}
+
+			function closeCopyWindow(){
+				$("#viewSegmentOutline").modal('hide');			
 			}			
 			
 			function viewEpisode(id){
@@ -1964,6 +2358,7 @@
 				var ua = u.id.split("~");
 				var field = ua[0];
 				var id = ua[1];
+				console.log(id);
 
 				var bstore = JSON.parse(document.getElementById('bstore~' + id).value);
 				
@@ -1995,17 +2390,23 @@
 				html += '<div class="accordion-item" id="episode-' + row.id + '">';					
 				html += '<h2 class="accordion-header" id="heading-' + row.id + '">';	
 				html += '<button id="toggle-row-' + row.id + '" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-' + row.id + '" aria-expanded="false" aria-controls="collapse-' + row.id + '" style="color: #000;">';	
-				html += row.episode_title + ' - ' + row.id;
+				html += row.episode_title + ' - ' + row.id + ' - ' + row.company_name;
 				html += '</button>';	
 				html += '</h2>';	
 				html += '<div id="collapse-' + row.id + '" class="accordion-collapse collapse" aria-labelledby="heading-' + row.id + '" data-bs-parent="#accordion-' + row.id + '">';	
 				html += '<div class="accordion-body">';	
 
-				html += '<div class="form-group" style="display: none;">';
+				html += '<div class="form-group" style="display:none;">';
 				html += '<textarea style="height: 400px;" class="form-control" id="bstore~' + row.id + '" rows="5">' + JSON.stringify(row, null, 2) + '</textarea>';
 				html += '</div>';
 
 				html += '<table style="border: 0px solid #000; width: 100%;">';
+
+				html += '<tr>';
+				html += '<td width=20%" align="right"><strong>Copy:</td>';
+				html += '<td><a href="#" onclick="openCopyWindow(' + row.id + '); return false;"><strong>View Copy</strong></a></td>';
+				html += '</tr>';
+
 				html += '<tr>';
 				html += '<td width=20%" align="right"><strong>Event Type:</td>';
 				html += '<td><input type="text" style="width: 30%; background-color:#FFF;" onchange="updateEpisodeRowField(this);" class="form-control" id="event_type~' + row.id + '" placeholder="" value="' + row.event_type + '"></td>';
@@ -2052,17 +2453,17 @@
 
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Brainstorm Date:</strong></label></td>';
-				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="brainstorm_date-id~' + row.id + '" placeholder="" value="' + row.brainstorm_date + '"></td>';
+				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="brainstorm_date~' + row.id + '" placeholder="" value="' + row.brainstorm_date.replace('T00:00:00.000Z','') + '"></td>';
 				html += '</tr>';	
 
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Recording Date:</strong></label></td>';
-				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="recording_date-id~' + row.id + '" placeholder="" value="' + row.recording_date + '"></td>';
+				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="recording_date~' + row.id + '" placeholder="" value="' + row.recording_date.replace('T00:00:00.000Z','') + '"></td>';
 				html += '</tr>';				
 				
 				html += '<tr>';
 				html += '<td width=10%" align="right"><strong>Publish Date:</strong></label></td>';
-				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="publish_date~' + row.id + '" placeholder="" value="' + row.publish_date + '"></td>';
+				html += '<td><input type="text" style="width: 20%;background-color:#FFF;" class="form-control" onchange="updateEpisodeRowField(this);" id="publish_date~' + row.id + '" placeholder="" value="' + row.publish_date.replace('T00:00:00.000Z','') + '"></td>';
 				html += '</tr>';	
 
 				html += '</tr><tr><td colspan="2"><hr></td><tr>';	
@@ -2141,11 +2542,11 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Takeaways <a href="#" onclick="openAddTakeawayModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listTakeaways(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<h3><a href="#" onclick="showme(1); return false;">Takeaways</a> <a href="#" onclick="openAddTakeawayModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listTakeaways(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<hr>';
-				html += '<div class="container">';
+				html += '<div class="container" id="sub-resource-1" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="takeaway-list~' + row.id + '">';
 				html += 'List Takeaways Here';
@@ -2157,11 +2558,11 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Quotes <a href="#" onclick="openAddQuoteModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listQuotes(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<h3><a href="#" onclick="showme(2); return false;">Quotes</a> <a href="#" onclick="openAddQuoteModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listQuotes(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';
 				html += '<hr>';	
-				html += '<div class="container">';
+				html += '<div class="container" id="sub-resource-2" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="quote-list~' + row.id + '">';
 				html += 'List Quotes Here';
@@ -2173,45 +2574,32 @@
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Segments <a href="#" onclick="openAddSegmentModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listSegments(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<h3><a href="#" onclick="showme(3); return false;">Segments</a> <a href="#" onclick="openAddSegmentModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listSegments(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a> (<a href="#" onclick="openviewSegmentOutline(' + row.id + '); return false;">Outline</a>)</h3>';
 				html += '</div>';					
 				html += '</form>';
+
+				html += '<div class="form-group" style="display: none;">';
+				html += '<textarea style="height: 400px;" class="form-control" id="bstore~episodes~segments~' + row.id + '" rows="5"></textarea>';
+				html += '</div>';
+
 				html += '<hr>';	
-				html += '<div class="container">';
+				html += '<div class="container" id="sub-resource-3" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="segment-list~' + row.id + '">';
 				html += 'List Segments Here';
 				html += '</div>';						
 				html += '</div>';
-				html += '</div>';	
-
-				
+				html += '</div>';				
 				
 				html += '<hr>';
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Guests <a href="#" onclick="openAddGuestModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listGuests(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<h3><a href="#" onclick="showme(4); return false;">Clips</a> <a href="#" onclick="openAddClipModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listClips(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';	
 				html += '<hr>';
-				html += '<div class="container">';
-				html += '<div class="row">';			
-				html += '<div class="container" id="guest-list~' + row.id + '">';
-				html += 'List Guests Here';
-				html += '</div>';						
-				html += '</div>';
-				html += '</div>';
-
-				html += '<hr>';
-				
-				html += '<form class="row g-3">';
-				html += '<div class="col-auto">';
-				html += '<h3>Clips <a href="#" onclick="openAddClipModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listClips(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
-				html += '</div>';					
-				html += '</form>';	
-				html += '<hr>';
-				html += '<div class="container">';
+				html += '<div class="container" id="sub-resource-4" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="clip-list~' + row.id + '">';
 				html += 'List Clips Here';
@@ -2219,15 +2607,36 @@
 				html += '</div>';
 				html += '</div>';	
 				
-				html += '<hr>';
+				html += '<hr>';				
 
 				html += '<form class="row g-3">';
 				html += '<div class="col-auto">';
-				html += '<h3>Links <a href="#" onclick="openAddLinkModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listLinks(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '<div class="form-group" style="display: none;">';
+				html += '<textarea style="height: 400px;" class="form-control" id="bstore~guest~text~' + row.id + '" rows="5"></textarea><br>';
+				html += '<textarea style="height: 400px;" class="form-control" id="bstore~guest~social~' + row.id + '" rows="5"></textarea>';
+				html += '<textarea style="height: 400px;" class="form-control" id="bstore~guest~photo~' + row.id + '" rows="5"></textarea>';
+				html += '</div>';	
+				html += '<h3><a href="#" onclick="showme(5); return false;">Guests</a> <a href="#" onclick="openAddGuestModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listGuests(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '</div>';					
+				html += '</form>';	
+				html += '<hr>';
+				html += '<div class="container" id="sub-resource-5" style="display: none;">';
+				html += '<div class="row">';			
+				html += '<div class="container" id="guest-list~' + row.id + '">';
+				html += 'List Guests Here';
+				html += '</div>';						
+				html += '</div>';
+				html += '</div>';
+
+				html += '<hr>';			
+
+				html += '<form class="row g-3">';
+				html += '<div class="col-auto">';
+				html += '<h3><a href="#" onclick="showme(5); return false;">Links</a> <a href="#" onclick="openAddLinkModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listLinks(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
 				html += '</div>';					
 				html += '</form>';
 				html += '<hr>';	
-				html += '<div class="container">';
+				html += '<div class="container" id="sub-resource-5" style="display: none;">';
 				html += '<div class="row">';			
 				html += '<div class="container" id="link-list~' + row.id + '">';
 				html += 'List Links Here';
@@ -2238,7 +2647,28 @@
 				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteEpisode(' + row.id + ') }" style=""></center>';				
 				html += '</div>';	
 				html += '</div>';	
-				html += '</div>';								
+				html += '</div>';	
+				
+				html += '<hr>';			
+
+				html += '<form class="row g-3">';
+				html += '<div class="col-auto">';
+				html += '<h3><a href="#" onclick="showme(5); return false;">Blogs</a> <a href="#" onclick="openAddBlogModal(' + row.id + '); return false;"><i class="fa-solid fa-plus"></i></a> <a href="#" onclick="listBlogs(' + row.id + '); return false;"><i class="fa-solid fa-arrow-rotate-right"></i></a></h3>';
+				html += '</div>';					
+				html += '</form>';
+				html += '<hr>';	
+				html += '<div class="container" id="sub-resource-5" style="display: none;">';
+				html += '<div class="row">';			
+				html += '<div class="container" id="blog-list~' + row.id + '">';
+				html += 'List Blogs Here';
+				html += '</div>';						
+				html += '</div>';
+				html += '</div>';				
+
+				html += '<hr><center><input type="button" class="btn btn-danger" name="delete" value="DELETE EPISODE" onclick="if (confirm(' + "'" + 'Are you sure you want to delete?' + "'" + ') == true) { deleteEpisode(' + row.id + ') }" style=""></center>';				
+				html += '</div>';	
+				html += '</div>';	
+				html += '</div>';				
 
 				return html;
 			}
@@ -2570,31 +3000,6 @@
         </button>
       </div>
       <div class="modal-body">			
-          <script>
-              function addExistingSegment()
-                  {
-
-                  console.log("Changing!");
-                  
-                  var segments = JSON.parse(document.getElementById("segment-store").value);
-                  var title = document.getElementById("add-segment-title").value;
-				  var transcript = document.getElementById("add-segment-transcript").value;
-				  var video_url = document.getElementById("add-segment-video_url").value;
-				  var video_embed = document.getElementById("add-segment-video_embed").value;
-
-                  for (let i = 0; i < segments.length; i++) {
-                      //console.log(segments[i].name + ' == ' + name);
-                      if(segments[i].name == document.getElementById("add-segment-name").value){
-                          console.log(segments[i]);
-                          document.getElementById("add-segment-id").value = segments[i].id;
-                          document.getElementById("add-segment-title").value = segments[i].title;							
-						  document.getElementById("add-segment-transcript").value = segments[i].transcript;
-						  document.getElementById("add-segment-video_url").value = segments[i].video_url;
-						  document.getElementById("add-segment-video_embed").value = segments[i].video_embed;
-                      }
-                      }
-                  }
-          </script>
           <form>
               <input type="hidden" class="form-control" id="add-segment-id" value="">
               <div class="form-group">
@@ -2710,26 +3115,6 @@
         </button>
       </div>
       <div class="modal-body">			
-          <script>
-              function addExistingGuest()
-                  {
-
-                  console.log("Changing!");
-                  
-                  var guests = JSON.parse(document.getElementById("guest-store").value);
-                  var name = document.getElementById("add-guest-name").value;
-
-                  for (let i = 0; i < guests.length; i++) {
-                      //console.log(guests[i].name + ' == ' + name);
-                      if(guests[i].name == document.getElementById("add-guest-name").value){
-                          console.log(guests[i]);
-                          document.getElementById("add-guest-id").value = guests[i].id;
-                          document.getElementById("add-guest-description").value = guests[i].description;							
-                      }
-                      }
-                  }
-          </script>
-
           <form>
               <input type="hidden" class="form-control" id="add-guest-id" value="">
               <div class="form-group">
@@ -2834,29 +3219,6 @@
         </button>
       </div>
       <div class="modal-body">			
-          <script>
-              function addExistingClip()
-                  {
-
-                  console.log("Changing!");
-                  
-                  var clips = JSON.parse(document.getElementById("clip-store").value);
-                  var title = document.getElementById("add-clip-title").value;
-				  var transcript = document.getElementById("add-clip-transcript").value;
-				  var video_url = document.getElementById("add-clip-video_url").value;
-				  var video_embed = document.getElementById("add-clip-video_embed").value;
-
-                  for (let i = 0; i < clips.length; i++) {
-                      //console.log(clips[i].name + ' == ' + name);
-                      if(clips[i].name == document.getElementById("add-clip-name").value){
-                          console.log(clips[i]);
-                          document.getElementById("add-clip-id").value = clips[i].id;
-                          document.getElementById("add-clip-description").value = clips[i].description;							
-                      }
-                      }
-                  }
-          </script>
-
           <form>
               <input type="hidden" class="form-control" id="add-clip-id" value="">
               <div class="form-group">
@@ -2866,7 +3228,7 @@
                   </div>
               </div>					
               <div class="form-group">
-                  <label for="add-clip-description" class="col-form-label">Transcript:</label>
+                  <label for="add-clip-transcript" class="col-form-label">Transcript:</label>
                   <div>
                       <textarea class="form-control" id="add-clip-transcript"></textarea>
                   </div>
@@ -2878,7 +3240,7 @@
 				</div>
 			</div>	
 			<div class="form-group">
-				<label for="add-clip-description" class="col-form-label">Video Embed:</label>
+				<label for="add-clip-video_embed" class="col-form-label">Video Embed:</label>
 				<div>
 					<textarea class="form-control" id="add-clip-video_embed"></textarea>
 				</div>
@@ -2912,7 +3274,47 @@
       </div>
     </div>
   </div>
-</div></main>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="viewSegmentOutline" tabindex="-1" clip="dialog" aria-labelledby="viewSegmentOutlineLabel" aria-hidden="true" style="width: 100%">
+	<div class="modal-dialog modal-xl" clip="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="addClipLabel">Episode View</h5>
+		  <input type="hidden" id="add-clip-episode-id" value="">
+		  <input type="hidden" id="add-clip-area-id" value="">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeviewSegmentOutline();">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body" id="viewSegmentOutlineBody">			
+		  HELLO!!!
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeviewSegmentOutline();">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+<div class="modal fade bd-example-modal-lg" id="viewCopyWindow" tabindex="-1" clip="dialog" aria-labelledby="viewCopyWindowLabel" aria-hidden="true" style="width: 100%">
+	<div class="modal-dialog modal-xl" clip="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="addClipLabel">Episode Copy View</h5>
+		  <input type="hidden" id="add-clip-episode-id" value="">
+		  <input type="hidden" id="add-clip-area-id" value="">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeCopyWindow();">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body" id="viewCopyWindowBody"></div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeCopyWindow();">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div></main>
 
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container">

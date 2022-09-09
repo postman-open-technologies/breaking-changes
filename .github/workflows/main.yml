@@ -573,3 +573,99 @@ jobs:
             aws_region: us-west-1
             function_name: m-s-tasks-task-d
             zip_file: m-s-tasks-task-d.zip                  
+      - name: /episodes/{episode_id}/blogs get lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-blogs-g.zip episodes/episode_id/blogs/get/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-blogs-g
+            zip_file: m-s-episodes-episode-blogs-g.zip
+      - name: /episodes/{episode_id}/blogs post lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-blogs-po.zip episodes/episode_id/blogs/post/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-blogs-po
+            zip_file: m-s-episodes-episode-blogs-po.zip
+      - name: /episodes/{episode_id}/blogs/{blog_id} put lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-blogs-blog-pu.zip episodes/episode_id/blogs/blog_id/put/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-blogs-blog-pu
+            zip_file: m-s-episodes-episode-blogs-blog-pu.zip
+      - name: /episodes/{episode_id}/blogs/{blog_id} delete lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-blogs-blog-d.zip episodes/episode_id/blogs/blog_id/delete/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-blogs-blog-d
+            zip_file: m-s-episodes-episode-blogs-blog-d.zip
+      - name: /episodes/{episode_id}/twitters get lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-twitters-g.zip episodes/episode_id/twitters/get/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-twitters-g
+            zip_file: m-s-episodes-episode-twitters-g.zip
+      - name: /episodes/{episode_id}/twitters post lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-twitters-po.zip episodes/episode_id/twitters/post/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-twitters-po
+            zip_file: m-s-episodes-episode-twitters-po.zip
+      - name: /episodes/{episode_id}/twitters/{twitter_id} put lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-twitters-twitter-pu.zip episodes/episode_id/twitters/twitter_id/put/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-twitters-twitter-pu
+            zip_file: m-s-episodes-episode-twitters-twitter-pu.zip
+      - name: /episodes/{episode_id}/twitters/{twitter_id} delete lambda deploy zip
+        uses: postman-open-technologies/breaking-changes@main
+        with:
+            args: zip -qq -r m-s-episodes-episode-twitters-twitter-d.zip episodes/episode_id/twitters/twitter_id/delete/index.js node_modules
+      - name: breaking-changes get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-episodes-episode-twitters-twitter-d
+            zip_file: m-s-episodes-episode-twitters-twitter-d.zip            
